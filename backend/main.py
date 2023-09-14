@@ -5,9 +5,6 @@ import os
 from hr import hr
 from staff import staff
 
-# Load environment variables from .env file
-load_dotenv()
-
 app = Flask(__name__)
 
 @app.route('/getallstaff', methods=['GET'])
