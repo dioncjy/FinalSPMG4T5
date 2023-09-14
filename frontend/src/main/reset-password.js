@@ -1,4 +1,4 @@
-import logo_light from '../assets/images/logo-light.png';
+import logo_light from '../assets/images/SBRP-light.png';
 import React from 'react'
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'react-feather';

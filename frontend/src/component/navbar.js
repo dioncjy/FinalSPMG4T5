@@ -1,5 +1,5 @@
-import logo_dark from '../assets/images/logo-dark.png';
-import logo_light from '../assets/images/logo-light.png';
+import logo_dark from '../assets/images/SBRP-dark.png';
+import logo_light from '../assets/images/SBRP-light.png';
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom';
 
@@ -81,23 +81,8 @@ export default function Navbar(props) {
                             <li className={`nav-item navbar-item ${splitLocation[1] === '' ? 'active' : ''}`}>
                                 <Link to="/index" className="nav-link ">Home</Link>
                             </li>
-                            <li className={`nav-item navbar-item ${splitLocation[1] === 'aboutus' ? 'active' : ''}`}>
-                                <Link to="/aboutus" className="nav-link">About Us</Link>
-                            </li>
-                            <li className={`nav-item navbar-item ${splitLocation[1] === 'services' ? 'active' : ''}`}>
-                                <Link to="/services" className="nav-link">Services</Link>
-                            </li>
-                            <li className={`nav-item navbar-item ${splitLocation[1] === 'pricing' ? 'active' : ''}`}>
-                                <Link to="/pricing" className="nav-link">Pricing</Link>
-                            </li>
-                            <li className={`nav-item navbar-item ${splitLocation[1] === 'team' ? 'active' : ''}`}>
-                                <Link to="/team" className="nav-link">Team</Link>
-                            </li>
-                            <li className={`nav-item navbar-item ${splitLocation[1] === 'blogs' ? 'active' : ''}`}>
-                                <Link to="/blogs" className="nav-link">Blogs</Link>
-                            </li>
-                            <li className={`nav-item navbar-item ${splitLocation[1] === 'contactus' ? 'active' : ''}`}>
-                                <Link to="/contactus" className="nav-link">Contact us</Link>
+                            <li className={`nav-item navbar-item ${splitLocation[1] === 'roles' ? 'active' : ''}`}>
+                                <Link to="/roles" className="nav-link">Roles</Link>
                             </li>
                         </ul>
 

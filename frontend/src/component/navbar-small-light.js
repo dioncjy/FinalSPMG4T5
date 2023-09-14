@@ -1,10 +1,10 @@
-import logo_dark from '../assets/images/logo-dark.png';
-import logo_light from '../assets/images/logo-light.png';
+import logo_dark from '../assets/images/SBRP-dark.png';
+import logo_light from '../assets/images/SBRP-light.png';
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import { Link as Link1 } from 'react-scroll';
 
-export default function NavbarSmallLight() {
+export default function NavbarSmallLight({ userRole }) {
    const [isOpen, setMenu] = useState(true);
 
 
@@ -48,10 +48,10 @@ export default function NavbarSmallLight() {
                 <div className="container flex flex-wrap items-center justify-end">
                     <a className="navbar-brand md:me-8" href="/index">
                         <span className="inline-block dark:hidden">
-                            <img src={logo_dark} className="l-dark" alt="" />
-                            <img src={logo_light} className="l-light" alt="" />
+                            <img src={logo_dark} width={125} className="l-dark" alt="" />
+                            <img src={logo_light} width={125} className="l-light" alt="" />
                         </span>
-                        <img src={logo_light} className="hidden dark:inline-block" alt="" />
+                        <img src={logo_light} width={125} className="hidden dark:inline-block" alt="" />
                     </a>
 
                     <div className="nav-icons flex items-center lg_992:order-2 ms-auto lg:ms-4">
@@ -77,19 +77,10 @@ export default function NavbarSmallLight() {
                                 <Link1 to="home" activeClass="active" spy={true} smooth={true} duration={500} className="nav-link">Home</Link1>
                             </li>
                             <li className={`nav-item`}>
-                                <Link1 to="features" activeClass="active" spy={true} smooth={true} duration={500} className="nav-link">Services</Link1>
+                                <Link1 to="features" activeClass="active" spy={true} smooth={true} duration={500} className="nav-link">Roles</Link1>
                             </li>
-                            <li className={`nav-item`}>
-                                <Link1 to="pricing" activeClass="active" spy={true} smooth={true} duration={500} className="nav-link">Pricing</Link1>
-                            </li>
-                            <li className={`nav-item`}>
-                                <Link1 to="testi" activeClass="active" spy={true} smooth={true} duration={500} className="nav-link">Review</Link1>
-                            </li>
-                            <li className={`nav-item`}>
-                                <Link1 to="blog" spy={true} smooth={true} duration={500} className="nav-link">Blog</Link1>
-                            </li>
-                            <li className={`nav-item`}>
-                                <Link1 to="contact" activeClass="active" spy={true} smooth={true} duration={500} className="nav-link">Contact us</Link1>
+                            <li>
+                                <span activeClass="active" spy={true} smooth={true} duration={500} className="nav-link">Logged in as: asdf{ userRole }</span>
                             </li>
                         </ul>
                     </div>
