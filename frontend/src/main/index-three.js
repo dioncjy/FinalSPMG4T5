@@ -2,11 +2,11 @@ import laptop from '../assets/images/laptop.png';
 import React, { useState } from 'react'
 import NavbarSmallDark from '../component/navbar-small-dark'
 import About from '../component/about';
-import OurServices from '../component/our-services';
+import OurServices from '../component/HR-services';
 import cta from '../assets/images/cta.jpg';
 import ComfortablePricing from '../component/comfortable-pricing';
 import ClientSreview from '../component/clientsreview';
-import BlogsNews from '../component/blogs-news';
+import BlogsNews from '../component/features';
 import GetInTouch from '../component/get-in-touch';
 import Footer from '../component/footer';
 import { Link } from "react-router-dom";

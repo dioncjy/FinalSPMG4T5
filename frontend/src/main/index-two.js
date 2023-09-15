@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import NavbarSMallLight from '../component/navbar-small-light'
 import About from '../component/about'
-import OurServices from '../component/our-services'
+import OurServices from '../component/HR-services'
 import ComfortablePricing from '../component/comfortable-pricing'
 import ClientSreview from '../component/clientsreview'
-import BlogsNews from '../component/blogs-news'
+import BlogsNews from '../component/features'
 import GetInTouch from '../component/get-in-touch'
 import Footer from '../component/footer'
 import cta from '../assets/images/cta.jpg';

@@ -1,5 +1,5 @@
 import React from 'react'
-import OurServices from '../component/our-services';
+import OurServices from '../component/HR-services';
 import MeetOurs from '../component/meet-ours';
 import About from '../component/about';
 import { Link } from 'react-router-dom';

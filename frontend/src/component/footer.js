@@ -4,7 +4,7 @@ export default function Footer() {
 
     return (
         <>
-            <footer className="footer bg-slate-950 relative text-gray-200 dark:text-gray-200">
+            <footer className="footer bg-slate-950 text-gray-200 dark:text-gray-200">
                 <div className="py-[30px] px-0 border-t border-slate-800">
                     <div className="container text-center">
                         <div className="grid md:grid-cols-12 items-center">
