@@ -22,6 +22,8 @@ import Signup from './main/signup';
 import Team from './main/team';
 import Switcher from './component/Switcher';
 import ScrollToTop from './component/Scroll-top';
+import IndexHr from './main/index-hr';
+import IndexStaff from './main/index-staff';
 
 
 export default function App() {
@@ -51,6 +53,8 @@ export default function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/team" element={<Team />} />
         <Route path="/" element={<Index />} />
+        <Route path="/index-hr" element={<IndexHr />} />
+        <Route path="/index-staff" element={<IndexStaff />} />
 
       </Routes>
       <Switcher />
