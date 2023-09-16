@@ -82,7 +82,7 @@ export default function Navbar(props) {
                                 <Link to="/index" className="nav-link ">Home</Link>
                             </li>
                             <li className={`nav-item navbar-item ${splitLocation[1] === 'roles' ? 'active' : ''}`}>
-                                <Link to="/roles" className="nav-link">Roles</Link>
+                                <Link to="../pages/roles" className="nav-link">Roles</Link>
                             </li>
                         </ul>
 
