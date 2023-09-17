@@ -46,5 +46,42 @@ def getAllRoles():
         if connection:
             connection.close()
 
+def getRoleDetails(role_name):
+    # Logic to connect to the database and fetch details based on role_name
+    try:
+
+        connection, cursor = connect_to_database()
+
+        if connection is None or cursor is None:
+            return jsonify({'error': 'Database connection error'})
+
+        cursor.execute('SELECT * FROM role WHERE role_name = %s', (role_name,))
+
+
+        # Fetch the result. Since we're expecting a single row, we can use fetchone()
+        row = cursor.fetchone()
+
+        if not row:
+            return jsonify({'error': 'Role not found'})
+
+        # Convert the row to a dictionary for JSON response
+        role_details = {
+            'role_name': row[0],
+            'role_desc': row[1],
+            # Add more columns as needed
+        }
+
+        return jsonify(role_details)
+
+    except Exception as e:
+        return jsonify({'error': str(e)})
+
+    finally:
+        # Close the cursor and database connection
+        if cursor:
+            cursor.close()
+        if connection:
+            connection.close()
+
 if __name__ == '__main__':
     app.run(debug=True)
