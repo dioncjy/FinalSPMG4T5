@@ -7,6 +7,11 @@ from staff import staff
 
 app = Flask(__name__)
 
+
+@app.route('/role_listings/all', methods=['GET'])
+def get_all_role_listings():
+    return hr.getAllRoleListings()
+
 @app.route('/getallstaff', methods=['GET'])
 def get_staff_from_module():
     staff_data = hr.getAllStaff() 
