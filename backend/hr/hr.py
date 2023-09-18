@@ -47,5 +47,42 @@ def getAllStaff():
         if connection:
             connection.close()
 
+def getAllRoleListings():
+    try:
+        connection, cursor = connect_to_database()
+
+        if connection is None or cursor is None:
+            return jsonify({'error': 'Database connection error'})
+
+        cursor.execute('SELECT * FROM role_skill')
+
+        # Fetch all rows from the query result
+        data = cursor.fetchall()
+
+        # Convert the data to a list of dictionaries for JSON response
+        result = []
+        for row in data:
+            result.append({
+                'role_name': row[0],
+                'skill_name': row[1],
+                'opening_date': row[2],
+                'closing_date': row[3],
+                'department': row[4],
+                'hiring_manager': row[5]
+                # Add more columns as needed
+            })
+
+        return jsonify(result)
+
+    except Exception as e:
+        return jsonify({'error': str(e)})
+    
+    finally:
+        # Close the cursor and database connection
+        if cursor:
+            cursor.close()
+        if connection:
+            connection.close()
+
 if __name__ == '__main__':
     app.run(debug=True)

@@ -24,6 +24,7 @@ import Switcher from './component/Switcher';
 import ScrollToTop from './component/Scroll-top';
 import IndexHr from './main/index-hr';
 import IndexStaff from './main/index-staff';
+import Roles from './pages/roles';
 
 
 export default function App() {
@@ -55,6 +56,7 @@ export default function App() {
         <Route path="/" element={<Index />} />
         <Route path="/index-hr" element={<IndexHr />} />
         <Route path="/index-staff" element={<IndexStaff />} />
+        <Route path="/roles" element={<Roles />} />
 
       </Routes>
       <Switcher />
