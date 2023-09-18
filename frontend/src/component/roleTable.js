@@ -1,7 +1,8 @@
 import React from 'react'
 import {
     ChevronUpDownIcon,
-    ChevronDownIcon
+    ChevronDownIcon,
+    ChevronUpIcon
 } from "@heroicons/react/24/outline";
 import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
 import {
@@ -20,57 +21,16 @@ import {
 
 // const TABLE_HEAD = ["Member", "Function", "Status", "Employed", ""];
 
-// const TABLE_ROWS = [
-// {
-//     img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-//     name: "John Michael",
-//     email: "john@creative-tim.com",
-//     job: "Manager",
-//     org: "Organization",
-//     online: true,
-//     date: "23/04/18",
-// },
-// {
-//     img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-2.jpg",
-//     name: "Alexa Liras",
-//     email: "alexa@creative-tim.com",
-//     job: "Programator",
-//     org: "Developer",
-//     online: false,
-//     date: "23/04/18",
-// },
-// {
-//     img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-1.jpg",
-//     name: "Laurent Perrier",
-//     email: "laurent@creative-tim.com",
-//     job: "Executive",
-//     org: "Projects",
-//     online: false,
-//     date: "19/09/17",
-// },
-// {
-//     img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-4.jpg",
-//     name: "Michael Levi",
-//     email: "michael@creative-tim.com",
-//     job: "Programator",
-//     org: "Developer",
-//     online: true,
-//     date: "24/12/08",
-// },
-// {
-//     img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-5.jpg",
-//     name: "Richard Gran",
-//     email: "richard@creative-tim.com",
-//     job: "Manager",
-//     org: "Executive",
-//     online: false,
-//     date: "04/10/21",
-// },
-// ];
+const filter_labels = ["departments", "roles"]
 
-const skill_data = [
-    "web application", "data analytics", "talent acquisition"
-]
+const filter_data = {
+    "departments" : [
+        "web application", "data analytics", "talent acquisition"
+    ], 
+    "roles" : [
+        "uiux designer", "data analyst", "HR"
+    ]
+}
 
 const dummy_data = [
     {
@@ -119,13 +79,7 @@ export default function RoleTable() {
                     </div>
                 </div>
                 <div className="flex flex-row justify-between relative">
-                    <div className="flex items-center">
-                        <input
-                        className="rounded"
-                        placeholder='Start Searching...'
-                        />
-                    </div>
-                    <div className="flex flex-col items-center ">
+                    <div className="sorting flex flex-col items-center ">
                         <Menu dismiss={{itemPress:false}} allowHover>
                             <MenuHandler>
                                 <Button
@@ -135,6 +89,54 @@ export default function RoleTable() {
                                         <div className='flex flex-row w-24 items-center justify-between'>
                                             <Typography variant="h6" className="font-normal">
                                                 Sort By
+                                            </Typography>
+                                            <ChevronUpDownIcon
+                                                strokeWidth={2.5}
+                                                className={`w-4 transition-transform ${
+                                                openMenu ? "rotate-180" : ""
+                                                }`}
+                                            />
+                                        </div>
+                                </Button>
+                            </MenuHandler>
+                            <MenuList className="flex flex-col">
+                                <MenuItem className="p-0">
+                                    <Button variant="text" color="blue-gray" ripple="light" className="flex items-center">
+                                        <Typography variant="h6" className="font-normal">
+                                            Ascending
+                                        </Typography>
+                                        <ChevronUpIcon strokeWidth={2.5} className="w-4" />
+                                    </Button>
+                                </MenuItem>
+                                <MenuItem className="p-0">
+                                    <Button variant="text" color="blue-gray" ripple="light" className="flex items-center">
+                                        <Typography variant="h6" className="font-normal">
+                                            Descending
+                                        </Typography>
+                                        <ChevronDownIcon strokeWidth={2.5} className="w-4" />
+                                    </Button>       
+                                </MenuItem>
+                            </MenuList>
+                        </Menu>
+                    </div>
+
+                    <div className="flex items-center">
+                        <input
+                        className="rounded"
+                        placeholder='Start Searching...'
+                        />
+                    </div>
+
+                    <div className="filtering flex flex-col items-center ">
+                        <Menu dismiss={{itemPress:false}} allowHover>
+                            <MenuHandler>
+                                <Button
+                                    variant="text"
+                                    className="flex items-center text-base font-normal capitalize"
+                                    >
+                                        <div className='flex flex-row w-24 items-center justify-between'>
+                                            <Typography variant="h6" className="font-normal">
+                                                Filter By
                                             </Typography>
                                             <ChevronDownIcon
                                                 strokeWidth={2.5}
@@ -146,28 +148,45 @@ export default function RoleTable() {
                                 </Button>
                             </MenuHandler>
                             <MenuList>
-                                {skill_data.map((skill, index) => {
-                                    const skill_id = "item-" + {index};
+                                {filter_labels.map((categories) => {
+                                    const items = filter_data[categories];
+                                    const cat_count = items.length;
+                                    console.log(items)
                                     return (
-                                        <MenuItem className="p-0">
-                                            <label
-                                                htmlFor={skill_id}
-                                                className="flex cursor-pointer items-center gap-2 p-2"
-                                            >
-                                                <Checkbox
-                                                    ripple={false}
-                                                    id={skill_id}
-                                                    containerProps={{ className: "p-0" }}
-                                                    className="hover:before:content-none"
-                                                />
-                                                {skill}
-                                            </label>
-                                        </MenuItem>
-                                    )
-                                    })}
+                                        <Card
+                                        id={categories}
+                                        color="black"
+                                        shadow={false}
+                                        variant="gradient"
+                                        className="col-span-3 flex flex-col p-2 place-items-center rounded-md hover:bg-violet-200 hover:outline-none"
+                                    >
+                                        <Typography variant="h6">
+                                            {categories}
+                                        </Typography>
+                                        {items.map((item, i) => {
+                                            return (
+                                                <MenuItem className="p-2">
+                                                    <label
+                                                        htmlFor={item}
+                                                        className="flex cursor-pointer items-center gap-2 p-2"
+                                                    >
+                                                        <Checkbox
+                                                            ripple={false}
+                                                            id={item[i]}
+                                                            containerProps={{ className: "p-0" }}
+                                                            className="hover:before:content-none"
+                                                        />
+                                                        {item}
+                                                    </label>
+                                                </MenuItem>
+                                            )
+                                        })}
+                                        </Card>
+                                        )})}
                             </MenuList>
                         </Menu>
                     </div>
+
                 </div>
             </CardHeader>
             <CardBody className="overflow-scroll p-6">

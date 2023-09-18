@@ -7,7 +7,7 @@ import RoleTable from '../component/roleTable';
 function Roles() {
   return (
     <>
-      <div className="">
+      <div className="p-6">
         <RoleTable />
       </div>
     </>
