@@ -54,7 +54,7 @@ def getAllRoleListings():
         if connection is None or cursor is None:
             return jsonify({'error': 'Database connection error'})
 
-        cursor.execute('SELECT * FROM role_skill')
+        cursor.execute('SELECT * FROM role_listing')
 
         # Fetch all rows from the query result
         data = cursor.fetchall()
@@ -63,11 +63,11 @@ def getAllRoleListings():
         result = []
         for row in data:
             result.append({
-                'role_name': row[0],
-                'skill_name': row[1],
-                'opening_date': row[2],
+                'listing_id': row[0],
+                'role_name': row[1],
+                'department': row[2],
                 'closing_date': row[3],
-                'department': row[4],
+                'opening_date': row[4],
                 'hiring_manager': row[5]
                 # Add more columns as needed
             })
