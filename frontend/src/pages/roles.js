@@ -4,6 +4,7 @@ import NavbarSmallLight from '../component/navbar-small-light';
 import { Link } from 'react-router-dom';
 import Footer from '../component/footer';
 import RoleTable from '../component/roleTable';
+import RoleListings from '../component/role_listings_test';
 
 function Roles() {
   return (

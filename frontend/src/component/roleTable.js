@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
     ChevronUpDownIcon,
     ChevronDownIcon,
@@ -19,7 +19,6 @@ import {
     MenuList,
 } from "@material-tailwind/react";
 
-// const TABLE_HEAD = ["Member", "Function", "Status", "Employed", ""];
 
 const filter_labels = ["departments", "roles"]
 
@@ -32,23 +31,95 @@ const filter_data = {
     ]
 }
 
-const dummy_data = [
+const data = [
     {
         "role_name": "uiux designer",
         "department" :"web application",
-        "role_description": "asdf",
+        "description": "asdf",
         "application_date": "sgsadf"
     }, 
     {
         "role_name": "data analyst",
         "department" :"data analytics",
-        "role_description": "asdf",
+        "description": "asdf",
         "application_date": "sgsadf"
     }, 
     {
         "role_name": "HR",
         "department" :"talent acquisition",
-        "role_description": "asdf",
+        "description": "asdf",
+        "application_date": "sgsadf"
+    }, 
+    {
+        "role_name": "uiux designer",
+        "department" :"web application",
+        "description": "asdf",
+        "application_date": "sgsadf"
+    }, 
+    {
+        "role_name": "data analyst",
+        "department" :"data analytics",
+        "description": "asdf",
+        "application_date": "sgsadf"
+    }, 
+    {
+        "role_name": "HR",
+        "department" :"talent acquisition",
+        "description": "asdf",
+        "application_date": "sgsadf"
+    }, 
+    {
+        "role_name": "uiux designer",
+        "department" :"web application",
+        "description": "asdf",
+        "application_date": "sgsadf"
+    }, 
+    {
+        "role_name": "data analyst",
+        "department" :"data analytics",
+        "description": "asdf",
+        "application_date": "sgsadf"
+    }, 
+    {
+        "role_name": "HR",
+        "department" :"talent acquisition",
+        "description": "asdf",
+        "application_date": "sgsadf"
+    }, 
+    {
+        "role_name": "uiux designer",
+        "department" :"web application",
+        "description": "asdf",
+        "application_date": "sgsadf"
+    }, 
+    {
+        "role_name": "data analyst",
+        "department" :"data analytics",
+        "description": "asdf",
+        "application_date": "sgsadf"
+    }, 
+    {
+        "role_name": "HR",
+        "department" :"talent acquisition",
+        "description": "asdf",
+        "application_date": "sgsadf"
+    }, 
+    {
+        "role_name": "uiux designer",
+        "department" :"web application",
+        "description": "asdf",
+        "application_date": "sgsadf"
+    }, 
+    {
+        "role_name": "data analyst",
+        "department" :"data analytics",
+        "description": "asdf",
+        "application_date": "sgsadf"
+    }, 
+    {
+        "role_name": "HR",
+        "department" :"talent acquisition",
+        "description": "asdf",
         "application_date": "sgsadf"
     }, 
 ]
@@ -56,6 +127,122 @@ const dummy_data = [
 
 export default function RoleTable() {
     const [openMenu, setOpenMenu] = React.useState(false);
+    // Track checkbox state
+    const [roleFilters, setRoleFilters] = useState({});
+
+    //dont ever manipulate role listings
+    const [roleListings, setRoleListings] = useState([]);
+    const [filteredRoleListings, setFilteredRoleListings] = useState([])
+
+    const [filters, setFilters] = useState({})
+    const [activeFilters, setActiveFilters] = useState({
+        departments: [],
+        roles: [],
+    });
+    
+
+    useEffect(() => {
+        
+        const getAllRoleListings = 'http://127.0.0.1:5000/role_listings/all'
+
+        fetch(getAllRoleListings)
+            .then((response) => response.json())
+            .then ((data) => {
+                setRoleListings(data)
+                setFilteredRoleListings(data)
+
+                const uniqueDepartments = [...new Set(data.map((listing) => listing.department))];
+                const uniqueRoles = [...new Set(data.map((listing => listing.role_name )))]
+                setFilters(
+                    {
+                        departments: uniqueDepartments,
+                        roles: uniqueRoles
+                    }
+                )
+                                
+                const initialRoleFilters = {};
+                uniqueRoles.forEach((role) => {
+                    initialRoleFilters[role] = false; // Initially, no checkboxes are checked
+                });                
+                setRoleFilters(initialRoleFilters);
+
+
+            })
+
+            .catch((error) => {
+                console.error('Error fetching data:', error)
+
+                // For test
+                setFilteredRoleListings(data)
+                setRoleListings(data)
+                setFilters(
+                    {
+                        departments: filter_data.departments,
+                        roles: filter_data.roles
+                    }
+                )
+
+                const initialRoleFilters = {};
+                filter_data.roles.forEach((role) => {
+                    initialRoleFilters[role] = false; // Initially, no checkboxes are checked
+                });                
+                setRoleFilters(initialRoleFilters);
+
+            })
+    }, []);
+
+    const onFilterChange = (category, item) => {
+        const updatedFilters = { ...activeFilters };
+        
+        // Check if the selected item is already in the filters
+        if (category === 'departments' || category === 'roles') {
+            
+            if (updatedFilters[category].includes(item)) {
+                // If it is inside remove
+                updatedFilters[category] = updatedFilters[category].filter((value) => value !== item);
+            } else {
+                // else add
+                updatedFilters[category].push(item);
+            }
+        }
+    
+        // Update the activeFilters state with the new filters
+        setActiveFilters(updatedFilters);
+
+        setRoleFilters((prevRoleFilters) => ({
+            ...prevRoleFilters,
+            [item]: !prevRoleFilters[item], // Toggle the checkbox state
+        }));
+
+        if (
+            Object.values(updatedFilters).every((filterItems) => filterItems.length === 0)
+        ) {
+            // If updatedFilters is empty, return all role listings
+            setFilteredRoleListings(roleListings);
+            return;
+        }
+    
+        // Filter the roleListings based on the selected filters
+        const filteredListings = roleListings.filter((listing) => {
+            console.log(updatedFilters)
+            // Check if the listing matches all selected filters
+            return Object.entries(updatedFilters).some(([filterCategory, filterItems]) => {
+
+                if (filterCategory === 'departments') {
+                    console.log(filterItems.includes(listing.department))
+                    return filterItems.includes(listing.department);
+                }
+                if (filterCategory === 'roles') {
+                    return filterItems.includes(listing.role_name);
+                }
+                return false; // Add more filter categories as needed
+            });
+        });
+
+        // Update the displayed roleListings with the filtered list
+        setFilteredRoleListings(filteredListings);
+      };
+    
 
     return (
         <Card className="w-10/12" style={{margin: '2rem',padding: '1rem'}}>
@@ -148,53 +335,50 @@ export default function RoleTable() {
                                         </div>
                                 </Button>
                             </MenuHandler>
+
                             <MenuList>
-                                {filter_labels.map((categories) => {
-                                    const items = filter_data[categories];
-                                    const cat_count = items.length;
-                                    console.log(items)
+                                {Object.keys(filters).map((category) => {
+                                    const roles = filters[category];
                                     return (
-                                        <Card
-                                        id={categories}
+                                    <Card
+                                        key={category}
+                                        id={category}
                                         color="black"
                                         shadow={false}
                                         variant="gradient"
                                         className="col-span-3 flex flex-col p-2 place-items-center rounded-md hover:bg-violet-200 hover:outline-none"
                                     >
-                                        <Typography variant="h6">
-                                            {categories}
-                                        </Typography>
-                                        {items.map((item, i) => {
-                                            return (
-                                                <MenuItem className="p-2">
-                                                    <label
-                                                        htmlFor={item}
-                                                        className="flex cursor-pointer items-center gap-2 p-2"
-                                                    >
-                                                        <Checkbox
-                                                            ripple={false}
-                                                            id={item[i]}
-                                                            containerProps={{ className: "p-0" }}
-                                                            className="hover:before:content-none"
-                                                        />
-                                                        {item}
-                                                    </label>
-                                                </MenuItem>
-                                            )
-                                        })}
-                                        </Card>
-                                        )})}
+                                        <Typography variant="h6">{category}</Typography>
+                                        {roles.map((role) => (
+                                        <MenuItem key={role} className="p-2">
+                                            <label htmlFor={role} className="flex cursor-pointer items-center gap-2 p-2">
+                                            <Checkbox
+                                                checked={roleFilters[role]}
+                                                ripple={false}
+                                                id={role}
+                                                containerProps={{ className: "p-0" }}
+                                                className="hover:before:content-none"
+                                                onChange={() => onFilterChange(category, role)}
+                                            />
+                                            {role}
+                                            </label>
+                                        </MenuItem>
+                                        ))}
+                                    </Card>
+                                    );
+                                })}
                             </MenuList>
                         </Menu>
                     </div>
-
                 </div>
             </CardHeader>
+
+
             <CardBody className="overflow-scroll p-6">
                 <div className="flex flex-col my-4">
-                    {dummy_data.map((data, index) => {
+                    {filteredRoleListings.map((role, index) => {
                         const isFirst = index === 0;
-                        const isLast = index === dummy_data.length - 1;
+                        const isLast = index === data.length - 1;
                         const classes = isLast
                             ? "flex flex-row p-4 items-center justify-between"
                             : isFirst
@@ -206,18 +390,18 @@ export default function RoleTable() {
                                 <div className={classes}>
                                     <div className="flex flex-col">
                                         <div className="flex flex-col mt-4">
-                                            <Typography variant="h6" color="blue-gray" className="font-bold">
-                                                {data.department}
+                                            <Typography variant="h4" color="blue-gray" className="font-bold">
+                                                {role.department} department
                                             </Typography>
                                         </div>
                                         <div className="flex flex-col">
-                                            <Typography variant="h4" color="blue-gray" className="font-bold">
-                                                {data.role_name}
+                                            <Typography variant="h6" color="blue-gray" className="font-bold">
+                                                {role.role_name}
                                             </Typography>
                                         </div>
                                         <div className="flex flex-col mt-2 mb-4">
                                             <Typography variant="normal" color="blue-gray" className="font-normal">
-                                                {data.role_description}
+                                                {role.description}
                                             </Typography>
                                         </div>
                                     </div>
@@ -238,6 +422,8 @@ export default function RoleTable() {
 
                 </div>
             </CardBody>
+
+    
             <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
                 <Typography variant="small" color="blue-gray" className="font-normal">
                 Page 1 of 10
@@ -254,107 +440,3 @@ export default function RoleTable() {
         </Card>
     );
 }
-
-// <table className="mt-4 w-full min-w-max table-auto text-left">
-//                     <thead>
-//                         <tr>
-//                         {TABLE_HEAD.map((head, index) => (
-//                             <th
-//                             key={head}
-//                             className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
-//                             >
-//                             <Typography
-//                                 variant="h6"
-//                                 color="blue-gray"
-//                                 className="flex font-bold items-center justify-between gap-2 leading-none opacity-70"
-//                             >
-//                                 {head}{" "}
-//                                 {index !== TABLE_HEAD.length - 1 && (
-//                                 <ChevronUpDownIcon strokeWidth={2} className="h-4 w-4" />
-//                                 )}
-//                             </Typography>
-//                             </th>
-//                         ))}
-//                         </tr>
-//                     </thead>
-//                     <tbody>
-//                         {TABLE_ROWS.map(
-//                         ({ img, name, email, job, org, online, date }, index) => {
-//                             const isLast = index === TABLE_ROWS.length - 1;
-//                             const classes = isLast
-//                             ? "p-4"
-//                             : "p-4 border-b border-blue-gray-50";
-
-//                             return (
-//                             <tr key={name}>
-//                                 <td className={classes}>
-//                                     <div className="flex items-center gap-3">
-//                                         <Avatar src={img} alt={name} size="sm" />
-//                                         <div className="flex flex-col">
-//                                             <Typography
-//                                                 variant="small"
-//                                                 color="blue-gray"
-//                                                 className="font-normal"
-//                                             >
-//                                                 {name}
-//                                             </Typography>
-//                                             <Typography
-//                                                 variant="small"
-//                                                 color="blue-gray"
-//                                                 className="font-normal opacity-70"
-//                                             >
-//                                                 {email}
-//                                             </Typography>
-//                                         </div>
-//                                     </div>
-//                                 </td>
-//                                 <td className={classes}>
-//                                     <div className="flex flex-col">
-//                                         <Typography
-//                                         variant="small"
-//                                         color="blue-gray"
-//                                         className="font-normal"
-//                                         >
-//                                         {job}
-//                                         </Typography>
-//                                         <Typography
-//                                         variant="small"
-//                                         color="blue-gray"
-//                                         className="font-normal opacity-70"
-//                                         >
-//                                         {org}
-//                                         </Typography>
-//                                     </div>
-//                                 </td>
-//                                 <td className={classes}>
-//                                     <div className="w-max">
-//                                         <Chip
-//                                         variant="ghost"
-//                                         size="sm"
-//                                         value={online ? "online" : "offline"}
-//                                         color={online ? "green" : "blue-gray"}
-//                                         />
-//                                     </div>
-//                                 </td>
-//                                 <td className={classes}>
-//                                     <Typography
-//                                         variant="small"
-//                                         color="blue-gray"
-//                                         className="font-normal"
-//                                     >
-//                                         {date}
-//                                     </Typography>
-//                                 </td>
-//                                 <td className={classes}>
-//                                 <Tooltip content="Edit User">
-//                                     <IconButton variant="text">
-//                                         <PencilIcon className="h-4 w-4" />
-//                                     </IconButton>
-//                                 </Tooltip>
-//                                 </td>
-//                             </tr>
-//                             );
-//                         },
-//                         )}
-//                     </tbody>
-//                 </table>
