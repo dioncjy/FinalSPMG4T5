@@ -8,7 +8,7 @@ from staff import staff
 app = Flask(__name__)
 
 # HR ENDPOINTS
-@app.route('/role_listings/all', methods=['GET'])
+@app.route('/getallrolelistings', methods=['GET'])
 def get_all_role_listings():
     return hr.getAllRoleListings()
 
@@ -24,10 +24,16 @@ def get_roles_from_module():
     return roles_data
 
 #To retrieve individual role listing details
-@app.route('/getRoleDetails/<role_name>', methods=['GET'])
+@app.route('/getroledetails/<role_name>', methods=['GET'])
 def get_role_listing_details(role_name):
     role_data = staff.getRoleDetails(role_name)
     return role_data
+
+#To retrieve individual role skills details
+@app.route('/getroleskills/<role_name>', methods=['GET'])
+def get_role_skills_details(role_name):
+    role_skills_data = staff.getRoleSkills(role_name)
+    return role_skills_data
 
 @app.route("/")
 def home():

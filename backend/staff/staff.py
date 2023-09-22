@@ -10,8 +10,7 @@ sys.path.append('..')
 
 from backend.connectionManager import connect_to_database
 
-# Get all roles from role_skill
-# @app.route()
+# Get all roles from role_listing
 def getAllRoles():
     try:
 
@@ -20,7 +19,7 @@ def getAllRoles():
         if connection is None or cursor is None:
             return jsonify({'error': 'Database connection error'})
 
-        cursor.execute('SELECT * FROM role_skill')
+        cursor.execute('SELECT * FROM role')
 
         # Fetch all rows from the query result
         data = cursor.fetchall()
@@ -30,7 +29,7 @@ def getAllRoles():
         for row in data:
             result.append({
                 'role_name': row[0],
-                'skill_name': row[1],
+                'role_desc': row[1]
                 # Add more columns as needed
             })
 
@@ -46,8 +45,8 @@ def getAllRoles():
         if connection:
             connection.close()
 
+# get specific role name and desc
 def getRoleDetails(role_name):
-    # Logic to connect to the database and fetch details based on role_name
     try:
 
         connection, cursor = connect_to_database()
@@ -68,6 +67,43 @@ def getRoleDetails(role_name):
         role_details = {
             'role_name': row[0],
             'role_desc': row[1],
+            # Add more columns as needed
+        }
+
+        return jsonify(role_details)
+
+    except Exception as e:
+        return jsonify({'error': str(e)})
+
+    finally:
+        # Close the cursor and database connection
+        if cursor:
+            cursor.close()
+        if connection:
+            connection.close()
+
+# get skills from a specific role
+def getRoleSkills(role_name):
+    try:
+
+        connection, cursor = connect_to_database()
+
+        if connection is None or cursor is None:
+            return jsonify({'error': 'Database connection error'})
+
+        cursor.execute('SELECT * FROM role_skill WHERE role_name = %s', (role_name,))
+
+
+        # Fetch the result. Since we're expecting a single row, we can use fetchone()
+        row = cursor.fetchone()
+
+        if not row:
+            return jsonify({'error': 'Role skill not found'})
+
+        # Convert the row to a dictionary for JSON response
+        role_details = {
+            'role_name': row[0],
+            'skill_name': row[1],
             # Add more columns as needed
         }
 
