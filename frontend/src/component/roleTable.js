@@ -53,11 +53,12 @@ const dummy_data = [
     }, 
 ]
 
+
 export default function RoleTable() {
     const [openMenu, setOpenMenu] = React.useState(false);
 
     return (
-        <Card className="w-10/12">
+        <Card className="w-10/12" style={{margin: '2rem',padding: '1rem'}}>
             <CardHeader floated={false} shadow={false} className="rounded-none px-6">
                 <div className="mb-8 flex flex-row items-center justify-between">
                     <div className="flex-col">
