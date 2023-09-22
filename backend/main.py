@@ -1,11 +1,15 @@
 from flask import Flask, jsonify, Blueprint
+from flask_cors import CORS
 import psycopg2
 from dotenv import load_dotenv
 import os
 from hr import hr
 from staff import staff
 
+
 app = Flask(__name__)
+CORS(app)
+CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
 
 # HR ENDPOINTS
 @app.route('/getallrolelistings', methods=['GET'])
