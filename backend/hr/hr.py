@@ -32,6 +32,10 @@ def getAllStaff():
             result.append({
                 'staff_id': row[0],
                 'staff_fname': row[1],
+                'staff_lname': row[2],
+                'dept': row[3],
+                'email': row[4],
+                'role': row[5]
                 # Add more columns as needed
             })
 
