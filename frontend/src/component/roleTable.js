@@ -36,92 +36,86 @@ const data = [
         "role_name": "uiux designer",
         "department" :"web application",
         "description": "asdf",
-        "application_date": "sgsadf"
+        "closing_date": "2023-09-23"
     }, 
     {
         "role_name": "data analyst",
         "department" :"data analytics",
         "description": "asdf",
-        "application_date": "sgsadf"
+        "closing_date": "2023-08-23"
     }, 
     {
         "role_name": "HR",
         "department" :"talent acquisition",
         "description": "asdf",
-        "application_date": "sgsadf"
+        "closing_date": "2023-07-23"
     }, 
     {
         "role_name": "uiux designer",
         "department" :"web application",
         "description": "asdf",
-        "application_date": "sgsadf"
+        "closing_date": "2023-07-23"
     }, 
     {
         "role_name": "data analyst",
         "department" :"data analytics",
         "description": "asdf",
-        "application_date": "sgsadf"
+        "closing_date": "2023-06-23"
     }, 
     {
         "role_name": "HR",
         "department" :"talent acquisition",
         "description": "asdf",
-        "application_date": "sgsadf"
+        "closing_date": "2023-04-23"
     }, 
     {
         "role_name": "uiux designer",
         "department" :"web application",
         "description": "asdf",
-        "application_date": "sgsadf"
+        "closing_date": "2023-07-23"
     }, 
     {
         "role_name": "data analyst",
         "department" :"data analytics",
         "description": "asdf",
-        "application_date": "sgsadf"
+        "closing_date": "2023-07-14"
     }, 
     {
         "role_name": "HR",
         "department" :"talent acquisition",
         "description": "asdf",
-        "application_date": "sgsadf"
+        "closing_date": "2023-07-2"
     }, 
     {
         "role_name": "uiux designer",
         "department" :"web application",
         "description": "asdf",
-        "application_date": "sgsadf"
+        "closing_date": "2023-07-1"
     }, 
     {
         "role_name": "data analyst",
         "department" :"data analytics",
         "description": "asdf",
-        "application_date": "sgsadf"
+        "closing_date": "2023-07-23"
     }, 
     {
         "role_name": "HR",
         "department" :"talent acquisition",
         "description": "asdf",
-        "application_date": "sgsadf"
+        "closing_date": "2023-07-23"
     }, 
     {
         "role_name": "uiux designer",
         "department" :"web application",
         "description": "asdf",
-        "application_date": "sgsadf"
+        "closing_date": "2023-07-23"
     }, 
     {
         "role_name": "data analyst",
         "department" :"data analytics",
         "description": "asdf",
-        "application_date": "sgsadf"
-    }, 
-    {
-        "role_name": "HR",
-        "department" :"talent acquisition",
-        "description": "asdf",
-        "application_date": "sgsadf"
-    }, 
+        "closing_date": "2023-07-23"
+    }
 ]
 
 
@@ -191,10 +185,22 @@ export default function RoleTable() {
             })
     }, []);
 
+    const sortRoleListings = (sortingDirection) => {
+        const sortedListings = [...filteredRoleListings].sort((a, b) => {
+            if (sortingDirection === 'ascending') {
+              return new Date(a.closing_date) - new Date(b.closing_date);
+            } else {
+              return new Date(b.closing_date) - new Date(a.closing_date);
+            }
+          });
+
+          setFilteredRoleListings(sortedListings);
+    }
+
     const onFilterChange = (category, item) => {
         const updatedFilters = { ...activeFilters };
         
-        // Check if the selected item is already in the filters
+        // Check if the elected item is already in the filters
         if (category === 'departments' || category === 'roles') {
             
             if (updatedFilters[category].includes(item)) {
@@ -289,17 +295,17 @@ export default function RoleTable() {
                             </MenuHandler>
                             <MenuList className="flex flex-col">
                                 <MenuItem className="p-0">
-                                    <Button variant="text" color="blue-gray" ripple="light" className="flex items-center">
+                                    <Button variant="text" color="blue-gray" ripple="light" className="flex items-center" onClick={() => sortRoleListings('ascending') }>
                                         <Typography variant="h6" className="font-normal">
-                                            Ascending
+                                            Ascending (Closing Date)
                                         </Typography>
                                         <ChevronUpIcon strokeWidth={2.5} className="w-4" />
                                     </Button>
                                 </MenuItem>
                                 <MenuItem className="p-0">
-                                    <Button variant="text" color="blue-gray" ripple="light" className="flex items-center">
+                                    <Button variant="text" color="blue-gray" ripple="light" className="flex items-center" onClick={() => sortRoleListings('descending')}>
                                         <Typography variant="h6" className="font-normal">
-                                            Descending
+                                            Descending (Closing Date)
                                         </Typography>
                                         <ChevronDownIcon strokeWidth={2.5} className="w-4" />
                                     </Button>       
@@ -402,6 +408,11 @@ export default function RoleTable() {
                                         <div className="flex flex-col mt-2 mb-4">
                                             <Typography variant="normal" color="blue-gray" className="font-normal">
                                                 {role.description}
+                                            </Typography>
+                                        </div>
+                                        <div className="flex flex-col mt-2 mb-4">
+                                            <Typography variant="normal" color="blue-gray" className="font-normal">
+                                                {role.closing_date}
                                             </Typography>
                                         </div>
                                     </div>
