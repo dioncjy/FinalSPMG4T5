@@ -8,6 +8,8 @@ app = Flask(__name__)
 
 sys.path.append('..')
 
+
+
 from backend.connectionManager import connect_to_database
 
 # Get all roles from role_listing
