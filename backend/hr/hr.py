@@ -72,7 +72,8 @@ def getAllRoleListings():
                 'department': row[2],
                 'closing_date': row[3],
                 'opening_date': row[4],
-                'hiring_manager': row[5]
+                'hiring_manager': row[5],
+                'role_description': row[6]
                 # Add more columns as needed
             })
 
