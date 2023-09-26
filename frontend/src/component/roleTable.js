@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 import {
     ChevronUpDownIcon,
     ChevronDownIcon,
-    ChevronUpIcon
+    ChevronUpIcon,
+    HeartIcon
 } from "@heroicons/react/24/outline";
 import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
 import {
@@ -19,6 +20,16 @@ import {
     MenuList,
 } from "@material-tailwind/react";
 
+
+const user_login = {
+    "username": "staff",
+    "password": "123456"
+}
+
+// const user_login = {
+//     "username": "hr",
+//     "password": "123456"
+// }
 
 const filter_labels = ["departments", "roles"]
 
@@ -272,7 +283,7 @@ export default function RoleTable() {
                         </Button>
                     </div>
                 </div>
-                <div className="flex flex-row justify-between relative">
+                <div className="flex flex-row justify-between relative pb-6 border-b border-blue-gray-50">
                     <div className="sorting flex flex-col items-center ">
                         <Menu dismiss={{itemPress:false}} allowHover>
                             <MenuHandler>
@@ -383,18 +394,19 @@ export default function RoleTable() {
             <CardBody className="overflow-scroll p-6">
                 <div className="flex flex-col my-4">
                     {filteredRoleListings.map((role, index) => {
-                        const isFirst = index === 0;
-                        const isLast = index === data.length - 1;
-                        const classes = isLast
-                            ? "flex flex-row p-4 items-center justify-between"
-                            : isFirst
-                            ? "flex flex-row p-4 items-center border-t border-blue-gray-50 justify-between"
-                            : "flex flex-row p-4 items-center border-b border-blue-gray-50 justify-between";
+                        // const isFirst = index === 0;
+                        // const isLast = index === data.length - 1;
+                        // const classes = isLast
+                        //     ? "flex flex-row p-4 items-center justify-between"
+                        //     : isFirst
+                        //     ? "flex flex-row p-4 items-center border-t border-blue-gray-50 justify-between"
+                        //     : "flex flex-row p-4 items-center border-b border-blue-gray-50 justify-between";
 
                             return (
                                 
-                                <div className={classes}>
-                                    <div className="flex flex-col">
+                                // <div className={classes}>
+                                <div className="flex flex-row p-4 items-center justify-between">
+                                    <button className="flex flex-col w-full">
                                         <div className="flex flex-col mt-4">
                                             <Typography variant="h4" color="blue-gray" className="font-bold">
                                                 {role.department} department
@@ -415,19 +427,29 @@ export default function RoleTable() {
                                                 {role.closing_date}
                                             </Typography>
                                         </div>
-                                    </div>
-                                    <div className="relative flex flex-col">
-                                        <div className="relative flex justify-end top-0">
-                                            <Button className="flex px-6 py-3" variant="outlined" size="sm">
-                                                <PencilIcon className="h-4 w-4 place-self-end" />
-                                            </Button>
+                                    </button>
+                                    {user_login.username === "staff" ? (
+                                        <div className="relative flex flex-col">
+                                            <div className="relative flex justify-end top-0">
+                                                <Button className="flex px-6 py-3" variant="outlined" size="sm">
+                                                    <HeartIcon className="h-4 w-4 place-self-end" />
+                                                </Button>
+                                            </div>
                                         </div>
-                                        <Button className="flex px-6 py-3 items-center" variant="text" size="sm">
-                                            <Typography variant="normal" color="blue-gray" className="font-normal">
-                                                View Applicants
-                                            </Typography>
-                                        </Button>    
-                                    </div>
+                                    ) : (
+                                        <div className="relative flex flex-col">
+                                            <div className="relative flex justify-end top-0">
+                                                <Button className="flex px-6 py-3" variant="outlined" size="sm">
+                                                    <PencilIcon className="h-4 w-4 place-self-end" />
+                                                </Button>
+                                            </div>
+                                            <Button className="flex px-6 py-3 items-center" variant="text" size="sm">
+                                                <Typography variant="normal" color="blue-gray" className="font-normal">
+                                                    View Applicants
+                                                </Typography>
+                                            </Button>    
+                                        </div>
+                                    )}
                                 </div>
                     )})}
 
