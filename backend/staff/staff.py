@@ -12,7 +12,7 @@ sys.path.append('..')
 
 from backend.connectionManager import connect_to_database
 
-# Get all roles from role_listing
+# Get all roles from role table
 def getAllRoles():
     try:
 
