@@ -47,25 +47,25 @@ const data = [
         "role_name": "uiux designer",
         "department" :"web application",
         "description": "asdf",
-        "closing_date": "2023-09-23"
+        "closing_date": "2023-12-23"
     }, 
     {
         "role_name": "data analyst",
         "department" :"data analytics",
         "description": "asdf",
-        "closing_date": "2023-08-23"
+        "closing_date": "2023-12-23"
     }, 
     {
         "role_name": "HR",
         "department" :"talent acquisition",
         "description": "asdf",
-        "closing_date": "2023-07-23"
+        "closing_date": "2023-12-23"
     }, 
     {
         "role_name": "uiux designer",
         "department" :"web application",
         "description": "asdf",
-        "closing_date": "2023-07-23"
+        "closing_date": "2023-12-23"
     }, 
     {
         "role_name": "data analyst",
@@ -107,19 +107,19 @@ const data = [
         "role_name": "data analyst",
         "department" :"data analytics",
         "description": "asdf",
-        "closing_date": "2023-07-23"
+        "closing_date": "2023-12-23"
     }, 
     {
         "role_name": "HR",
         "department" :"talent acquisition",
         "description": "asdf",
-        "closing_date": "2023-07-23"
+        "closing_date": "2023-12-23"
     }, 
     {
         "role_name": "uiux designer",
         "department" :"web application",
         "description": "asdf",
-        "closing_date": "2023-07-23"
+        "closing_date": "2023-12-23"
     }, 
     {
         "role_name": "data analyst",
@@ -131,6 +131,7 @@ const data = [
 
 
 export default function RoleTable() {
+    const today = new Date().toISOString().split("T")[0];
     const [openMenu, setOpenMenu] = React.useState(false);
     // Track checkbox state
     const [roleFilters, setRoleFilters] = useState({});
@@ -147,7 +148,6 @@ export default function RoleTable() {
     
 
     useEffect(() => {
-        
         const getAllRoleListings = 'http://127.0.0.1:5000/role_listings/all'
 
         fetch(getAllRoleListings)
@@ -401,9 +401,8 @@ export default function RoleTable() {
                         //     : isFirst
                         //     ? "flex flex-row p-4 items-center border-t border-blue-gray-50 justify-between"
                         //     : "flex flex-row p-4 items-center border-b border-blue-gray-50 justify-between";
-
+                        if (user_login.username === "staff" && role.closing_date >= today) {
                             return (
-                                
                                 // <div className={classes}>
                                 <div className="flex flex-row p-4 items-center justify-between">
                                     <button className="flex flex-col w-full">
@@ -428,30 +427,53 @@ export default function RoleTable() {
                                             </Typography>
                                         </div>
                                     </button>
-                                    {user_login.username === "staff" ? (
-                                        <div className="relative flex flex-col">
-                                            <div className="relative flex justify-end top-0">
-                                                <Button className="flex px-6 py-3" variant="outlined" size="sm">
-                                                    <HeartIcon className="h-4 w-4 place-self-end" />
-                                                </Button>
-                                            </div>
+                                    <div className="relative flex flex-col">
+                                        <div className="relative flex justify-end top-0">
+                                            <Button className="flex px-6 py-3" variant="outlined" size="sm">
+                                                <HeartIcon className="h-4 w-4 place-self-end" />
+                                            </Button>
                                         </div>
-                                    ) : (
-                                        <div className="relative flex flex-col">
-                                            <div className="relative flex justify-end top-0">
-                                                <Button className="flex px-6 py-3" variant="outlined" size="sm">
-                                                    <PencilIcon className="h-4 w-4 place-self-end" />
-                                                </Button>
-                                            </div>
-                                            <Button className="flex px-6 py-3 items-center" variant="text" size="sm">
-                                                <Typography variant="normal" color="blue-gray" className="font-normal">
-                                                    View Applicants
-                                                </Typography>
-                                            </Button>    
-                                        </div>
-                                    )}
+                                    </div>
                                 </div>
-                    )})}
+                    )} else if (user_login.username === "hr") {
+                        return (
+                            <div className="flex flex-row p-4 items-center justify-between">
+                                <button className="flex flex-col w-full">
+                                    <div className="flex flex-col mt-4">
+                                        <Typography variant="h4" color="blue-gray" className="font-bold">
+                                            {role.department} department
+                                        </Typography>
+                                    </div>
+                                    <div className="flex flex-col">
+                                        <Typography variant="h6" color="blue-gray" className="font-bold">
+                                            {role.role_name}
+                                        </Typography>
+                                    </div>
+                                    <div className="flex flex-col mt-2 mb-4">
+                                        <Typography variant="normal" color="blue-gray" className="font-normal">
+                                            {role.description}
+                                        </Typography>
+                                    </div>
+                                    <div className="flex flex-col mt-2 mb-4">
+                                        <Typography variant="normal" color="blue-gray" className="font-normal">
+                                            {role.closing_date}
+                                        </Typography>
+                                    </div>
+                                </button>
+                                <div className="relative flex flex-col">
+                                    <div className="relative flex justify-end top-0">
+                                        <Button className="flex px-6 py-3" variant="outlined" size="sm">
+                                            <PencilIcon className="h-4 w-4 place-self-end" />
+                                        </Button>
+                                    </div>
+                                    <Button className="flex px-6 py-3 items-center" variant="text" size="sm">
+                                        <Typography variant="normal" color="blue-gray" className="font-normal">
+                                            View Applicants
+                                        </Typography>
+                                    </Button>    
+                                </div>
+                            </div>
+                    )}})}
 
                 </div>
             </CardBody>
