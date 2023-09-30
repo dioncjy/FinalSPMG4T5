@@ -26,6 +26,7 @@ import IndexHr from './main/index-hr';
 import IndexStaff from './main/index-staff';
 import Roles from './pages/roles';
 import StaffApplicationForm from './pages/staffApplicationFormPage';
+import ListingPage from './pages/listingPage';
 
 export default function App() {
 
@@ -58,6 +59,8 @@ export default function App() {
         <Route path="/index-staff" element={<IndexStaff />} />
         <Route path="/roles" element={<Roles />} />
         <Route path="/staffApplicationForm" element={<StaffApplicationForm />} />
+        {/* <Route path="/listingPage" element={<ListingPage />} /> */}
+        <Route path="/listingPage/:id" element={<ListingPage />} />
 
       </Routes>
       <Switcher />
