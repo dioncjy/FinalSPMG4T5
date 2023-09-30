@@ -59,7 +59,8 @@ export default function App() {
         <Route path="/index-staff" element={<IndexStaff />} />
         <Route path="/roles" element={<Roles />} />
         <Route path="/staffApplicationForm" element={<StaffApplicationForm />} />
-        <Route path="/listingPage" element={<ListingPage />} />
+        {/* <Route path="/listingPage" element={<ListingPage />} /> */}
+        <Route path="/listingPage/:id" element={<ListingPage />} />
 
       </Routes>
       <Switcher />

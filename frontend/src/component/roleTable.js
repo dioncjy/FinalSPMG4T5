@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 import {
     ChevronUpDownIcon,
     ChevronDownIcon,
@@ -259,7 +260,12 @@ export default function RoleTable() {
         // Update the displayed roleListings with the filtered list
         setFilteredRoleListings(filteredListings);
       };
-    
+
+    const navigate = useNavigate();
+
+    const handleClick = (roleName) => {
+        navigate("/listingPage/" + roleName)    
+    }
 
     return (
         <Card className="w-10/12" style={{margin: '2rem',padding: '1rem'}}>
@@ -405,7 +411,7 @@ export default function RoleTable() {
                             return (
                                 // <div className={classes}>
                                 <div className="flex flex-row p-4 items-center justify-between">
-                                    <button className="flex flex-col w-full">
+                                    <button onClick={() => {handleClick(role.role_name)}} className="flex flex-col w-full">
                                         <div className="flex flex-col mt-4">
                                             <Typography variant="h4" color="blue-gray" className="font-bold">
                                                 {role.department} department

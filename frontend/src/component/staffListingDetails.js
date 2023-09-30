@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react'
 import { Typography, Button, Chip, Progress } from "@material-tailwind/react";
 
 
@@ -68,7 +68,39 @@ const skills_match_items = () => {
 }
 
 
-export default function staffListingDetails() {
+export default function StaffListingDetails(props) {
+    const [roleListing, setRoleListing] = useState([]);
+    const [userSkills, setUserSkills] = useState([]);
+
+    // useEffect(() => {
+    //     const getRoleListing = 'http://127.0.0.1:5000/roledetails/Cleaner'
+
+    //     fetch(getRoleListing)
+    //         .then((response) => response.json())
+    //         .then ((data) => {
+    //             setRoleListing(data)
+    //             console.log(data)
+    //         })
+
+    //         .catch((error) => {
+    //             console.error('Error fetching data:', error)
+    //         })
+    // }, []);
+
+    // useEffect(() => {
+    //     const getUserSkills = 'http://127.0.0.1:5000/getallrolelistings'
+
+    //     fetch(getUserSkills)
+    //         .then((response) => response.json())
+    //         .then ((data) => {
+    //             setRoleListing(data)
+    //             console.log(data)
+    //         })
+
+    //         .catch((error) => {
+    //             console.error('Error fetching data:', error)
+    //         })
+    // }, []);
 
     return (
         <div className="w-32">
