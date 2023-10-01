@@ -121,5 +121,46 @@ def getRoleSkills(role_name):
         if connection:
             connection.close()
 
+# get individual role listing
+def getIndividualRoleListing(listing_id, role_name):
+    try:
+
+        connection, cursor = connect_to_database()
+
+        if connection is None or cursor is None:
+            return jsonify({'error': 'Database connection error'})
+
+        cursor.execute('SELECT * FROM role_listing WHERE role_name = %s and listing_id = %s', (role_name, listing_id,))
+
+
+        # Fetch the result. Since we're expecting a single row, we can use fetchone()
+        row = cursor.fetchone()
+
+        if not row:
+            return jsonify({'error': 'Role skill not found'})
+
+        # Convert the row to a dictionary for JSON response
+        role_details = {
+            'listing_id': row[0],
+            'role_name': row[1],
+            'dpt': row[2],
+            'closing_date': row[3],
+            'opening_date': row[4],
+            'reporting_manager': row[5]
+            # Add more columns as needed
+        }
+
+        return jsonify(role_details)
+
+    except Exception as e:
+        return jsonify({'error': str(e)})
+
+    finally:
+        # Close the cursor and database connection
+        if cursor:
+            cursor.close()
+        if connection:
+            connection.close()
+
 if __name__ == '__main__':
     app.run(debug=True)
