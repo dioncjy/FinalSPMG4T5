@@ -149,7 +149,7 @@ export default function RoleTable() {
     
 
     useEffect(() => {
-        const getAllRoleListings = 'http://127.0.0.1:5000/role_listings/all'
+        const getAllRoleListings = 'http://127.0.0.1:5000/role_listing'
 
         fetch(getAllRoleListings)
             .then((response) => response.json())
@@ -263,8 +263,8 @@ export default function RoleTable() {
 
     const navigate = useNavigate();
 
-    const handleClick = (roleName) => {
-        navigate("/listingPage/" + roleName)    
+    const handleClick = (role) => {
+        navigate(`/listingPage/${role.listing_id}`, { state: { role } });
     }
 
     return (
@@ -411,7 +411,7 @@ export default function RoleTable() {
                             return (
                                 // <div className={classes}>
                                 <div className="flex flex-row p-4 items-center justify-between">
-                                    <button onClick={() => {handleClick(role.role_name)}} className="flex flex-col w-full">
+                                    <button onClick={() => {handleClick(role)}} className="flex flex-col w-full">
                                         <div className="flex flex-col mt-4">
                                             <Typography variant="h4" color="blue-gray" className="font-bold">
                                                 {role.department} department

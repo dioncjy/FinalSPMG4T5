@@ -8,8 +8,6 @@ app = Flask(__name__)
 
 sys.path.append('..')
 
-
-
 from backend.connectionManager import connect_to_database
 
 # Get all roles from role table
@@ -110,6 +108,37 @@ def getRoleSkills(role_name):
         }
 
         return jsonify(role_details)
+
+    except Exception as e:
+        return jsonify({'error': str(e)})
+
+    finally:
+        # Close the cursor and database connection
+        if cursor:
+            cursor.close()
+        if connection:
+            connection.close()
+            
+def get_staff_skill(staff_id):
+    try:
+        connection, cursor = connect_to_database()
+
+        if connection is None or cursor is None:
+            return jsonify({'error': 'Database connection error'})
+
+        cursor.execute('SELECT * FROM staff_skill WHERE staff_id = %s', (staff_id,))
+        row = cursor.fetchone()
+
+        if not row:
+            return jsonify({'error': 'Staff skill not found'})
+
+        # Convert the row to a dictionary for JSON response
+        staff_skill = {
+            'staff_id': row[0],
+            'staff_skill': row[1],
+        }
+
+        return jsonify(staff_skill)
 
     except Exception as e:
         return jsonify({'error': str(e)})
