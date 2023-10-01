@@ -24,11 +24,23 @@ def get_staff_from_module():
     staff_data = hr.getAllStaff() 
     return staff_data
 
+# gets all the applications
+@app.route('/getallapplications', methods=['GET'])
+def get_all_applications():
+    applications_data = hr.getAllApplications() 
+    return applications_data
+
 # gets an individual staff and his/her details
 @app.route('/staff/<staff_id>', methods=['GET'])
 def get_staff_details(staff_id):
     staff_details_data = hr.getStaffDetails(staff_id)
     return staff_details_data
+
+# inserts value into application table
+@app.route('/insertapplication/<staff_id>&<comments>&<role_name>&<listing_id>', methods=['POST'])
+def insert_application(staff_id, comments, role_name, listing_id):
+    insert_application_data = hr.insertApplication(staff_id, comments, role_name, listing_id)
+    return insert_application_data
 
 #STAFF ENDPOINTS
 
@@ -38,10 +50,16 @@ def get_roles_from_module():
     roles_data = staff.getAllRoles() 
     return roles_data
 
-# gets an individual role listing details
-@app.route('/role/<role_name>', methods=['GET'])
+# gets an individual role from master details
+@app.route('/getroledetails/<role_name>', methods=['GET'])
 def get_role_listing_details(role_name):
     role_data = staff.getRoleDetails(role_name)
+    return role_data
+
+# gets an individual role listing
+@app.route('/getrolelisting/<role_name>&<listing_id>', methods=['GET'])
+def get_role_listing(listing_id, role_name):
+    role_data = staff.getIndividualRoleListing(listing_id, role_name)
     return role_data
 
 # gets an individual role skills details
