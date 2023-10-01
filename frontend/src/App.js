@@ -27,6 +27,7 @@ import IndexStaff from './main/index-staff';
 import Roles from './pages/roles';
 import StaffApplicationForm from './pages/staffApplicationFormPage';
 import ListingPage from './pages/listingPage';
+import { StaffProvider } from './context/staffContext';
 
 export default function App() {
 
@@ -39,30 +40,29 @@ export default function App() {
   return (
     <BrowserRouter >
       <ScrollToTop />
-      <Routes>
-        <Route path="/aboutus" element={<AboutUs />} />
-        <Route path="/blog-detail" element={<BlogDetail />} />
-        <Route path="/blogs" element={<Blogs />} />
-        <Route path="/contactus" element={<ContactUs />} />
-        <Route path="/index-four" element={<IndexFour />} />
-        <Route path="/index-three" element={<IndexThree />} />
-        <Route path="/index-two" element={<IndexTwo />} />
-        <Route path="/index" element={<Index />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/pricing" element={<Pricing />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/team" element={<Team />} />
-        <Route path="/" element={<Index />} />
-        <Route path="/index-hr" element={<IndexHr />} />
-        <Route path="/index-staff" element={<IndexStaff />} />
-        <Route path="/roles" element={<Roles />} />
-        <Route path="/staffApplicationForm" element={<StaffApplicationForm />} />
-        {/* <Route path="/listingPage" element={<ListingPage />} /> */}
-        <Route path="/listingPage/:id" element={<ListingPage />} />
-
-      </Routes>
+        <Routes>
+          <Route path="/aboutus" element={<AboutUs />} />
+          <Route path="/blog-detail" element={<BlogDetail />} />
+          <Route path="/blogs" element={<Blogs />} />
+          <Route path="/contactus" element={<ContactUs />} />
+          <Route path="/index-four" element={<IndexFour />} />
+          <Route path="/index-three" element={<IndexThree />} />
+          <Route path="/index-two" element={<IndexTwo />} />
+          <Route path="/index" element={<Index />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/team" element={<Team />} />
+          <Route path="/" element={<Index />} />
+          <Route path="/index-hr" element={<IndexHr />} />
+          <Route path="/index-staff" element={<IndexStaff />} />
+          <Route path="/roles" element={<Roles />} />
+          <Route path="/staffApplicationForm" element={<StaffApplicationForm />} />
+          {/* <Route path="/listingPage" element={<ListingPage />} /> */}
+          <Route path="/listingPage/:id" element={<ListingPage />} />
+        </Routes>
       <Switcher />
     </BrowserRouter>
   )

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Footer from '../component/footer';
 import Features from '../component/features';
+import Login from '../component/login'
 import NavbarSmallLight from '../component/navbar-small-light';
 
 export default function Index() {

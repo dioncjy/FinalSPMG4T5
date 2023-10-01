@@ -14,12 +14,12 @@ CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
 # HR ENDPOINTS
 
 # gets all the role listings
-@app.route('/getallrolelistings', methods=['GET'])
+@app.route('/role_listing', methods=['GET'])
 def get_all_role_listings():
     return hr.getAllRoleListings()
 
 # gets all the staff
-@app.route('/getallstaff', methods=['GET'])
+@app.route('/staff', methods=['GET'])
 def get_staff_from_module():
     staff_data = hr.getAllStaff() 
     return staff_data
@@ -31,7 +31,7 @@ def get_all_applications():
     return applications_data
 
 # gets an individual staff and his/her details
-@app.route('/getstaffdetails/<staff_id>', methods=['GET'])
+@app.route('/staff/<staff_id>', methods=['GET'])
 def get_staff_details(staff_id):
     staff_details_data = hr.getStaffDetails(staff_id)
     return staff_details_data
@@ -45,7 +45,7 @@ def insert_application(staff_id, comments, role_name, listing_id):
 #STAFF ENDPOINTS
 
 # gets all roles from the master list
-@app.route('/getallroles', methods=['GET'])
+@app.route('/role', methods=['GET'])
 def get_roles_from_module():
     roles_data = staff.getAllRoles() 
     return roles_data
@@ -63,10 +63,15 @@ def get_role_listing(listing_id, role_name):
     return role_data
 
 # gets an individual role skills details
-@app.route('/getroleskills/<role_name>', methods=['GET'])
+@app.route('/role_skill/<role_name>', methods=['GET'])
 def get_role_skills_details(role_name):
     role_skills_data = staff.getRoleSkills(role_name)
     return role_skills_data
+
+# Get staff skill
+@app.route('/staff_skill/<staff_id>', methods=['GET'])
+def get_staff_skill(staff_id):
+    return staff.get_staff_skill(staff_id)
 
 @app.route("/")
 def home():
