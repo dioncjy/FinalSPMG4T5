@@ -44,15 +44,6 @@ export default function staffApplicationForm() {
                         <hr />
 
                         <div className="py-2">
-                            <label for="country">
-                                <strong>Country</strong>
-                            </label>
-                            <br />
-                            <input type="text" name="country" id="country" className="border w-full rounded-md"></input>
-                        </div>
-                        <hr />
-
-                        <div className="py-2">
                             <label for="comments">
                                 <strong>Comments</strong>
                             </label>
