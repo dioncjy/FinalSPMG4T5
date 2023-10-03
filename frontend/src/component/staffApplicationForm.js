@@ -1,7 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, UserPlusIcon } from "@material-tailwind/react";
 
-export default function staffApplicationForm() {
+function StaffApplicationForm() {
+    const [data, setData] = useState(null);
+
+    useEffect(() => {
+        // Define the API URL
+        const apiUrl = "http://127.0.0.1:5000/staff/130001"; //130001 hardcoded for dev purposes first
+    
+        // Use the fetch function to make the API call
+        fetch(apiUrl)
+          .then((response) => response.json())
+          .then((data) => setData(data))
+          .catch((error) => console.error('Error fetching data:', error));
+      }, []);
+
+      const dept = data["dept"];
+      const staffId = data['staff_id'];
+      const name = data['staff_fname'] + " " + data["staff_lname"];
+    
     return (
         <div className="w-32">
             <div className="p-6 bg-blue-500">
@@ -66,3 +83,4 @@ export default function staffApplicationForm() {
     );
 }
 
+export default StaffApplicationForm;
