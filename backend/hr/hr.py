@@ -52,6 +52,110 @@ def getAllStaff():
         if connection:
             connection.close()
 
+def getAllStaffSkills():
+    try:
+
+        connection, cursor = connect_to_database()
+
+        if connection is None or cursor is None:
+            return jsonify({'error': 'Database connection error'})
+
+        # cursor.execute('SELECT * FROM staff_skill GROUP BY "staff_skill"')
+        cursor.execute('select staff_id, array_agg(skill_name) as skill_name_list from staff_skill group by staff_id')
+        # cursor.execute("SELECT * FROM staff WHERE staff_fname = 'Rajesh'")
+
+        # Fetch all rows from the query result
+        data = cursor.fetchall()
+
+        # Convert the data to a list of dictionaries for JSON response
+        result = []
+        for row in data:
+            result.append({
+                'staff_id': row[0],
+                'staff_skill': row[1]
+            })
+
+        return jsonify(result)
+
+    except Exception as e:
+        return jsonify({'error': str(e)})
+    
+    finally:
+        # Close the cursor and database connection
+        if cursor:
+            cursor.close()
+        if connection:
+            connection.close()
+
+def getAllRoleSkills():
+    try:
+
+        connection, cursor = connect_to_database()
+
+        if connection is None or cursor is None:
+            return jsonify({'error': 'Database connection error'})
+
+        # cursor.execute('SELECT * FROM role_skill')
+        cursor.execute('select role_name, array_agg(skill_name) as skill_name_list from role_skill group by role_name')
+
+        # Fetch all rows from the query result
+        data = cursor.fetchall()
+
+        # Convert the data to a list of dictionaries for JSON response
+        result = []
+        for row in data:
+            result.append({
+                'role_name': row[0],
+                'skill_name': row[1]
+            })
+
+        return jsonify(result)
+
+    except Exception as e:
+        return jsonify({'error': str(e)})
+    
+    finally:
+        # Close the cursor and database connection
+        if cursor:
+            cursor.close()
+        if connection:
+            connection.close()
+
+def autoPopulateRoleDetails(role_name):
+    try:
+
+        connection, cursor = connect_to_database()
+
+        if connection is None or cursor is None:
+            return jsonify({'error': 'Database connection error'})
+
+        # cursor.execute('select r.role_name, array_agg(s.skill_name) as skill_name_list, r.role_desc from role_skill as s join role as r on s.role_name = r.role_name where r.role_name = %s group by r.role_name, r.role_desc', (role_name,))
+        cursor.execute('select r.role_name, r.role_desc, array_agg(s.skill_name) from role_skill s inner join role r on s.role_name = r.role_name where r.role_name = %s group by r.role_name', (role_name,))
+
+        # Fetch all rows from the query result
+        data = cursor.fetchall()
+
+        # Convert the data to a list of dictionaries for JSON response
+        result = []
+        for row in data:
+            result.append({
+                'role_name': row[0],
+                'role_desc': row[1],
+                'role_skill': row[2]
+            })
+
+        return jsonify(result)
+
+    except Exception as e:
+        return jsonify({'error': str(e)})
+    
+    finally:
+        # Close the cursor and database connection
+        if cursor:
+            cursor.close()
+        if connection:
+            connection.close()
+
 # get individual staff
 def getStaffDetails(staff_id):
     try:
@@ -114,7 +218,7 @@ def getAllRoleListings():
                 'department': row[2],
                 'closing_date': row[3],
                 'opening_date': row[4],
-                'hiring_manager': row[5],
+                'reporting_manager': row[5],
                 'role_description': row[6]
                 # Add more columns as needed
             })

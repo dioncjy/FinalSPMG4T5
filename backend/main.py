@@ -36,6 +36,12 @@ def get_staff_details(staff_id):
     staff_details_data = hr.getStaffDetails(staff_id)
     return staff_details_data
 
+#  gets all role skills details
+@app.route('/role_skill', methods=['GET'])
+def get_all_role_skills_details():
+    role_skills_data = hr.getAllRoleSkills()
+    return role_skills_data
+
 # inserts value into application table
 @app.route('/insertapplication/<staff_id>&<comments>&<role_name>&<listing_id>', methods=['POST'])
 def insert_application(staff_id, comments, role_name, listing_id):
@@ -49,6 +55,12 @@ def insert_application(staff_id, comments, role_name, listing_id):
 def get_roles_from_module():
     roles_data = staff.getAllRoles() 
     return roles_data
+
+# gets all unique roles from the master list
+@app.route('/uniquerole', methods=['GET'])
+def get_unique_roles_from_module():
+    rolesU_data = staff.getAllUniqueRoles() 
+    return rolesU_data
 
 # gets an individual role from master details
 @app.route('/getroledetails/<role_name>', methods=['GET'])
@@ -71,7 +83,20 @@ def get_role_skills_details(role_name):
 # Get staff skill
 @app.route('/staff_skill/<staff_id>', methods=['GET'])
 def get_staff_skill(staff_id):
-    return staff.get_staff_skill(staff_id)
+    staff_skill = staff.get_staff_skill(staff_id)
+    return staff_skill
+
+# Get all staff skill
+@app.route('/staff_skill', methods=['GET'])
+def get_all_staff_skill():
+    all_staff_skills = hr.getAllStaffSkills()
+    return all_staff_skills
+
+# Auto populate role details
+@app.route('/autoRoleDetails/<role_name>', methods=['GET'])
+def auto_role_details(role_name):
+    auto_role_details = hr.autoPopulateRoleDetails(role_name)
+    return auto_role_details
 
 @app.route("/")
 def home():
