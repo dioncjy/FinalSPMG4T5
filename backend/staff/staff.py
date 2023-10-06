@@ -126,7 +126,7 @@ def getRoleSkills(role_name):
         if connection is None or cursor is None:
             return jsonify({'error': 'Database connection error'})
 
-        cursor.execute('SELECT * FROM role_skill WHERE role_name = %s', (role_name,))
+        cursor.execute('select role_name, array_agg(skill_name) from role_skill where role_name  = %s group by role_name ;', (role_name,))
 
 
         # Fetch the result. Since we're expecting a single row, we can use fetchone()
@@ -161,7 +161,7 @@ def get_staff_skill(staff_id):
         if connection is None or cursor is None:
             return jsonify({'error': 'Database connection error'})
 
-        cursor.execute('SELECT * FROM staff_skill WHERE staff_id = %s', (staff_id,))
+        cursor.execute('select staff_id , array_agg(skill_name) from staff_skill where staff_id = %s group by staff_id ;', (staff_id,))
         row = cursor.fetchone()
 
         if not row:
