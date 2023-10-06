@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Typography, Button, Chip, Progress } from "@material-tailwind/react";
 import { useLocation } from 'react-router-dom';
+import { CornerDownLeft } from 'react-feather';
 
-const staff_id = 1
+const staff_id = 140001
 
 const user_skills = [
     "prototyping", "UX", "Communication Skills",
@@ -86,6 +87,7 @@ export default function StaffListingDetails(props) {
        
     const location = useLocation();
     const role = location.state && location.state.role;
+    console.log(role.role_name)
     
     useEffect(() => {
         setRoleListing(role)
@@ -111,10 +113,11 @@ export default function StaffListingDetails(props) {
                 const roleSkillData = await roleSkillResponse.json();
 
                 setStaffSkill(staffSkillData); 
-                setStaffSkillArray(staffSkillData.staff_skill.split(','))
+                setStaffSkillArray(staffSkillData.staff_skill)
 
                 setRoleSkill(roleSkillData);
-                setRoleSkillArray(roleSkillData.skill_name.split(','))
+                setRoleSkillArray(roleSkillData.skill_name)
+
             }   
             catch (error) {
                 // for using mock data
@@ -205,12 +208,12 @@ export default function StaffListingDetails(props) {
                     <div className="flex flex-col">
                         <div className='flex flex-col sm:flex-row'>
                             <Typography variant="normal" className="font-bold mb-6">
-                                {role_listing.department} Department
+                                {roleListing.department} Department
                             </Typography>
                             <div className='flex flex-col mb-8'>
                                 <div className='flex-col mb-4'>
                                     <Typography variant="h4">
-                                        {role_listing.role_name}
+                                        {roleListing.role_name}
                                     </Typography>
                                 </div>
                                 <div className='flex flex-row gap-10 w-full'>
@@ -224,7 +227,7 @@ export default function StaffListingDetails(props) {
                                     </Typography>
                                     <div className='flex-col mt-4'>
                                         <Typography variant="normal" className='font-normal'>
-                                            {role_listing.description}
+                                            {roleListing.role_description}
                                         </Typography>
                                     </div>
                                 </div>
@@ -265,7 +268,7 @@ export default function StaffListingDetails(props) {
                                         </div>
                                         <div className='flex-col mt-4'>
                                             <Typography variant="normal" className='font-normal'>
-                                                {role_listing.reporting_manager}
+                                                {roleListing.reporting_manager}
                                             </Typography>
                                         </div>
                                     </div>
@@ -277,7 +280,7 @@ export default function StaffListingDetails(props) {
                                         </div>
                                         <div className='flex-col mt-4'>
                                             <Typography variant="normal" className='font-normal'>
-                                                {role_listing.opening_date}
+                                                {roleListing.opening_date}
                                             </Typography>
                                         </div>  
                                     </div>
@@ -289,7 +292,7 @@ export default function StaffListingDetails(props) {
                                         </div>
                                         <div className='flex-col mt-4'>
                                             <Typography variant="normal" className='font-normal'>
-                                                {role_listing.closing_date}
+                                                {roleListing.closing_date}
                                             </Typography>
                                         </div>
                                     </div>
