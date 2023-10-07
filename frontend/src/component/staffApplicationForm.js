@@ -5,24 +5,26 @@ function StaffApplicationForm() {
     const [data, setData] = useState(null);
 
     useEffect(() => {
-        // Define the API URL
-        const apiUrl = "http://127.0.0.1:5000/staff/130001"; //130001 hardcoded for dev purposes first
-    
-        // Use the fetch function to make the API call
-        fetch(apiUrl)
-          .then((response) => response.json())
-          .then((data) => setData(data))
-          .catch((error) => console.error('Error fetching data:', error));
-      }, []);
+        async function fetchData() {
+            try {
+                const response = await fetch("http://127.0.0.1:5000/staff/130001");
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+            }
+            const jsonData = await response.json();
+            setData(jsonData);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+      } 
+      fetchData(); 
+    }, []);
 
-      const dept = data["dept"];
-      const staffId = data['staff_id'];
-      const name = data['staff_fname'] + " " + data["staff_lname"];
-    
     return (
         <div className="w-32">
             <div className="p-6 bg-blue-500">
                 <div className="border p-6 rounded-lg">
+                <form action="" method="post">
                     <div className="flex flex-col">
                         <h3>
                             Applying for
@@ -38,7 +40,7 @@ function StaffApplicationForm() {
                                 <strong>Staff ID</strong>
                             </label>
                             <br />
-                            <input type="text" name="id" id="id" className="border w-full rounded-md"></input>
+                            {data && (<input type="text" name="id" id="id" className="border w-full rounded-md p-2" value={data.staff_id} readOnly />)}
                         </div>
                         <hr />
 
@@ -47,7 +49,7 @@ function StaffApplicationForm() {
                                 <strong>Applicant Name</strong>
                             </label>
                             <br />
-                            <input type="text" name="name" id="name" className="border w-full rounded-md"></input>
+                            {data && (<input type="text" name="name" id="name" className="border w-full rounded-md p-2" value={data.staff_fname} readOnly />)}
                         </div>
                         <hr />
 
@@ -56,7 +58,7 @@ function StaffApplicationForm() {
                                 <strong>Department</strong>
                             </label>
                             <br />
-                            <input type="text" name="dept" id="dept" className="border w-full rounded-md"></input>
+                            {data && (<input type="text" name="dept" id="dept" className="border w-full rounded-md p-2" value={data.dept} readOnly />)}
                         </div>
                         <hr />
 
@@ -77,6 +79,7 @@ function StaffApplicationForm() {
                             <Button className="bg-violet-600">Submit</Button>
                         </div>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
