@@ -27,6 +27,7 @@ import IndexStaff from './main/index-staff';
 import Roles from './pages/roles';
 import StaffApplicationForm from './pages/staffApplicationFormPage';
 import ListingPage from './pages/listingPage';
+import AddRolePage from './pages/addRolePage';
 import { StaffProvider } from './context/staffContext';
 
 export default function App() {
@@ -62,6 +63,7 @@ export default function App() {
           <Route path="/staffApplicationForm" element={<StaffApplicationForm />} />
           {/* <Route path="/listingPage" element={<ListingPage />} /> */}
           <Route path="/listingPage/:id" element={<ListingPage />} />
+          <Route path="/addRolePage" element={<AddRolePage />} />
         </Routes>
       <Switcher />
     </BrowserRouter>
