@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Typography, Button, Textarea, Select, Option, Input } from "@material-tailwind/react";
+import DatePicker from 'react-date-picker';
+import 'react-date-picker/dist/DatePicker.css';
+import 'react-calendar/dist/Calendar.css';
 
 const roles = [
     {
@@ -24,9 +27,15 @@ const roles = [
 
 export default function HRAddRole() {
     const [temp,setTemp] = useState();
+    const [openingDate, setOpeningDate] = useState();
+    const [closingDate, setClosingDate] = useState();
     const [roleName, setRoleName] = useState();
+
+    const currentDate = new Date().toLocaleDateString('en-GB'); // Get the current date in "DD-MM-YYYY" format
+
     const handleChange=(e)=>{
-        setTemp(e);
+        setRoleName(e);
+        console.log(roleName)
     }
 
     return (
@@ -75,7 +84,7 @@ export default function HRAddRole() {
                                             Role Description
                                         </Typography>
                                     </div>
-                                    <Textarea style={{ height: "100px" }} placeholder='role desc here' disabled />
+                                    <textarea style={{ width: "100%", height: "100px", background: "#E5E5E5" }} placeholder="role description here" value={roles.roleDescription} disabled />
                                 </div>
                             </div>
                             <div className='flex flex-col border-t border-b border-blue-gray-50'>
@@ -85,7 +94,7 @@ export default function HRAddRole() {
                                             Skills 
                                         </Typography>
                                     </div>
-                                    <Textarea style={{ height: "100px" }} placeholder='skills here' disabled />
+                                    <textarea style={{ width: "100%", height: "100px", background: "#E5E5E5" }} placeholder='skills here' disabled />
                                 </div>
                             </div>
                             <div className='flex flex-col border-t border-b border-blue-gray-50'>
@@ -95,7 +104,7 @@ export default function HRAddRole() {
                                             Department 
                                         </Typography>
                                     </div>
-                                    <Textarea placeholder='departments here' />
+                                    <textarea style={{ width: "100%", background: "#E5E5E5" }}  placeholder='department here' />
                                 </div>
                             </div>
                             <div className='flex flex-col border-t border-b border-blue-gray-50'>
@@ -103,21 +112,21 @@ export default function HRAddRole() {
                                     <div className='flex flex-col' style={{ width: "50%", paddingRight: "24px" }}>
                                         <div className='flex-col mt-4'>
                                             <Typography variant="h5">
-                                                Opening Date
+                                                Opening Date (DD/MM/YYYY)
                                             </Typography>
                                         </div>
-                                        <div className='flex-col mt-4'>
-                                            <Input placeholder='opening date' style={{ height: "50px" }} />  
+                                        <div className='flex-col mt-4' style={{ width: "90%", height: "50px"}}>
+                                            <DatePicker onChange={setOpeningDate} value={openingDate} maxDate={closingDate} required />
                                         </div>
                                     </div>
                                     <div className='flex flex-col' style={{ width: "50%" }}>
                                         <div className='flex-col mt-4'>
                                             <Typography variant="h5">
-                                                Closing Date
+                                                Closing Date (DD/MM/YYYY)
                                             </Typography>
                                         </div>
                                         <div className='flex-col mt-4'>
-                                            <Input placeholder='closing date' style={{ height: "50px" }} />
+                                            <DatePicker onChange={setClosingDate} value={closingDate} minDate={openingDate} required />
                                         </div>  
                                     </div>
                                 </div>
@@ -129,7 +138,7 @@ export default function HRAddRole() {
                                             Reporting Manager 
                                         </Typography>
                                     </div>
-                                    <Textarea placeholder='departments here' />
+                                    <input placeholder='departments here' style={{ width: "100%", height: "50px"}} required />
                                 </div>
                             </div>
                             <div className='flex sm:flex-row justify-between'>
