@@ -32,6 +32,10 @@ export default function HRAddRole() {
     const [roleName, setRoleName] = useState();
 
     const currentDate = new Date().toLocaleDateString('en-GB'); // Get the current date in "DD-MM-YYYY" format
+    
+    const goBack = () => {
+        window.history.back();
+    }
 
     const handleChange=(e)=>{
         setRoleName(e);
@@ -112,21 +116,21 @@ export default function HRAddRole() {
                                     <div className='flex flex-col' style={{ width: "50%", paddingRight: "24px" }}>
                                         <div className='flex-col mt-4'>
                                             <Typography variant="h5">
-                                                Opening Date (DD/MM/YYYY)
+                                                Opening Date (YYYY/MM/DD)
                                             </Typography>
                                         </div>
                                         <div className='flex-col mt-4' style={{ width: "90%", height: "50px"}}>
-                                            <DatePicker onChange={setOpeningDate} value={openingDate} maxDate={closingDate} required />
+                                            <DatePicker onChange={setOpeningDate} value={openingDate} maxDate={closingDate} format="y-MM-dd" required />
                                         </div>
                                     </div>
                                     <div className='flex flex-col' style={{ width: "50%" }}>
                                         <div className='flex-col mt-4'>
                                             <Typography variant="h5">
-                                                Closing Date (DD/MM/YYYY)
+                                                Closing Date (YYYY/MM/DD)
                                             </Typography>
                                         </div>
                                         <div className='flex-col mt-4'>
-                                            <DatePicker onChange={setClosingDate} value={closingDate} minDate={openingDate} required />
+                                            <DatePicker onChange={setClosingDate} value={closingDate} minDate={openingDate} format="y-MM-dd" required />
                                         </div>  
                                     </div>
                                 </div>
@@ -143,7 +147,7 @@ export default function HRAddRole() {
                             </div>
                             <div className='flex sm:flex-row justify-between'>
                                 <div className='flex-row mt-8 mb-8'>
-                                    <Button className="flex items-center p-6 bg-violet-600" size="sm">
+                                    <Button onClick={goBack} className="flex items-center p-6 bg-violet-600" size="sm">
                                         Back
                                     </Button>
                                 </div>
