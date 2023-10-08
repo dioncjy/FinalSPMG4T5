@@ -129,7 +129,6 @@ def autoPopulateRoleDetails(role_name):
         if connection is None or cursor is None:
             return jsonify({'error': 'Database connection error'})
 
-        # cursor.execute('select r.role_name, array_agg(s.skill_name) as skill_name_list, r.role_desc from role_skill as s join role as r on s.role_name = r.role_name where r.role_name = %s group by r.role_name, r.role_desc', (role_name,))
         cursor.execute('select r.role_name, r.role_desc, array_agg(s.skill_name) from role_skill s inner join role r on s.role_name = r.role_name where r.role_name = %s group by r.role_name', (role_name,))
 
         # Fetch all rows from the query result
@@ -275,7 +274,7 @@ def getAllApplications():
             connection.close()
 
 #get specific applicant from specific role
-def getSpecificApplicant(role_name, applicant_name):
+def getSpecificApplicant(listing_id, role_name, staff_id):
     try:
         # Connect to the database
         connection, cursor = connect_to_database()
@@ -286,9 +285,8 @@ def getSpecificApplicant(role_name, applicant_name):
 
         # Use parameterized query to prevent SQL injection
         cursor.execute(
-            'SELECT * FROM applications WHERE role_name = %s AND applicant_name = %s',
-            (role_name, applicant_name)
-        )
+            # 'SELECT * FROM applications WHERE role_name = %s AND applicant_name = %s', (role_name, applicant_name))
+            'SELECT * FROM applications WHERE listing_id = %s AND role_name = %s AND staff_id = %s', (listing_id, role_name, staff_id))
 
         # Fetch the row corresponding to the criteria
         row = cursor.fetchone()
@@ -318,8 +316,6 @@ def getSpecificApplicant(role_name, applicant_name):
             cursor.close()
         if connection:
             connection.close()
-
-
 
 def insertApplication(staff_id, comments, role_name, listing_id):
     try:
@@ -393,6 +389,49 @@ def insertApplication(staff_id, comments, role_name, listing_id):
         if connection:
             connection.close()
 
+def addRole(role_name, dpt, closing_date, opening_date, reporting_manager):
+    try:
+        # Connect to the database
+        connection, cursor = connect_to_database()
+
+        if connection is None or cursor is None:
+            return jsonify({'error': 'Database connection error'})
+
+        # Retrieve staff details
+        cursor.execute('select r.role_name, r.role_desc, array_agg(s.skill_name) from role_skill s inner join role r on s.role_name = r.role_name where r.role_name = %s group by r.role_name', (role_name,))
+
+        # Fetch all rows from the query result
+        data = cursor.fetchone()
+
+        details = {
+            'role_name': data[0],
+            'role_desc': data[1],
+            'role_skill': data[2]
+        }
+
+        role_desc = details['role_skill']
+
+        # Commit the transaction
+        connection.commit()
+
+        # Insert application into the applications table
+        cursor.execute(
+            'INSERT INTO role_listing (role_name, dpt, closing_date, opening_date, reporting_manager, role_description)'
+            'VALUES (%s, %s, %s, %s, %s, %s)',
+            (role_name, dpt, closing_date, opening_date, reporting_manager, role_desc,)
+        )
+
+        return jsonify({'message': 'Role listing added successfully'})
+
+    except Exception as e:
+        return jsonify({'error': str(e)})
+
+    finally:
+        # Close the cursor and database connection
+        if cursor:
+            cursor.close()
+        if connection:
+            connection.close()
 
 if __name__ == '__main__':
     app.run(debug=True)
