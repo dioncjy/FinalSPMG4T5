@@ -86,7 +86,7 @@ function StaffApplicationForm() {
                         <hr />
                         <div className="py-2 flex justify-between">
                             <Button className="bg-violet-600">Home</Button>
-                            <Button onclick={openModal} className="bg-violet-600">Submit</Button>
+                            <Button onClick={openModal} className="bg-violet-600">Submit</Button>
                         </div>
                     </div>
                     </form>

@@ -31,9 +31,9 @@ def get_all_applications():
     return applications_data
 
 #get specific applicant from specific role
-@app.route('/getspecificapplicant/<role_name>/<applicant_name>', methods=['GET'])
-def get_specific_applicant(role_name, applicant_name):
-    specific_applicant_data = hr.getSpecificApplicant(role_name, applicant_name)
+@app.route('/getspecificapplicant/<listing_id>&<role_name>&<staff_id>', methods=['GET'])
+def get_specific_applicant(listing_id, role_name, staff_id):
+    specific_applicant_data = hr.getSpecificApplicant(listing_id, role_name, staff_id)
     return specific_applicant_data
 
 # gets an individual staff and his/her details
@@ -53,6 +53,24 @@ def get_all_role_skills_details():
 def insert_application(staff_id, comments, role_name, listing_id):
     insert_application_data = hr.insertApplication(staff_id, comments, role_name, listing_id)
     return insert_application_data
+
+# add a new role listing
+@app.route('/addrole/<role_name>&<dpt>&<closing_date>&<opening_date>&<reporting_manager>', methods=['POST'])
+def add_role(role_name, dpt, closing_date, opening_date, reporting_manager):
+    addrole_data = hr.addRole(role_name, dpt, closing_date, opening_date, reporting_manager)
+    return addrole_data
+
+# Get all staff skill
+@app.route('/staff_skill', methods=['GET'])
+def get_all_staff_skill():
+    all_staff_skills = hr.getAllStaffSkills()
+    return all_staff_skills
+
+# Auto populate role details
+@app.route('/autoRoleDetails/<role_name>', methods=['GET'])
+def auto_role_details(role_name):
+    auto_role_details = hr.autoPopulateRoleDetails(role_name)
+    return auto_role_details
 
 #STAFF ENDPOINTS
 
@@ -91,18 +109,6 @@ def get_role_skills_details(role_name):
 def get_staff_skill(staff_id):
     staff_skill = staff.get_staff_skill(staff_id)
     return staff_skill
-
-# Get all staff skill
-@app.route('/staff_skill', methods=['GET'])
-def get_all_staff_skill():
-    all_staff_skills = hr.getAllStaffSkills()
-    return all_staff_skills
-
-# Auto populate role details
-@app.route('/autoRoleDetails/<role_name>', methods=['GET'])
-def auto_role_details(role_name):
-    auto_role_details = hr.autoPopulateRoleDetails(role_name)
-    return auto_role_details
 
 @app.route("/")
 def home():
