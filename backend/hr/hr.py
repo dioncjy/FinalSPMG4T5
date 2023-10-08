@@ -215,8 +215,8 @@ def getAllRoleListings():
                 'listing_id': row[0],
                 'role_name': row[1],
                 'department': row[2],
-                'closing_date': row[3],
-                'opening_date': row[4],
+                'closing_date': row[3].strftime('%Y-%m-%d'),
+                'opening_date': row[4].strftime('%Y-%m-%d'),
                 'reporting_manager': row[5],
                 'role_description': row[6]
                 # Add more columns as needed
@@ -354,8 +354,8 @@ def insertApplication(staff_id, comments, role_name, listing_id):
             'listing_id': row1[0],
             'role_name': row1[1],
             'dpt': row1[2],
-            'closing_date': row1[3],
-            'opening_date': row1[4],
+            'closing_date': row1[3].strftime('%Y-%m-%d'),
+            'opening_date': row1[4].strftime('%Y-%m-%d'),
             'reporting_manager': row1[5]
         }
 
