@@ -55,7 +55,7 @@ def insert_application(staff_id, comments, role_name, listing_id):
     return insert_application_data
 
 # add a new role listing
-@app.route('/addrole/<role_name>&<dpt>&<closing_date>&<opening_date>&<reporting_manager>', methods=['GET'])
+@app.route('/addrole/<role_name>&<dpt>&<closing_date>&<opening_date>&<reporting_manager>', methods=['POST'])
 def add_role(role_name, dpt, closing_date, opening_date, reporting_manager):
     addrole_data = hr.addRole(role_name, dpt, closing_date, opening_date, reporting_manager)
     return addrole_data
