@@ -409,10 +409,8 @@ def addRole(role_name, dpt, closing_date, opening_date, reporting_manager):
             'role_skill': data[2]
         }
 
-        role_desc = details['role_skill']
+        role_desc = details['role_desc']
 
-        # Commit the transaction
-        connection.commit()
 
         # Insert application into the applications table
         cursor.execute(
@@ -420,6 +418,8 @@ def addRole(role_name, dpt, closing_date, opening_date, reporting_manager):
             'VALUES (%s, %s, %s, %s, %s, %s)',
             (role_name, dpt, closing_date, opening_date, reporting_manager, role_desc,)
         )
+        
+        connection.commit()
 
         return jsonify({'message': 'Role listing added successfully'})
 
