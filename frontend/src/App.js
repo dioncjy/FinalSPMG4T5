@@ -27,11 +27,8 @@ import IndexStaff from './main/index-staff';
 import Roles from './pages/roles';
 import StaffApplicationForm from './pages/staffApplicationFormPage';
 import ListingPage from './pages/listingPage';
-<<<<<<< HEAD
 import AddRolePage from './pages/addRolePage';
-=======
 import ViewApplicantDetails from './pages/viewApplicantDetails';
->>>>>>> main
 import { StaffProvider } from './context/staffContext';
 
 export default function App() {
