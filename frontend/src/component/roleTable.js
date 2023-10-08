@@ -170,8 +170,8 @@ export default function RoleTable() {
                 uniqueRoles.forEach((role) => {
                     initialRoleFilters[role] = false; // Initially, no checkboxes are checked
                 });                
-                setRoleFilters(initialRoleFilters);
 
+                setRoleFilters(initialRoleFilters);
 
             })
 

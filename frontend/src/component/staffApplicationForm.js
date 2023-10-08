@@ -1,11 +1,40 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, UserPlusIcon } from "@material-tailwind/react";
+import ResultModal from "../component/applicationResultModal";
 
-export default function staffApplicationForm() {
+function StaffApplicationForm() {
+    const [data, setData] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = () => {
+        setIsModalOpen(true);
+      };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const response = await fetch("http://127.0.0.1:5000/staff/130001");
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+            }
+            const jsonData = await response.json();
+            setData(jsonData);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+      } 
+      fetchData(); 
+    }, []);
+
     return (
         <div className="w-32">
-            <div className="p-6 bg-blue-500">
+            <div className="p-6">
                 <div className="border p-6 rounded-lg">
+                <form action="" method="post">
                     <div className="flex flex-col">
                         <h3>
                             Applying for
@@ -21,7 +50,7 @@ export default function staffApplicationForm() {
                                 <strong>Staff ID</strong>
                             </label>
                             <br />
-                            <input type="text" name="id" id="id" className="border w-full rounded-md"></input>
+                            {data && (<input type="text" name="id" id="id" className="border w-full rounded-md p-2" value={data.staff_id} readOnly />)}
                         </div>
                         <hr />
 
@@ -30,7 +59,7 @@ export default function staffApplicationForm() {
                                 <strong>Applicant Name</strong>
                             </label>
                             <br />
-                            <input type="text" name="name" id="name" className="border w-full rounded-md"></input>
+                            {data && (<input type="text" name="name" id="name" className="border w-full rounded-md p-2" value={data.staff_fname} readOnly />)}
                         </div>
                         <hr />
 
@@ -39,16 +68,7 @@ export default function staffApplicationForm() {
                                 <strong>Department</strong>
                             </label>
                             <br />
-                            <input type="text" name="dept" id="dept" className="border w-full rounded-md"></input>
-                        </div>
-                        <hr />
-
-                        <div className="py-2">
-                            <label for="country">
-                                <strong>Country</strong>
-                            </label>
-                            <br />
-                            <input type="text" name="country" id="country" className="border w-full rounded-md"></input>
+                            {data && (<input type="text" name="dept" id="dept" className="border w-full rounded-md p-2" value={data.dept} readOnly />)}
                         </div>
                         <hr />
 
@@ -66,12 +86,16 @@ export default function staffApplicationForm() {
                         <hr />
                         <div className="py-2 flex justify-between">
                             <Button className="bg-violet-600">Home</Button>
-                            <Button className="bg-violet-600">Submit</Button>
+                            <Button onclick={openModal} className="bg-violet-600">Submit</Button>
                         </div>
                     </div>
+                    </form>
                 </div>
             </div>
+
+            <ResultModal isOpen={isModalOpen} onClose={closeModal} />
         </div>
     );
 }
 
+export default StaffApplicationForm;
