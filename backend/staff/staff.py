@@ -208,8 +208,8 @@ def getIndividualRoleListing(listing_id, role_name):
             'listing_id': row[0],
             'role_name': row[1],
             'department': row[2],
-            'closing_date': row[3],
-            'opening_date': row[4],
+            'closing_date': row[3].strftime('%Y-%m-%d'),
+            'opening_date': row[4].strftime('%Y-%m-%d'),
             'reporting_manager': row[5],
             'role_description': row[6]
             # Add more columns as needed
