@@ -263,9 +263,13 @@ export default function RoleTable() {
 
     const navigate = useNavigate();
 
-    const handleClick = (role) => {
+    const handleClickStaff = (role) => {
         navigate(`/listingPage/${role.listing_id}`, { state: { role } });
     }
+
+    // const handleClickAddHR = (role) => {
+    //     navigate(`/listingPage/${role.listing_id}`, { state: { role } });
+    // }
 
     return (
         <Card className="w-10/12" style={{margin: '2rem',padding: '1rem'}}>
@@ -411,7 +415,7 @@ export default function RoleTable() {
                             return (
                                 // <div className={classes}>
                                 <div className="flex flex-row p-4 items-center justify-between">
-                                    <button onClick={() => {handleClick(role)}} className="flex flex-col w-full">
+                                    <button onClick={() => {handleClickStaff(role)}} className="flex flex-col w-full">
                                         <div className="flex flex-col mt-4">
                                             <Typography variant="h4" color="blue-gray" className="font-bold">
                                                 {role.department} department
