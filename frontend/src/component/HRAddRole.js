@@ -3,44 +3,125 @@ import { Typography, Button, Textarea, Select, Option, Input } from "@material-t
 import DatePicker from 'react-date-picker';
 import 'react-date-picker/dist/DatePicker.css';
 import 'react-calendar/dist/Calendar.css';
+import Dropdown from './dropdown';
 
-const roles = [
-    {
-        "roleName": "Software Engineer",
-        "roleDescription": "Software Engineer",
-        "skills": "C++, Java, Python",
-        "department": "Software",
-        "openingDate": "2023-09-01",
-        "closingDate": "2023-12-31",
-        "reportingManager": "John Doe"
-    }, 
-    {
-        "roleName": "Data Analyst",
-        "roleDescription": "Analyse Data",
-        "skills": "SQL, Python, R",
-        "department": "Data",
-        "openingDate": "2023-09-01",
-        "closingDate": "2023-12-31",
-        "reportingManager": "John Doe"
-    }, 
-]
+
+// unique roles = http://127.0.0.1:5000/uniquerole -- populate the role name dropdown
+// role description = http://127.0.0.1:5000/getroledetails/<role_name> -- Populate the role description based on selected skill + department
+// skills = http://127.0.0.1:5000/role_skill/<role_name> -- Get the skills needed for each role 
 
 export default function HRAddRole() {
-    const [temp,setTemp] = useState();
     const [openingDate, setOpeningDate] = useState();
     const [closingDate, setClosingDate] = useState();
-    const [roleName, setRoleName] = useState();
-
-    const currentDate = new Date().toLocaleDateString('en-GB'); // Get the current date in "DD-MM-YYYY" format
+    const [roles, setRoles] = useState([]);
+    const [selectedRole, setSelectedRole] = useState('')
+    const [roleDescription, setRoleDescription] = useState('');
+    const [skills, setSkills] = useState([]);
+    const [department, setDepartment] = useState('');
+    const [reportingManager, setReportingManager] = useState('')
+    const [dptLimitReached, setDptLimitReached] = useState(false)
+    const [rptLimitReached, setRptLimitReached] = useState(false)
     
+    
+    useEffect(() => {
+        // Fetch unique roles
+        fetch('http://127.0.0.1:5000/uniquerole')
+            .then((response) => response.json())
+            .then((data) => {
+                // Set unique roles in the dropdown
+                setRoles(data);
+            })
+            .catch((error) => console.error(error));
+    }, []);
+
     const goBack = () => {
         window.history.back();
     }
 
-    const handleChange=(e)=>{
-        setRoleName(e);
-        console.log(roleName)
+    const handleDepartmentChange = (e) => {
+        const maxCharacter = 50
+        setDepartment(e.target.value)
+        console.log(department.length)
+
+        
+        if (department.length == 50) {
+            setDptLimitReached(true)
+        }
+        else {
+            setDptLimitReached(false)
+        }
     }
+
+    const handleReportingManagerChange = (e) => {
+        const maxCharacter = 50
+        setReportingManager(e.target.value)
+        
+        if (reportingManager.length == 50) {
+            setRptLimitReached(true)
+        }
+        else {
+            setRptLimitReached(false)
+        }
+    }
+
+    const formatDate = (date) => {
+        const inputDate = new Date(date);
+        const year = inputDate.getFullYear();
+        const month = String(inputDate.getMonth() + 1).padStart(2, '0'); 
+        const day = String(inputDate.getDate()).padStart(2, '0');
+
+        const formattedDate = `${year}-${month}-${day}`;
+        return formattedDate
+    }
+    
+    const handleChange = (selectedValue) => {
+        setSelectedRole(selectedValue);
+    
+        Promise.all([
+            // fetch role description
+            fetch(`http://127.0.0.1:5000/getroledetails/${selectedValue}`)
+                .then((response) => response.json())
+                .then((data) => {
+                    setRoleDescription(data.role_desc);
+                })
+                .catch((error) => console.error(error)),
+            
+            // skillz
+            fetch(`http://127.0.0.1:5000/role_skill/${selectedValue}`)
+                .then((response) => response.json())
+                .then((data) => {
+                    setSkills(data.skill_name.toString());
+                })
+                .catch((error) => console.error(error)),
+        ])
+        .catch((error) => console.error(error));
+    }
+
+    const handleAddRole = () => {
+        console.log("OPENING DATE", openingDate)
+        console.log("CLOSING DATE", closingDate)
+
+        const openingDateFormatted = formatDate(openingDate)
+        const closingDateFormatted = formatDate(closingDate)
+
+        const url = `http://127.0.0.1:5000/addrole/${selectedRole}&${department}&${closingDateFormatted}&${openingDateFormatted}&${reportingManager}`;
+
+        console.log("URL", url)
+
+        fetch(url, {
+            method: 'POST'
+        })
+        .then((response) => {
+            if (response.ok) {
+                console.log('Role listing added successfully');
+            } else {
+                // Handle error
+                console.error('Failed to add role');
+            }
+        })
+        .catch((error) => console.error(error));
+    }
+
 
     return (
         <div className="w-32">
@@ -59,25 +140,12 @@ export default function HRAddRole() {
                                         </Typography>
                                     </div>
                                     <div className='flex w-full flex-col'>
-                                        <Select
+                                        <Dropdown
                                             label="Role Name"
+                                            options={roles}
+                                            value={selectedRole}
                                             onChange={handleChange}
-                                            animate={{
-                                            mount: { y: 0 },
-                                            unmount: { y: 25 },
-                                            }}
-                                            size="lg"
-                                            style={{
-                                                height: "3rem",
-                                            }}
-                                            value={roleName}
-                                        >
-                                            {roles.map((role) => (
-                                                <Option key={role.roleName} value={role.roleName}>
-                                                    {role.roleName}
-                                                </Option>
-                                            ))}
-                                        </Select>
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -88,7 +156,7 @@ export default function HRAddRole() {
                                             Role Description
                                         </Typography>
                                     </div>
-                                    <textarea style={{ width: "100%", height: "100px", background: "#E5E5E5" }} placeholder="role description here" value={roles.roleDescription} disabled />
+                                    <textarea style={{ width: "100%", height: "100px", background: "#E5E5E5" }} placeholder="role description here" value={roleDescription} disabled />
                                 </div>
                             </div>
                             <div className='flex flex-col border-t border-b border-blue-gray-50'>
@@ -98,7 +166,7 @@ export default function HRAddRole() {
                                             Skills 
                                         </Typography>
                                     </div>
-                                    <textarea style={{ width: "100%", height: "100px", background: "#E5E5E5" }} placeholder='skills here' disabled />
+                                    <textarea style={{ width: "100%", height: "100px", background: "#E5E5E5" }} placeholder='skills here' value={skills} disabled />
                                 </div>
                             </div>
                             <div className='flex flex-col border-t border-b border-blue-gray-50'>
@@ -108,7 +176,15 @@ export default function HRAddRole() {
                                             Department 
                                         </Typography>
                                     </div>
-                                    <textarea style={{ width: "100%", background: "#E5E5E5" }}  placeholder='department here' />
+                                    <input placeholder='departments here' style={{ width: "100%", height: "50px"}} value={department} onChange={handleDepartmentChange} maxLength={51} required />
+                                    <div>
+                                        {dptLimitReached ? (
+                                            <span style={{color:'red'}}>Character limit of 50 reached.</span>
+                                        ): (
+                                            <span></span>   
+                                        )
+                                        }
+                                    </div>
                                 </div>
                             </div>
                             <div className='flex flex-col border-t border-b border-blue-gray-50'>
@@ -142,7 +218,15 @@ export default function HRAddRole() {
                                             Reporting Manager 
                                         </Typography>
                                     </div>
-                                    <input placeholder='departments here' style={{ width: "100%", height: "50px"}} required />
+                                    <input placeholder='Reporting Manager here' style={{ width: "100%", height: "50px"}} value={reportingManager} onChange={handleReportingManagerChange} maxLength={51} required />
+                                </div>
+                                <div>
+                                    {rptLimitReached ? (
+                                        <span style={{color:'red'}}>Character limit of 50 reached.</span>
+                                    ): (
+                                        <span></span>   
+                                    )
+                                    }
                                 </div>
                             </div>
                             <div className='flex sm:flex-row justify-between'>
@@ -152,8 +236,8 @@ export default function HRAddRole() {
                                     </Button>
                                 </div>
                                 <div className='flex-row mt-8 mb-8'>
-                                    <Button className="flex items-center p-6 bg-violet-600" size="sm">
-                                        Add
+                                    <Button className="flex items-center p-6 bg-violet-600" size="sm" onClick={handleAddRole}>
+                                        Add Role Listing
                                     </Button>
                                 </div>
                             </div>
