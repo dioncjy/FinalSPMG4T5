@@ -7,6 +7,7 @@ import {
   HeartIcon,
 } from "@heroicons/react/24/outline";
 import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
+import { useLocation } from 'react-router-dom';
 import {
   Card,
   CardHeader,
@@ -22,66 +23,86 @@ import {
   Progress,
 } from "@material-tailwind/react";
 
-const staff_id = 1;
+const staff_id = 140001;
+const listing_id = 1;
+const role_name = "Account Manager";
+
 
 const ApplicantsListWithFilters = () => {
   const [applicants, setApplicants] = useState([]);
   const [filteredApplicants, setFilteredApplicants] = useState([]);
   const [department, setDepartment] = useState("all");
 
+    const location = useLocation();
+    const role_listing = location.state && location.state.role_listing;
+    // console.log(role_listing.listing_id)
+
   useEffect(() => {
+    const getSpecificApplicant = `http://127.0.0.1:5000/getspecificapplicant/${listing_id}&${role_name}&${staff_id}`;
     // Fetch the list of applicants
-    const fetchedApplicants = [
-      // Sample data
-      {
-        staff_id: 1,
-        staff_name: "John Doe",
-        department: "Tech",
-        skills: ["React", "Node"],
-        comments: "I fit this role perfectly",
-      },
-    //   {
-    //     staff_id: 2,
-    //     staff_name: "Jane Smith",
-    //     department: "Design",
-    //     country: "UK",
-    //     skills: ["Photoshop", "Illustrator"],
-    //   },
-      // ... more applicants
-    ];
-    setApplicants(fetchedApplicants);
-    setFilteredApplicants(fetchedApplicants);
+    async function fetchData() {
+      try {
+        const response = await fetch(getSpecificApplicant);
+        const jsonData = await response.json();
+        console.log(jsonData);
+        setApplicants(jsonData);
+        setFilteredApplicants(jsonData);
+      } catch (error) {
+        console.error("Error fetching data:", error.message);
+      }
+    }
+    fetchData()
   }, []);
 
-  useEffect(() => {
-    if (department === "all") {
-      setFilteredApplicants(applicants);
-    } else {
-      const filtered = applicants.filter(
-        (applicant) => applicant.department === department
-      );
-      setFilteredApplicants(filtered);
-    }
-  }, [department, applicants]);
+  // const fetchedApplicants = [
+  //   // Sample data
+  //   {
+  //     staff_id: 1,
+  //     staff_name: "John Doe",
+  //     department: "Tech",
+  //     skills: ["React", "Node"],
+  //     comments: "I fit this role perfectly",
+  //   },
+  // //   {
+  // //     staff_id: 2,
+  // //     staff_name: "Jane Smith",
+  // //     department: "Design",
+  // //     country: "UK",
+  // //     skills: ["Photoshop", "Illustrator"],
+  // //   },
+  //   // ... more applicants
+  // ];
+  // setApplicants(fetchedApplicants);
+  // setFilteredApplicants(fetchedApplicants);
 
-  return (
-    <div>
-      <Filters setDepartment={setDepartment} />
-      {filteredApplicants.map((applicant) => (
-        <ApplicantCard
-          key={applicant.id}
-          applicant={applicant}
-          roleSkills={[]}
-        />
-      ))}
-    </div>
-  );
+  // useEffect(() => {
+  //   if (department === "all") {
+  //     setFilteredApplicants(applicants);
+  //   } else {
+  //     const filtered = applicants.filter(
+  //       (applicant) => applicant.department === department
+  //     );
+  //     setFilteredApplicants(filtered);
+  //   }
+  // }, [department, applicants]);
+
+  // return (
+  //   <div>
+  //     <Filters setDepartment={setDepartment} />
+  //     {filteredApplicants.map((applicant) => (
+  //       <ApplicantCard
+  //         key={applicant.id}
+  //         applicant={applicant}
+  //         roleSkills={[]}
+  //       />
+  //     ))}
+  //   </div>
+  // );
 };
 
 export default ApplicantsListWithFilters;
 
-const Filters = ({ setDepartment }) => {
-};
+const Filters = ({ setDepartment }) => {};
 
 const ApplicantCard = ({ applicant, roleSkills }) => {
   // This is a placeholder percentage. You'll want to replace this logic
@@ -90,7 +111,6 @@ const ApplicantCard = ({ applicant, roleSkills }) => {
 
   return (
     <Card className="w-10/12" style={{ margin: "2rem", padding: "1rem" }}>
-      
       <div className="w-32">
         <div className="p-6 bg-blue-500">
           <div className="border p-6 rounded-lg">
@@ -130,15 +150,15 @@ const ApplicantCard = ({ applicant, roleSkills }) => {
                   <div className="flex-col mt-8 mb-8">
                     <Typography variant="h4">Skills</Typography>
                     {!isNaN(skillMatchPercentage) && (
-                        <div className="flex-col mt-4">
-                          <Typography variant="normal" className="font-normal">
-                            {skillMatchPercentage}% Skills Matched
-                          </Typography>
-                        </div>
-                      )}
                       <div className="flex-col mt-4">
-                        <Progress value={skillMatchPercentage} />
+                        <Typography variant="normal" className="font-normal">
+                          {skillMatchPercentage}% Skills Matched
+                        </Typography>
                       </div>
+                    )}
+                    <div className="flex-col mt-4">
+                      <Progress value={skillMatchPercentage} />
+                    </div>
                     <div className="flex-col mt-4">
                       <Typography variant="normal" className="font-normal">
                         {applicant.skills.join(", ")}
