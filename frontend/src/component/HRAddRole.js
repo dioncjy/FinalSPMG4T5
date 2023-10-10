@@ -4,6 +4,7 @@ import DatePicker from 'react-date-picker';
 import 'react-date-picker/dist/DatePicker.css';
 import 'react-calendar/dist/Calendar.css';
 import Dropdown from './dropdown';
+import SuccessModal from "./addRoleListingSuccessModal";
 
 
 // unique roles = http://127.0.0.1:5000/uniquerole -- populate the role name dropdown
@@ -21,7 +22,7 @@ export default function HRAddRole() {
     const [reportingManager, setReportingManager] = useState('')
     const [dptLimitReached, setDptLimitReached] = useState(false)
     const [rptLimitReached, setRptLimitReached] = useState(false)
-    
+    const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
     
     useEffect(() => {
         // Fetch unique roles
@@ -33,6 +34,15 @@ export default function HRAddRole() {
             })
             .catch((error) => console.error(error));
     }, []);
+
+    const openSuccessModal = () => {
+        console.log("success")
+        setIsSuccessModalOpen(true);
+      };
+
+    const closeSuccessModal = () => {
+        setIsSuccessModalOpen(false);
+    };
 
     const goBack = () => {
         window.history.back();
@@ -100,10 +110,8 @@ export default function HRAddRole() {
     const handleAddRole = () => {
         console.log("OPENING DATE", openingDate)
         console.log("CLOSING DATE", closingDate)
-
         const openingDateFormatted = formatDate(openingDate)
         const closingDateFormatted = formatDate(closingDate)
-
         const url = `http://127.0.0.1:5000/addrole/${selectedRole}&${department}&${closingDateFormatted}&${openingDateFormatted}&${reportingManager}`;
 
         console.log("URL", url)
@@ -121,7 +129,6 @@ export default function HRAddRole() {
         })
         .catch((error) => console.error(error));
     }
-
 
     return (
         <div className="w-32">
@@ -236,15 +243,27 @@ export default function HRAddRole() {
                                     </Button>
                                 </div>
                                 <div className='flex-row mt-8 mb-8'>
-                                    <Button className="flex items-center p-6 bg-violet-600" size="sm" onClick={handleAddRole}>
-                                        Add Role Listing
-                                    </Button>
+                                    {department.trim() !== "" 
+                                    && reportingManager.trim() !== "" 
+                                    && openingDate !== null 
+                                    && closingDate !== null ? 
+                                    (
+                                        <Button className="flex items-center p-6 bg-violet-600" size="sm" onClick={() => {
+                                            handleAddRole()
+                                            openSuccessModal()
+                                            }}>
+                                            Add Role Listing
+                                        </Button>
+                                    ) : 
+                                    (<p></p>)}
+                                    
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
+            <SuccessModal isOpen={isSuccessModalOpen} onClose={closeSuccessModal} />
         </div>
     );
 }
