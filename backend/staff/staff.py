@@ -201,7 +201,7 @@ def getIndividualRoleListing(listing_id, role_name):
         row = cursor.fetchone()
 
         if not row:
-            return jsonify({'error': 'Role skill not found'})
+            return jsonify({'error': 'Role listing not found'})
 
         # Convert the row to a dictionary for JSON response
         role_details = {
