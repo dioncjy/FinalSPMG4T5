@@ -72,6 +72,12 @@ def auto_role_details(role_name):
     auto_role_details = hr.autoPopulateRoleDetails(role_name)
     return auto_role_details
 
+# edit existing role listing
+@app.route('/editrolelisting/<listing_id>&<role_name>&<dpt>&<closing_date>&<opening_date>&<reporting_manager>', methods=['PUT'])
+def editRL(listing_id, role_name, dpt, closing_date, opening_date, reporting_manager):
+    editRL = hr.editRole(listing_id, role_name, dpt, closing_date, opening_date, reporting_manager)
+    return editRL
+
 #STAFF ENDPOINTS
 
 # gets all roles from the master list

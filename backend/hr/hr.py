@@ -433,5 +433,55 @@ def addRole(role_name, dpt, closing_date, opening_date, reporting_manager):
         if connection:
             connection.close()
 
+def editRole(listing_id, role_name, dpt, closing_date, opening_date, reporting_manager):
+    try:
+        # Connect to the database
+        connection, cursor = connect_to_database()
+
+        if connection is None or cursor is None:
+            return jsonify({'error': 'Database connection error'})
+        
+        cursor.execute('SELECT * FROM role_listing WHERE role_name = %s and listing_id = %s', (role_name, listing_id,))
+
+
+        # Fetch the result. Since we're expecting a single row, we can use fetchone()
+        row = cursor.fetchone()
+
+        if not row:
+            return jsonify({'error': 'Role listing not found'})
+
+        # Convert the row to a dictionary for JSON response
+        role_details = {
+            'listing_id': row[0],
+            'role_name': row[1],
+            'department': row[2],
+            'closing_date': row[3].strftime('%Y-%m-%d'),
+            'opening_date': row[4].strftime('%Y-%m-%d'),
+            'reporting_manager': row[5],
+            'role_description': row[6]
+            # Add more columns as needed
+        }
+
+
+        # Insert application into the applications table
+        cursor.execute(
+            'UPDATE role_listing SET dpt = %s, reporting_manager = %s, opening_date = %s, closing_date = %s WHERE listing_id = %s AND role_name = %s',
+            (dpt, reporting_manager, opening_date, closing_date, listing_id, role_name)
+        )
+        
+        connection.commit()
+
+        return jsonify({'message': 'Role listing updated successfully'})
+
+    except Exception as e:
+        return jsonify({'error': str(e)})
+
+    finally:
+        # Close the cursor and database connection
+        if cursor:
+            cursor.close()
+        if connection:
+            connection.close()
+
 if __name__ == '__main__':
     app.run(debug=True)
