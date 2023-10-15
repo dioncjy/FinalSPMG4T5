@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Button, UserPlusIcon } from "@material-tailwind/react";
 import ResultModal from "../component/applicationResultModal";
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function StaffApplicationForm() {
     const [data, setData] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
-
+    const location = useLocation();
+    const role = location.state && location.state.roleName;
+    console.log(role)
     const openModal = () => {
         setIsModalOpen(true);
       };
@@ -37,8 +40,7 @@ function StaffApplicationForm() {
                 <form action="" method="post">
                     <div className="flex flex-col">
                         <h3>
-                            Applying for
-                            {/* fill in dynamic data */}
+                            Applying for {role}
                         </h3>
                         <p>
                             Web Application, Singapore

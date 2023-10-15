@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Typography, Button, Chip, Progress } from "@material-tailwind/react";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { CornerDownLeft } from 'react-feather';
 
 const staff_id = 140001
@@ -87,7 +87,12 @@ export default function StaffListingDetails(props) {
        
     const location = useLocation();
     const role = location.state && location.state.role;
+    const roleName = role.role_name
     console.log(role.role_name)
+    const navigate = useNavigate();
+    const handleClickApply = (roleName) => {
+        navigate(`/staffApplicationForm`, { state: { roleName } });
+    }
     
     useEffect(() => {
         setRoleListing(role)
@@ -300,9 +305,9 @@ export default function StaffListingDetails(props) {
                             </div>
                             <div className='flex flex-row sm:flex-row justify-end'>
                                 <div className='flex-col mt-8 mb-8'>
-                                    <Button className="flex items-center p-6 bg-violet-600" size="sm">
-                                        Apply
-                                    </Button>
+                                        <Button onClick={() => {handleClickApply(roleName)}} className="flex items-center p-6 bg-violet-600" size="sm">
+                                            Apply
+                                        </Button>
                                 </div>
                             </div>
                         </div>
