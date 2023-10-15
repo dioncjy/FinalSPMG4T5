@@ -23,6 +23,9 @@ export default function HRAddRole() {
     const [dptLimitReached, setDptLimitReached] = useState(false)
     const [rptLimitReached, setRptLimitReached] = useState(false)
     const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+
+    const currentDateUnformatted = new Date().toLocaleDateString('nl-NL'); // Get the current date in "DD-MM-YYYY" format
+    const currentDate = new Date(currentDateUnformatted.split('-').reverse().join('-')); // Convert the date to "YYYY-MM-DD" format
     
     useEffect(() => {
         // Fetch unique roles
@@ -203,7 +206,8 @@ export default function HRAddRole() {
                                             </Typography>
                                         </div>
                                         <div className='flex-col mt-4' style={{ width: "90%", height: "50px"}}>
-                                            <DatePicker onChange={setOpeningDate} value={openingDate} maxDate={closingDate} format="y-MM-dd" required />
+                                        {/* minDate={currentDate} */}
+                                            <DatePicker onChange={setOpeningDate} value={openingDate} minDate={currentDate} maxDate={closingDate} format="y-MM-dd" required />
                                         </div>
                                     </div>
                                     <div className='flex flex-col' style={{ width: "50%" }}>

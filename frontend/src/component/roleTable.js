@@ -22,15 +22,15 @@ import {
 } from "@material-tailwind/react";
 
 
-const user_login = {
-    "username": "staff",
-    "password": "123456"
-}
-
 // const user_login = {
-//     "username": "hr",
+//     "username": "staff",
 //     "password": "123456"
 // }
+
+const user_login = {
+    "username": "hr",
+    "password": "123456"
+}
 
 const filter_labels = ["departments", "roles"]
 
@@ -267,9 +267,26 @@ export default function RoleTable() {
         navigate(`/listingPage/${role.listing_id}`, { state: { role } });
     }
 
+    const handleAddStaff = () => {
+        navigate(`/addRolePage`);
+    }
+
     // const handleClickAddHR = (role) => {
     //     navigate(`/listingPage/${role.listing_id}`, { state: { role } });
     // }
+
+    const addButton = () => {
+        if (user_login.username === "hr") {
+            return (
+                <div className="flex flex-col sm:flex-row items-end">
+                    <Button className="flex items-center p-6 bg-violet-600" size="sm" onClick={() => {handleAddStaff()}}>
+                        <UserPlusIcon strokeWidth={2} className="h-4 w-4" />
+                        Add member
+                    </Button>
+                </div>
+            )
+        }
+    }
 
     return (
         <Card className="w-10/12" style={{margin: '2rem',padding: '1rem'}}>
@@ -283,15 +300,7 @@ export default function RoleTable() {
                             See information about all members
                         </Typography>
                     </div>
-                    <div className="flex flex-col sm:flex-row items-end">
-                        {/* <Button variant="outlined"size="sm">
-                            view all
-                        </Button> */}
-                        <Button className="flex items-center p-6 bg-violet-600" size="sm">
-                            <UserPlusIcon strokeWidth={2} className="h-4 w-4" />
-                            Add member
-                        </Button>
-                    </div>
+                    {addButton()}
                 </div>
                 <div className="flex flex-row justify-between relative pb-6 border-b border-blue-gray-50">
                     <div className="sorting flex flex-col items-center ">
