@@ -36,7 +36,6 @@ def get_applicants_by_listing(listing_id):
     role_applications_data = hr.getApplicantsByListing(listing_id)
     return role_applications_data
 
-
 #get specific applicant from specific role
 @app.route('/getspecificapplicant/<listing_id>&<role_name>&<staff_id>', methods=['GET'])
 def get_specific_applicant(listing_id, role_name, staff_id):
