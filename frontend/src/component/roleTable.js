@@ -271,6 +271,10 @@ export default function RoleTable() {
         navigate(`/addRolePage`);
     }
 
+    const handleEditStaff = (role) => {
+        navigate(`/editRolePage/${role.role_name}`, { state: { role } });
+    }
+
     // const handleClickAddHR = (role) => {
     //     navigate(`/listingPage/${role.listing_id}`, { state: { role } });
     // }
@@ -286,6 +290,16 @@ export default function RoleTable() {
                 </div>
             )
         }
+    }
+
+    const editButton = (role) => {
+        return (
+            <div className="relative flex justify-end top-0">
+                <Button className="flex px-6 py-3" variant="outlined" size="sm" onClick={() => {handleEditStaff(role)}}>
+                    <PencilIcon className="h-4 w-4 place-self-end" />
+                </Button>
+            </div>
+        )
     }
 
     return (
@@ -480,11 +494,7 @@ export default function RoleTable() {
                                     </div>
                                 </button>
                                 <div className="relative flex flex-col">
-                                    <div className="relative flex justify-end top-0">
-                                        <Button className="flex px-6 py-3" variant="outlined" size="sm">
-                                            <PencilIcon className="h-4 w-4 place-self-end" />
-                                        </Button>
-                                    </div>
+                                    {editButton(role)}
                                     <Button className="flex px-6 py-3 items-center" variant="text" size="sm">
                                         <Typography variant="normal" color="blue-gray" className="font-normal">
                                             View Applicants
