@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom';
 import NavbarSmallLight from '../component/navbar-small-light';
 import HREditRole from '../component/HREditRole';
 
-export default function EditRolePage() {
+export default function EditRolePage(props) {
+    const location = useLocation();
+    const role = location.state.role
+    
     return (
         <div className='editRolePage'>
             <NavbarSmallLight />
@@ -15,7 +19,7 @@ export default function EditRolePage() {
                 </div>
             </section>
             <div>
-                <HREditRole />
+                <HREditRole role={role}/>
             </div>
         </div>
     )

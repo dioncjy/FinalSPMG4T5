@@ -272,6 +272,7 @@ export default function RoleTable() {
     }
 
     const handleEditStaff = (role) => {
+        console.log(role)
         navigate(`/editRolePage/${role.role_name}`, { state: { role } });
     }
 
@@ -292,15 +293,6 @@ export default function RoleTable() {
         }
     }
 
-    const editButton = (role) => {
-        return (
-            <div className="relative flex justify-end top-0">
-                <Button className="flex px-6 py-3" variant="outlined" size="sm" onClick={() => {handleEditStaff(role)}}>
-                    <PencilIcon className="h-4 w-4 place-self-end" />
-                </Button>
-            </div>
-        )
-    }
 
     return (
         <Card className="w-10/12" style={{margin: '2rem',padding: '1rem'}}>
@@ -468,40 +460,44 @@ export default function RoleTable() {
                                         </div>
                                     </div>
                                 </div>
-                    )} else if (user_login.username === "hr") {
-                        return (
-                            <div className="flex flex-row p-4 items-center justify-between">
-                                <button className="flex flex-col w-full">
-                                    <div className="flex flex-col mt-4">
-                                        <Typography variant="h4" color="blue-gray" className="font-bold">
-                                            {role.department} department
-                                        </Typography>
+                        )} else if (user_login.username === "hr") {
+                            return (
+                                <div className="flex flex-row p-4 items-center justify-between">
+                                    <button className="flex flex-col w-full">
+                                        <div className="flex flex-col mt-4">
+                                            <Typography variant="h4" color="blue-gray" className="font-bold">
+                                                {role.department} department
+                                            </Typography>
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <Typography variant="h6" color="blue-gray" className="font-bold">
+                                                {role.role_name}
+                                            </Typography>
+                                        </div>
+                                        <div className="flex flex-col mt-2 mb-4">
+                                            <Typography variant="normal" color="blue-gray" className="font-normal">
+                                                {role.description}
+                                            </Typography>
+                                        </div>
+                                        <div className="flex flex-col mt-2 mb-4">
+                                            <Typography variant="normal" color="blue-gray" className="font-normal">
+                                                {role.closing_date}
+                                            </Typography>
+                                        </div>
+                                    </button>
+                                    <div className="relative flex flex-col">
+                                    <div className="relative flex justify-end top-0">
+                                        <Button className="flex px-6 py-3" variant="outlined" size="sm" onClick={() => {handleEditStaff(role)}}>
+                                            <PencilIcon className="h-4 w-4 place-self-end" />
+                                        </Button>
                                     </div>
-                                    <div className="flex flex-col">
-                                        <Typography variant="h6" color="blue-gray" className="font-bold">
-                                            {role.role_name}
-                                        </Typography>
+                                        <Button className="flex px-6 py-3 items-center" variant="text" size="sm">
+                                            <Typography variant="normal" color="blue-gray" className="font-normal">
+                                                View Applicants
+                                            </Typography>
+                                        </Button>    
                                     </div>
-                                    <div className="flex flex-col mt-2 mb-4">
-                                        <Typography variant="normal" color="blue-gray" className="font-normal">
-                                            {role.description}
-                                        </Typography>
-                                    </div>
-                                    <div className="flex flex-col mt-2 mb-4">
-                                        <Typography variant="normal" color="blue-gray" className="font-normal">
-                                            {role.closing_date}
-                                        </Typography>
-                                    </div>
-                                </button>
-                                <div className="relative flex flex-col">
-                                    {editButton(role)}
-                                    <Button className="flex px-6 py-3 items-center" variant="text" size="sm">
-                                        <Typography variant="normal" color="blue-gray" className="font-normal">
-                                            View Applicants
-                                        </Typography>
-                                    </Button>    
                                 </div>
-                            </div>
                     )}})}
 
                 </div>

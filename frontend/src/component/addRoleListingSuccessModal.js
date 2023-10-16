@@ -6,7 +6,7 @@ import { Button } from "@material-tailwind/react";
 
 Modal.setAppElement('#root'); // Set the root element for accessibility
 
-function roleListingSuccessModal({ isOpen, onClose }) {
+function RoleListingSuccessModal({ isOpen, onClose }) {
   const navigate = useNavigate();
 
   const returnHome = () => {
@@ -39,4 +39,4 @@ function roleListingSuccessModal({ isOpen, onClose }) {
   );
 }
 
-export default roleListingSuccessModal;
+export default RoleListingSuccessModal;

@@ -12,7 +12,21 @@ import SuccessModal from "./addRoleListingSuccessModal";
 // role description = http://127.0.0.1:5000/getroledetails/<role_name> -- Populate the role description based on selected skill + department
 // skills = http://127.0.0.1:5000/role_skill/<role_name> -- Get the skills needed for each role 
 
-export default function HREditRole(role_name) {
+// for offline test @zac
+const role = {
+    "closing_date": "2023-10-11",
+    "department": "test department",
+    "listing_id": 8,
+    "opening_date": "2023-09-08",
+    "reporting_manager": "test reporting manager",
+    "role_description": "The Operation Planning Executive supports plant operations by coordinating day-to-day production activities, as well as maintenance and turnaround schedules and activities, for production shift teams, so as to meet production plans and schedules.",
+    "role_name": "Ops Planning Exec"
+}
+
+const skills = "skill1, skill2"
+
+  
+export default function HREditRole(props) {
     const [openingDate, setOpeningDate] = useState();
     const [closingDate, setClosingDate] = useState();
     const [roles, setRoles] = useState([]);
@@ -25,18 +39,20 @@ export default function HREditRole(role_name) {
     const [rptLimitReached, setRptLimitReached] = useState(false)
     const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
 
+    const role = props.role;
+    console.log("HI edit role component", role)
+
     const currentDateUnformatted = new Date().toLocaleDateString('nl-NL'); // Get the current date in "DD-MM-YYYY" format
     const currentDate = new Date(currentDateUnformatted.split('-').reverse().join('-')); // Convert the date to "YYYY-MM-DD" format
     
     useEffect(() => {
-        // Fetch unique roles
-        fetch('http://127.0.0.1:5000/uniquerole')
+        // role_skill
+        fetch(`http://127.0.0.1:5000/role_skill/${role.role_name}`)
             .then((response) => response.json())
             .then((data) => {
-                // Set unique roles in the dropdown
-                setRoles(data);
+                setSkills(data.skill_name.toString());
             })
-            .catch((error) => console.error(error));
+            .catch((error) => console.error(error))
     }, []);
 
     const openSuccessModal = () => {
@@ -106,7 +122,11 @@ export default function HREditRole(role_name) {
                 .then((data) => {
                     setSkills(data.skill_name.toString());
                 })
-                .catch((error) => console.error(error)),
+                .catch((error) => {
+                    console.error(error)
+                    //delete after offline
+                    setSkills(skills)
+                }),
         ])
         .catch((error) => console.error(error));
     }
@@ -153,7 +173,7 @@ export default function HREditRole(role_name) {
                                     <div className='flex w-full flex-col'>
                                         {/* to fetch selectedRole, change value and autopopulate fields from previous roletable page */}
                                         <input
-                                            value={selectedRole}
+                                            value={role.role_name}
                                             onChange={handleChange}
                                             style = {{
                                                 height: "40px",
@@ -171,7 +191,7 @@ export default function HREditRole(role_name) {
                                             Role Description
                                         </Typography>
                                     </div>
-                                    <textarea style={{ width: "100%", height: "100px", background: "#E5E5E5" }} placeholder="role description here" value={roleDescription} disabled />
+                                    <textarea style={{ width: "100%", height: "100px", background: "#E5E5E5" }} placeholder="role description here" value={role.role_description} disabled />
                                 </div>
                             </div>
                             <div className='flex flex-col border-t border-b border-blue-gray-50'>
@@ -191,7 +211,7 @@ export default function HREditRole(role_name) {
                                             Department 
                                         </Typography>
                                     </div>
-                                    <input placeholder='departments here' style={{ width: "100%", height: "50px"}} value={department} onChange={handleDepartmentChange} maxLength={51} required />
+                                    <input placeholder='departments here' style={{ width: "100%", height: "50px"}} value={role.department} onChange={handleDepartmentChange} maxLength={51} required />
                                     <div>
                                         {dptLimitReached ? (
                                             <span style={{color:'red'}}>Character limit of 50 reached.</span>
@@ -212,7 +232,7 @@ export default function HREditRole(role_name) {
                                         </div>
                                         <div className='flex-col mt-4' style={{ width: "90%", height: "50px"}}>
                                         {/* to fetch the previous date here as value */}
-                                            <DatePicker onChange={setOpeningDate} value={currentDate} format="y-MM-dd" disabled /> 
+                                            <DatePicker onChange={setOpeningDate} value={role.opening_date} format="y-MM-dd" disabled /> 
                                         </div>
                                     </div>
                                     <div className='flex flex-col' style={{ width: "50%" }}>
@@ -223,7 +243,7 @@ export default function HREditRole(role_name) {
                                         </div>
                                         <div className='flex-col mt-4'>
                                             {/* to set the previous opening date here */}
-                                            <DatePicker onChange={setClosingDate} value={closingDate} minDate={openingDate} format="y-MM-dd" required />
+                                            <DatePicker onChange={setClosingDate} value={role.closing_date} minDate={openingDate} format="y-MM-dd" required />
                                         </div>  
                                     </div>
                                 </div>
@@ -235,7 +255,7 @@ export default function HREditRole(role_name) {
                                             Reporting Manager 
                                         </Typography>
                                     </div>
-                                    <input placeholder='Reporting Manager here' style={{ width: "100%", height: "50px"}} value={reportingManager} onChange={handleReportingManagerChange} maxLength={51} required />
+                                    <input placeholder='Reporting Manager here' style={{ width: "100%", height: "50px"}} value={role.reporting_manager} onChange={handleReportingManagerChange} maxLength={51} required />
                                 </div>
                                 <div>
                                     {rptLimitReached ? (
