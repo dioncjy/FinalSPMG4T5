@@ -151,11 +151,15 @@ export default function HREditRole(role_name) {
                                         </Typography>
                                     </div>
                                     <div className='flex w-full flex-col'>
-                                        <Dropdown
-                                            label="Role Name"
-                                            options={roles}
+                                        {/* to fetch selectedRole, change value and autopopulate fields from previous roletable page */}
+                                        <input
                                             value={selectedRole}
                                             onChange={handleChange}
+                                            style = {{
+                                                height: "40px",
+                                                background: "#E5E5E5" 
+                                            }}
+                                            disabled
                                         />
                                     </div>
                                 </div>
@@ -207,8 +211,8 @@ export default function HREditRole(role_name) {
                                             </Typography>
                                         </div>
                                         <div className='flex-col mt-4' style={{ width: "90%", height: "50px"}}>
-                                        {/* minDate={currentDate} */}
-                                            <DatePicker onChange={setOpeningDate} value={openingDate} minDate={currentDate} maxDate={closingDate} format="y-MM-dd" required />
+                                        {/* to fetch the previous date here as value */}
+                                            <DatePicker onChange={setOpeningDate} value={currentDate} format="y-MM-dd" disabled /> 
                                         </div>
                                     </div>
                                     <div className='flex flex-col' style={{ width: "50%" }}>
@@ -218,6 +222,7 @@ export default function HREditRole(role_name) {
                                             </Typography>
                                         </div>
                                         <div className='flex-col mt-4'>
+                                            {/* to set the previous opening date here */}
                                             <DatePicker onChange={setClosingDate} value={closingDate} minDate={openingDate} format="y-MM-dd" required />
                                         </div>  
                                     </div>

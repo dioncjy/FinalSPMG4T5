@@ -207,7 +207,6 @@ export default function HRAddRole() {
                                             </Typography>
                                         </div>
                                         <div className='flex-col mt-4' style={{ width: "90%", height: "50px"}}>
-                                        {/* minDate={currentDate} */}
                                             <DatePicker onChange={setOpeningDate} value={openingDate} minDate={currentDate} maxDate={closingDate} format="y-MM-dd" required />
                                         </div>
                                     </div>
