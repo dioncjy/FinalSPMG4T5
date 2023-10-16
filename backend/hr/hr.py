@@ -273,6 +273,51 @@ def getAllApplications():
         if connection:
             connection.close()
 
+#get all applicants from specific role id
+def getApplicantsByListing(listing_id):
+    try:
+        # Connect to the database
+        connection, cursor = connect_to_database()
+
+        # Check the connection
+        if connection is None or cursor is None:
+            return jsonify({'error': 'Database connection error'})
+
+        # Use parameterized query to prevent SQL injection
+        cursor.execute('SELECT * FROM applications WHERE listing_id = %s', (listing_id,))
+
+        # Fetch all rows corresponding to the listing_id
+        data = cursor.fetchall()
+
+        if not data:
+            return jsonify({'error': 'No applicant found for the given listing_id'})
+
+        # Convert the row to a dictionary for JSON response
+        result = []
+        for row in data:
+            result.append({
+                'listing_id': row[0],
+                'role_name': row[1],
+                'staff_id': row[2],
+                'applicant_name': row[3],
+                'dpt': row[4],
+                'comments': row[5]
+                # Add more columns as needed
+            })
+
+        return jsonify(result)
+
+    except Exception as e:
+        return jsonify({'error': str(e)})
+
+    finally:
+        # Close the cursor and database connection
+        if cursor:
+            cursor.close()
+        if connection:
+            connection.close()
+
+
 #get specific applicant from specific role
 def getSpecificApplicant(listing_id, role_name, staff_id):
     try:
