@@ -30,6 +30,13 @@ def get_all_applications():
     applications_data = hr.getAllApplications() 
     return applications_data
 
+# gets all the applications for a specific role
+@app.route('/getapplicantsbylisting/<int:listing_id>', methods=['GET'])
+def get_applicants_by_listing(listing_id):
+    role_applications_data = hr.getApplicantsByListing(listing_id)
+    return role_applications_data
+
+
 #get specific applicant from specific role
 @app.route('/getspecificapplicant/<listing_id>&<role_name>&<staff_id>', methods=['GET'])
 def get_specific_applicant(listing_id, role_name, staff_id):
