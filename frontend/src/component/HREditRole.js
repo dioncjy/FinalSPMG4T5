@@ -12,7 +12,7 @@ import SuccessModal from "./addRoleListingSuccessModal";
 // role description = http://127.0.0.1:5000/getroledetails/<role_name> -- Populate the role description based on selected skill + department
 // skills = http://127.0.0.1:5000/role_skill/<role_name> -- Get the skills needed for each role 
 
-export default function HRAddRole() {
+export default function HREditRole(role_name) {
     const [openingDate, setOpeningDate] = useState();
     const [closingDate, setClosingDate] = useState();
     const [roles, setRoles] = useState([]);
@@ -141,7 +141,7 @@ export default function HRAddRole() {
                     <div className="flex flex-col">
                         <form className='flex flex-col sm:flex-row'>
                             <Typography variant="normal" className="font-bold mb-6">
-                                Add a Role
+                                Edit Role
                             </Typography>
                             <div className='flex flex-col border-b border-blue-gray-50'>
                                 <div className='flex-col mb-8'>
@@ -151,11 +151,15 @@ export default function HRAddRole() {
                                         </Typography>
                                     </div>
                                     <div className='flex w-full flex-col'>
-                                        <Dropdown
-                                            label="Role Name"
-                                            options={roles}
+                                        {/* to fetch selectedRole, change value and autopopulate fields from previous roletable page */}
+                                        <input
                                             value={selectedRole}
                                             onChange={handleChange}
+                                            style = {{
+                                                height: "40px",
+                                                background: "#E5E5E5" 
+                                            }}
+                                            disabled
                                         />
                                     </div>
                                 </div>
@@ -207,7 +211,8 @@ export default function HRAddRole() {
                                             </Typography>
                                         </div>
                                         <div className='flex-col mt-4' style={{ width: "90%", height: "50px"}}>
-                                            <DatePicker onChange={setOpeningDate} value={openingDate} minDate={currentDate} maxDate={closingDate} format="y-MM-dd" required />
+                                        {/* to fetch the previous date here as value */}
+                                            <DatePicker onChange={setOpeningDate} value={currentDate} format="y-MM-dd" disabled /> 
                                         </div>
                                     </div>
                                     <div className='flex flex-col' style={{ width: "50%" }}>
@@ -217,6 +222,7 @@ export default function HRAddRole() {
                                             </Typography>
                                         </div>
                                         <div className='flex-col mt-4'>
+                                            {/* to set the previous opening date here */}
                                             <DatePicker onChange={setClosingDate} value={closingDate} minDate={openingDate} format="y-MM-dd" required />
                                         </div>  
                                     </div>
@@ -256,7 +262,7 @@ export default function HRAddRole() {
                                             handleAddRole()
                                             openSuccessModal()
                                             }}>
-                                            Add Role Listing
+                                            Edit Role Listing
                                         </Button>
                                     ) : 
                                     (<p></p>)}
