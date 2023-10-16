@@ -10,7 +10,7 @@ function RoleListingSuccessModal({ isOpen, onClose }) {
   const navigate = useNavigate();
 
   const returnHome = () => {
-      navigate(`/roles`);
+    navigate(`/roles`);
   }
   return (
     <Modal
