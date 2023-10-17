@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { Typography, Button, Textarea, Select, Option, Input } from "@material-tailwind/react";
+import { Typography, Button, Textarea, Select, Option, Input, input } from "@material-tailwind/react";
 import DatePicker from 'react-date-picker';
 import 'react-date-picker/dist/DatePicker.css';
 import 'react-calendar/dist/Calendar.css';
@@ -23,29 +23,30 @@ const role = {
     "role_name": "Ops Planning Exec"
 }
 
-const skills = "skill1, skill2"
+
 
   
 export default function HREditRole(props) {
-    const [openingDate, setOpeningDate] = useState();
-    const [closingDate, setClosingDate] = useState();
+    const role = props.role;
+
+    const [rptBlank, setRptBlank] = useState();
+    const [dptBlank, setDptBlank] = useState();
+    const [openingDate, setOpeningDate] = useState(new Date(role.opening_date));
+    const [closingDate, setClosingDate] = useState(new Date(role.closing_date));
     const [roles, setRoles] = useState([]);
     const [selectedRole, setSelectedRole] = useState('')
     const [roleDescription, setRoleDescription] = useState('');
     const [skills, setSkills] = useState([]);
-    const [department, setDepartment] = useState('');
-    const [reportingManager, setReportingManager] = useState('')
+    const [department, setDepartment] = useState(role.department);
+    const [reportingManager, setReportingManager] = useState(role.reporting_manager)
     const [dptLimitReached, setDptLimitReached] = useState(false)
     const [rptLimitReached, setRptLimitReached] = useState(false)
     const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
 
-    const role = props.role;
-    console.log("HI edit role component", role)
-
     const currentDateUnformatted = new Date().toLocaleDateString('nl-NL'); // Get the current date in "DD-MM-YYYY" format
     const currentDate = new Date(currentDateUnformatted.split('-').reverse().join('-')); // Convert the date to "YYYY-MM-DD" format
     
-    useEffect(() => {
+    useEffect(() => {        
         // role_skill
         fetch(`http://127.0.0.1:5000/role_skill/${role.role_name}`)
             .then((response) => response.json())
@@ -69,40 +70,51 @@ export default function HREditRole(props) {
     }
 
     const handleDepartmentChange = (e) => {
-        const maxCharacter = 50
-        setDepartment(e.target.value)
-        console.log(department.length)
-
-        
-        if (department.length == 50) {
-            setDptLimitReached(true)
+        const maxCharacter = 50;
+        const inputValue = e.target.value;
+    
+        if (inputValue.trim() === "") {
+            setDptBlank(true);
+            setDptLimitReached(false);
+        } else if (inputValue.length === maxCharacter) {
+            setDptBlank(false);
+            setDptLimitReached(true);
+        } else {
+            setDptBlank(false);
+            setDptLimitReached(false);
         }
-        else {
-            setDptLimitReached(false)
-        }
-    }
-
-    const handleReportingManagerChange = (e) => {
-        const maxCharacter = 50
-        setReportingManager(e.target.value)
-        
-        if (reportingManager.length == 50) {
-            setRptLimitReached(true)
-        }
-        else {
-            setRptLimitReached(false)
-        }
-    }
-
+    
+        setDepartment(inputValue);
+    };
+    
     const formatDate = (date) => {
         const inputDate = new Date(date);
         const year = inputDate.getFullYear();
         const month = String(inputDate.getMonth() + 1).padStart(2, '0'); 
         const day = String(inputDate.getDate()).padStart(2, '0');
-
+    
         const formattedDate = `${year}-${month}-${day}`;
         return formattedDate
     }
+    
+
+    const handleReportingManagerChange = (e) => {
+        const maxCharacter = 50;
+        const inputValue = e.target.value;
+    
+        if (inputValue.trim() === "") {
+            setRptBlank(true);
+            setRptLimitReached(false);
+        } else if (inputValue.length === maxCharacter) {
+            setRptBlank(false);
+            setRptLimitReached(true);
+        } else {
+            setRptBlank(false);
+            setRptLimitReached(false);
+        }
+    
+        setReportingManager(inputValue);
+    };
     
     const handleChange = (selectedValue) => {
         setSelectedRole(selectedValue);
@@ -211,14 +223,15 @@ export default function HREditRole(props) {
                                             Department 
                                         </Typography>
                                     </div>
-                                    <input placeholder='departments here' style={{ width: "100%", height: "50px"}} value={role.department} onChange={handleDepartmentChange} maxLength={51} required />
+                                    <input placeholder='departments here' style={{ width: "100%", height: "50px"}} value={department} onChange={handleDepartmentChange} maxLength={51} required />
                                     <div>
                                         {dptLimitReached ? (
-                                            <span style={{color:'red'}}>Character limit of 50 reached.</span>
-                                        ): (
-                                            <span></span>   
-                                        )
-                                        }
+                                            <span style={{ color: 'red' }}>Character limit of 50 reached.</span>
+                                        ) : dptBlank ? (
+                                            <span style={{ color: 'red' }}>Field cannot be blank.</span>
+                                        ) : (
+                                            <span></span>
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -232,7 +245,7 @@ export default function HREditRole(props) {
                                         </div>
                                         <div className='flex-col mt-4' style={{ width: "90%", height: "50px"}}>
                                         {/* to fetch the previous date here as value */}
-                                            <DatePicker onChange={setOpeningDate} value={role.opening_date} format="y-MM-dd" disabled /> 
+                                            <DatePicker onChange={setOpeningDate} value={openingDate} format="y-MM-dd" disabled /> 
                                         </div>
                                     </div>
                                     <div className='flex flex-col' style={{ width: "50%" }}>
@@ -243,7 +256,7 @@ export default function HREditRole(props) {
                                         </div>
                                         <div className='flex-col mt-4'>
                                             {/* to set the previous opening date here */}
-                                            <DatePicker onChange={setClosingDate} value={role.closing_date} minDate={openingDate} format="y-MM-dd" required />
+                                            <DatePicker onChange={setClosingDate} value={closingDate} minDate={openingDate} format="y-MM-dd" required />
                                         </div>  
                                     </div>
                                 </div>
@@ -255,15 +268,16 @@ export default function HREditRole(props) {
                                             Reporting Manager 
                                         </Typography>
                                     </div>
-                                    <input placeholder='Reporting Manager here' style={{ width: "100%", height: "50px"}} value={role.reporting_manager} onChange={handleReportingManagerChange} maxLength={51} required />
+                                    <input placeholder='Reporting Manager here' style={{ width: "100%", height: "50px"}} value={reportingManager} onChange={handleReportingManagerChange} maxLength={51} required />
                                 </div>
                                 <div>
-                                    {rptLimitReached ? (
-                                        <span style={{color:'red'}}>Character limit of 50 reached.</span>
-                                    ): (
-                                        <span></span>   
-                                    )
-                                    }
+                                    {rptBlank ? (
+                                        <span style={{ color: 'red' }}>It can't be blank.</span>
+                                    ) : rptLimitReached ? (
+                                        <span style={{ color: 'red' }}>Character limit of 50 reached.</span>
+                                    ) : (
+                                        <span></span>
+                                    )}
                                 </div>
                             </div>
                             <div className='flex sm:flex-row justify-between'>
