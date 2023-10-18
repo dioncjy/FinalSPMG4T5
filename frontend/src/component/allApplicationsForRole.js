@@ -57,7 +57,7 @@ const JobApplication = ({ listingId = 1 }) => {
         //Hardcoded role name and skills to select account manager
         <Card className="w-10/12 mx-auto p-4">
             <CardBody>
-                <Typography variant="h5">{ roleSkills[0].role_name}
+                <Typography variant="h5">{roleSkills.length > 0 && roleSkills[0].role_name}
                 </Typography>
                 <Typography variant="body2">
                     Skills required:
