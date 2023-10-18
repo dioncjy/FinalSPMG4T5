@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useEffect } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Router} from 'react-router-dom';
 import AboutUs from './main/aboutus';
 import './assets/css/tailwind.css'
 import './assets/libs/@mdi/font/css/materialdesignicons.min.css'
@@ -30,6 +30,7 @@ import ListingPage from './pages/listingPage';
 import AddRolePage from './pages/addRolePage';
 import EditRolePage from './pages/editRolePage';
 import ViewApplicantDetails from './pages/viewApplicantDetails';
+import RoleApplicantsPage from './pages/viewApplicantsByRole';
 import { StaffProvider } from './context/staffContext';
 
 export default function App() {
@@ -65,6 +66,9 @@ export default function App() {
           <Route path="/staffApplicationForm" element={<StaffApplicationForm />} />
           <Route path="/viewApplicantDetails" element={<ViewApplicantDetails />} />
           {/* <Route path="/listingPage" element={<ListingPage />} /> */}
+
+          <Route path="/viewApplicantsByRole" element={<RoleApplicantsPage />} />
+
           <Route path="/listingPage/:id" element={<ListingPage />} />
           <Route path="/addRolePage" element={<AddRolePage />} />
           <Route path="/editRolePage/:role_name" element={<EditRolePage />} />
