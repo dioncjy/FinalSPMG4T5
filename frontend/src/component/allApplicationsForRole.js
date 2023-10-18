@@ -6,14 +6,14 @@ import {
     Button,
 } from "@material-tailwind/react";
 
-//hardcoded to listing id = 1 now, 
+//hardcoded to listing id = 1
 /* 
 1. need to edit code to show no applicants if there are no applicants for a role
-2. need to add in backend code to retrieve role name and skills required (get from role_listing?)
-3. to connect each applicant to their own applicant page
+2. to connect each applicant to their own applicant page
 */
-const JobApplication = ({ listingId = 1 }) => { 
+const JobApplication = ({ listingId = 1 }) => {
     const [applicants, setApplicants] = useState([]);
+    const [roleSkills, setRoleSkills] = useState([]);
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -30,6 +30,22 @@ const JobApplication = ({ listingId = 1 }) => {
                 setError(error.message);
             }
         }
+
+        async function fetchRoleSkills() {
+            try {
+                const response = await fetch(`http://127.0.0.1:5000/role_skill`);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const jsonRoleSkillsData = await response.json();
+                setRoleSkills(jsonRoleSkillsData);
+            } catch (error) {
+                console.error('Error fetching role skills data:', error);
+                setError(error.message);
+            }
+        }
+
+        fetchRoleSkills();
         fetchApplicantsByListing();
     }, [listingId]);
 
@@ -38,13 +54,18 @@ const JobApplication = ({ listingId = 1 }) => {
     }
 
     return (
-        //Hardcoded for now to be retrived from backend later
+        //Hardcoded role name and skills to select account manager
         <Card className="w-10/12 mx-auto p-4">
             <CardBody>
-                <Typography variant="h5">UI/UX Designer</Typography>
+                <Typography variant="h5">{ roleSkills[0].role_name}
+                </Typography>
                 <Typography variant="body2">
                     Skills required:
-                    Prototyping, UX, Figma, English, Communication skills
+                    {
+                        roleSkills.length > 0 && roleSkills[0].skill_name.map((skill) => (
+                            <span className="text-purple-500"> {skill} / </span>
+                        ))
+                    }
                 </Typography>
 
                 <Typography variant="h6" className="mt-4">
