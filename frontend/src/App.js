@@ -30,6 +30,7 @@ import ListingPage from './pages/listingPage';
 import AddRolePage from './pages/addRolePage';
 import EditRolePage from './pages/editRolePage';
 import ViewApplicantDetails from './pages/viewApplicantDetails';
+import ViewRoleDetails from './pages/viewRoleDetails';
 import { StaffProvider } from './context/staffContext';
 
 export default function App() {
@@ -68,6 +69,7 @@ export default function App() {
           <Route path="/listingPage/:id" element={<ListingPage />} />
           <Route path="/addRolePage" element={<AddRolePage />} />
           <Route path="/editRolePage/:role_name" element={<EditRolePage />} />
+          <Route path="/viewRoleDetails" element={<ViewRoleDetails />} />
         </Routes>
       <Switcher />
     </BrowserRouter>
