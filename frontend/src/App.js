@@ -33,6 +33,7 @@ import ViewApplicantDetails from './pages/viewApplicantDetails';
 import RoleApplicantsPage from './pages/viewApplicantsByRole';
 import ViewRoleDetails from './pages/viewRoleDetails';
 import { StaffProvider } from './context/staffContext';
+import NavbarSmallLight from './component/navbar-small-light';
 
 export default function App() {
 
@@ -44,6 +45,7 @@ export default function App() {
 
   return (
     <BrowserRouter >
+    <NavbarSmallLight/>
       <ScrollToTop />
         <Routes>
           <Route path="/aboutus" element={<AboutUs />} />

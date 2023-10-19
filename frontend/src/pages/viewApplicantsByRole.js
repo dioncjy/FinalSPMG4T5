@@ -1,11 +1,9 @@
 import React from 'react';
-import NavbarSmallLight from '../component/navbar-small-light';
 import ApplicantsList from '../component/allApplicationsForRole';  // Adjust the path if needed
 
 export default function RoleApplicantsPage() {
     return (
         <div className='applicant-cards'>
-            <NavbarSmallLight />
             <section className="py-26 lg:py-36 w-full relative table bg-top bg-no-repeat" id="home">
                 <div className="absolute inset-0 bg-gradient-to-t to-slate-950/50 via-slate-950/75 from-slate-950"></div>
                 <div className="container">
