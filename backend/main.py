@@ -6,7 +6,6 @@ import os
 from hr import hr
 from staff import staff
 
-
 app = Flask(__name__)
 CORS(app)
 CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
