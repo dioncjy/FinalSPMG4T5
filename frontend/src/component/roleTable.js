@@ -21,17 +21,6 @@ import {
     MenuList,
 } from "@material-tailwind/react";
 
-
-// const user_login = {
-//     "username": "staff",
-//     "password": "123456"
-// }
-
-const user_login = {
-    "username": "hr",
-    "password": "123456"
-}
-
 const filter_labels = ["departments", "roles"]
 
 const filter_data = {
@@ -131,7 +120,9 @@ const data = [
 ]
 
 
-export default function RoleTable() {
+export default function RoleTable(userData) {
+    const username = userData.userData.username
+    console.log(username)
     const today = new Date().toISOString().split("T")[0];
     const [openMenu, setOpenMenu] = React.useState(false);
     // Track checkbox state
@@ -281,7 +272,7 @@ export default function RoleTable() {
     // }
 
     const addButton = () => {
-        if (user_login.username === "hr") {
+        if (username === "hr") {
             return (
                 <div className="flex flex-col sm:flex-row items-end">
                     <Button className="flex items-center p-6 bg-violet-600" size="sm" onClick={() => {handleAddStaff()}}>
@@ -426,7 +417,7 @@ export default function RoleTable() {
                         //     : isFirst
                         //     ? "flex flex-row p-4 items-center border-t border-blue-gray-50 justify-between"
                         //     : "flex flex-row p-4 items-center border-b border-blue-gray-50 justify-between";
-                        if (user_login.username === "staff" && role.closing_date >= today) {
+                        if (username === "staff" && role.closing_date >= today) {
                             return (
                                 // <div className={classes}>
                                 <div className="flex flex-row p-4 items-center justify-between">
@@ -460,7 +451,7 @@ export default function RoleTable() {
                                         </div>
                                     </div>
                                 </div>
-                        )} else if (user_login.username === "hr") {
+                        )} else if (username === "hr") {
                             return (
                                 <div className="flex flex-row p-4 items-center justify-between">
                                     <button className="flex flex-col w-full">

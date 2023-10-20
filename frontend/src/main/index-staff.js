@@ -6,8 +6,7 @@ import { useRoleContext } from '../context/roleContext';
 
 export default function Index() {
     const [isOpen, setOpen] = useState(false)
-    const {selectedRole} = useRoleContext();
-    console.log(selectedRole.username)
+
     return (
         <>
             <section className="py-36 lg:py-56 w-full relative table bg-[url('../../assets/images/bg/bg.jpg')] bg-top bg-no-repeat" id="home">

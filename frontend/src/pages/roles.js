@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 import Footer from '../component/footer';
 import RoleTable from '../component/roleTable';
 import RoleListings from '../component/role_listings_test';
-
+import { useRoleContext } from '../context/roleContext';
 function Roles() {
+  const {selectedRole} = useRoleContext();
+
   return (
     <>
       <section className="py-26 lg:py-36 w-full relative table bg-top bg-no-repeat" id="home">
@@ -16,7 +18,7 @@ function Roles() {
               </div>
           </div>
       </section>
-      <RoleTable />
+      <RoleTable userData={selectedRole} />
       
     </>
     
