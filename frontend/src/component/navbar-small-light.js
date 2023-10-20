@@ -6,8 +6,7 @@ import { Link as Link1 } from 'react-scroll';
 
 export default function NavbarSmallLight({ userRole }) {
    const [isOpen, setMenu] = useState(true);
-
-
+    console.log(userRole)
 
     window.addEventListener("scroll", windowScroll);
     useEffect(() => {
@@ -80,7 +79,7 @@ export default function NavbarSmallLight({ userRole }) {
                                 <Link1 to="../pages/roles" activeClass="active" spy={true} smooth={true} duration={500} className="nav-link">Roles</Link1>
                             </li>
                             <li>
-                                <span activeClass="active" spy={true} smooth={true} duration={500} className="nav-link">Logged in as: asdf{ userRole }</span>
+                                <span activeClass="active" spy={true} smooth={true} duration={500} className="nav-link">Logged in as: { userRole.username }</span>
                             </li>
                         </ul>
                     </div>

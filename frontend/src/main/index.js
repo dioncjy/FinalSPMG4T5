@@ -4,15 +4,30 @@ import Features from '../component/features';
 import Login from '../component/login'
 import {Button} from "@material-tailwind/react";
 import { useNavigate } from 'react-router-dom';
+import { useRoleContext } from '../context/roleContext';
 
 export default function Index() {
+    const {selectedRole, setSelectedRole} = useRoleContext();
+
+    const staffLoginData = {
+        username: "staff",
+        password: 12345
+    }
+
+    const HRLoginData = {
+        username: "hr",
+        password: 12345
+    }
+
     const navigate = useNavigate();
     
     const handleStaffClick = () => {
+        setSelectedRole(staffLoginData)
         navigate("/index-staff")
     }
 
     const handleHRClick = () => {
+        setSelectedRole(HRLoginData)
         navigate("/index-hr")
     }
 

@@ -32,12 +32,11 @@ import EditRolePage from './pages/editRolePage';
 import ViewApplicantDetails from './pages/viewApplicantDetails';
 import RoleApplicantsPage from './pages/viewApplicantsByRole';
 import ViewRoleDetails from './pages/viewRoleDetails';
-import { StaffProvider } from './context/staffContext';
 import NavbarSmallLight from './component/navbar-small-light';
+import { useRoleContext } from './context/roleContext';
 
 export default function App() {
-
-
+  const { selectedRole } = useRoleContext();
   useEffect(() => {
     document.documentElement.setAttribute("dir", "ltr");
     document.documentElement.classList.add('light');
@@ -45,7 +44,7 @@ export default function App() {
 
   return (
     <BrowserRouter >
-    <NavbarSmallLight/>
+    <NavbarSmallLight userRole={selectedRole}/>
       <ScrollToTop />
         <Routes>
           <Route path="/aboutus" element={<AboutUs />} />
