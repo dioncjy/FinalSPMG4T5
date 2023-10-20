@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom';
-import NavbarSmallLight from '../component/navbar-small-light';
 import HREditRole from '../component/HREditRole';
 
 export default function EditRolePage(props) {
@@ -9,7 +8,6 @@ export default function EditRolePage(props) {
     
     return (
         <div className='editRolePage'>
-            <NavbarSmallLight />
             <section className="py-26 lg:py-36 w-full relative table bg-top bg-no-repeat" id="home">
                 <div className="absolute inset-0 bg-gradient-to-t to-slate-950/50 via-slate-950/75 from-slate-950"></div>
                 <div className="container">

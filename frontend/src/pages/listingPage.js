@@ -1,11 +1,12 @@
 import React from 'react'
-import NavbarSmallLight from '../component/navbar-small-light';
 import StaffListingDetails from '../component/staffListingDetails';
+import { useRoleContext } from '../context/roleContext';
 
-export default function listingPage() {
+export default function ListingPage() {
+    const {selectedRole} = useRoleContext();
+    console.log(selectedRole)
     return (
         <div className='listingPage'>
-            <NavbarSmallLight />
             <section className="py-26 lg:py-36 w-full relative table bg-top bg-no-repeat" id="home">
                 <div className="absolute inset-0 bg-gradient-to-t to-slate-950/50 via-slate-950/75 from-slate-950"></div>
                 <div className="container">
@@ -15,7 +16,7 @@ export default function listingPage() {
                 </div>
             </section>
             <div>
-                <StaffListingDetails />
+                <StaffListingDetails props={selectedRole} />
             </div>
         </div>
     )

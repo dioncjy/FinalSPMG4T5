@@ -3,8 +3,6 @@ import { Typography, Button, Chip, Progress } from "@material-tailwind/react";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { CornerDownLeft } from 'react-feather';
 
-const staff_id = 140001
-
 const user_skills = [
     "prototyping", "UX", "Communication Skills",
 ]
@@ -73,6 +71,8 @@ const findMatchingSkillsPercentage = (userSkillArray, roleSkillArray) => {
 // const skillMatchPercentage = findMatchingSkillsPercentage(userSkillArray, roleSkillArray)
 
 export default function StaffListingDetails(props) {
+    const staff_id = props.props.staff_id
+    console.log(staff_id)
     const [roleListing, setRoleListing] = useState([]);
     const [skillMatchPercentage, setSkillMatchPercentage] = useState(0)
 
