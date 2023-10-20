@@ -221,6 +221,12 @@ export default function StaffListingDetails(props) {
                                         {roleListing.role_name}
                                     </Typography>
                                 </div>
+                                <div className='flex-col mb-4'>
+                                    
+                                    <Typography variant="h6">
+                                        Skills Required for this role
+                                    </Typography>
+                                </div>
                                 <div className='flex flex-row gap-10 w-full'>
                                     { skills_items(roleSkillArray, roleSkillLen) }
                                 </div>
@@ -267,7 +273,7 @@ export default function StaffListingDetails(props) {
                                 <div className='flex flex-row mt-8 mb-8 justify-between'>
                                     <div className='flex flex-col'>
                                         <div className='flex-col mt-4'>
-                                            <Typography variant="h5">
+                                            <Typography variant="h4">
                                                 Reporting Manager
                                             </Typography>
                                         </div>
@@ -279,7 +285,7 @@ export default function StaffListingDetails(props) {
                                     </div>
                                     <div className='flex flex-col'>
                                         <div className='flex-col mt-4'>
-                                            <Typography variant="h5">
+                                            <Typography variant="h4">
                                                 Opening Date
                                             </Typography>
                                         </div>
@@ -291,7 +297,7 @@ export default function StaffListingDetails(props) {
                                     </div>
                                     <div className='flex flex-col'>
                                         <div className='flex-col mt-4'>
-                                            <Typography variant="h5">
+                                            <Typography variant="h4">
                                                 Closing Date
                                             </Typography>
                                         </div>
