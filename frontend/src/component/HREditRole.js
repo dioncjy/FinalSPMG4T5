@@ -23,11 +23,10 @@ const role = {
     "role_name": "Ops Planning Exec"
 }
 
-
-
   
 export default function HREditRole(props) {
     const role = props.role;
+    console.log(role)
 
     const [rptBlank, setRptBlank] = useState();
     const [dptBlank, setDptBlank] = useState();
@@ -46,7 +45,15 @@ export default function HREditRole(props) {
     const currentDateUnformatted = new Date().toLocaleDateString('nl-NL'); // Get the current date in "DD-MM-YYYY" format
     const currentDate = new Date(currentDateUnformatted.split('-').reverse().join('-')); // Convert the date to "YYYY-MM-DD" format
     
-    useEffect(() => {        
+    useEffect(() => {
+        if (department.trim() === "") {
+            setDptBlank(true);
+        }
+
+        if (reportingManager.trim() === "") {
+            setRptBlank(true)
+        }
+
         // role_skill
         fetch(`http://127.0.0.1:5000/role_skill/${role.role_name}`)
             .then((response) => response.json())
