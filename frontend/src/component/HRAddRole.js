@@ -23,12 +23,23 @@ export default function HRAddRole() {
     const [reportingManager, setReportingManager] = useState('')
     const [dptLimitReached, setDptLimitReached] = useState(false)
     const [rptLimitReached, setRptLimitReached] = useState(false)
+    const [rptBlank, setRptBlank] = useState();
+    const [dptBlank, setDptBlank] = useState();
     const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
 
     const currentDateUnformatted = new Date().toLocaleDateString('nl-NL'); // Get the current date in "DD-MM-YYYY" format
     const currentDate = new Date(currentDateUnformatted.split('-').reverse().join('-')); // Convert the date to "YYYY-MM-DD" format
     
     useEffect(() => {
+
+        if (department.trim() === "") {
+            setDptBlank(true);
+        }
+
+        if (reportingManager.trim() === "") {
+            setRptBlank(true)
+        }
+
         // Fetch unique roles
         fetch('http://127.0.0.1:5000/uniquerole')
             .then((response) => response.json())
@@ -53,30 +64,40 @@ export default function HRAddRole() {
     }
 
     const handleDepartmentChange = (e) => {
-        const maxCharacter = 50
-        setDepartment(e.target.value)
-        console.log(department.length)
-
-        
-        if (department.length == 50) {
-            setDptLimitReached(true)
+        const maxCharacter = 50;
+        const inputValue = e.target.value;
+    
+        if (inputValue.trim() === "") {
+            setDptBlank(true);
+            setDptLimitReached(false);
+        } else if (inputValue.length === maxCharacter) {
+            setDptBlank(false);
+            setDptLimitReached(true);
+        } else {
+            setDptBlank(false);
+            setDptLimitReached(false);
         }
-        else {
-            setDptLimitReached(false)
-        }
-    }
-
+    
+        setDepartment(inputValue);
+    };
+    
     const handleReportingManagerChange = (e) => {
-        const maxCharacter = 50
-        setReportingManager(e.target.value)
-        
-        if (reportingManager.length == 50) {
-            setRptLimitReached(true)
+        const maxCharacter = 50;
+        const inputValue = e.target.value;
+    
+        if (inputValue.trim() === "") {
+            setRptBlank(true);
+            setRptLimitReached(false);
+        } else if (inputValue.length === maxCharacter) {
+            setRptBlank(false);
+            setRptLimitReached(true);
+        } else {
+            setRptBlank(false);
+            setRptLimitReached(false);
         }
-        else {
-            setRptLimitReached(false)
-        }
-    }
+    
+        setReportingManager(inputValue);
+    };
 
     const formatDate = (date) => {
         const inputDate = new Date(date);
@@ -190,11 +211,12 @@ export default function HRAddRole() {
                                     <input placeholder='departments here' style={{ width: "100%", height: "50px"}} value={department} onChange={handleDepartmentChange} maxLength={51} required />
                                     <div>
                                         {dptLimitReached ? (
-                                            <span style={{color:'red'}}>Character limit of 50 reached.</span>
-                                        ): (
-                                            <span></span>   
-                                        )
-                                        }
+                                            <span style={{ color: 'red' }}>Character limit of 50 reached.</span>
+                                        ) : dptBlank ? (
+                                            <span style={{ color: 'red' }}>Department Field cannot be blank.</span>
+                                        ) : (
+                                            <span></span>
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -229,15 +251,18 @@ export default function HRAddRole() {
                                             Reporting Manager 
                                         </Typography>
                                     </div>
-                                    <input placeholder='Reporting Manager here' style={{ width: "100%", height: "50px"}} value={reportingManager} onChange={handleReportingManagerChange} maxLength={51} required />
-                                </div>
-                                <div>
-                                    {rptLimitReached ? (
-                                        <span style={{color:'red'}}>Character limit of 50 reached.</span>
-                                    ): (
-                                        <span></span>   
-                                    )
-                                    }
+                              
+                                   <input placeholder='Reporting Manager here' style={{ width: "100%", height: "50px"}} value={reportingManager} onChange={handleReportingManagerChange} maxLength={51} required />
+
+                                    <div>
+                                        {rptBlank ? (
+                                            <span style={{ color: 'red' }}>Reporting Manager field cannot be blank.</span>
+                                        ) : rptLimitReached ? (
+                                            <span style={{ color: 'red' }}>Character limit of 50 reached.</span>
+                                        ) : (
+                                            <span></span>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                             <div className='flex sm:flex-row justify-between'>

@@ -21,106 +21,109 @@ import {
     MenuList,
 } from "@material-tailwind/react";
 
-const filter_labels = ["departments", "roles"]
+// const filter_labels = ["departments", "roles"]
 
-const filter_data = {
-    "departments" : [
-        "web application", "data analytics", "talent acquisition"
-    ], 
-    "roles" : [
-        "uiux designer", "data analyst", "HR"
-    ]
-}
+// const filter_data = {
+//     "departments" : [
+//         "web application", "data analytics", "talent acquisition"
+//     ], 
+//     "roles" : [
+//         "uiux designer", "data analyst", "HR"
+//     ]
+// }
 
-const data = [
-    {
-        "role_name": "uiux designer",
-        "department" :"web application",
-        "description": "asdf",
-        "closing_date": "2023-12-23"
-    }, 
-    {
-        "role_name": "data analyst",
-        "department" :"data analytics",
-        "description": "asdf",
-        "closing_date": "2023-12-23"
-    }, 
-    {
-        "role_name": "HR",
-        "department" :"talent acquisition",
-        "description": "asdf",
-        "closing_date": "2023-12-23"
-    }, 
-    {
-        "role_name": "uiux designer",
-        "department" :"web application",
-        "description": "asdf",
-        "closing_date": "2023-12-23"
-    }, 
-    {
-        "role_name": "data analyst",
-        "department" :"data analytics",
-        "description": "asdf",
-        "closing_date": "2023-06-23"
-    }, 
-    {
-        "role_name": "HR",
-        "department" :"talent acquisition",
-        "description": "asdf",
-        "closing_date": "2023-04-23"
-    }, 
-    {
-        "role_name": "uiux designer",
-        "department" :"web application",
-        "description": "asdf",
-        "closing_date": "2023-07-23"
-    }, 
-    {
-        "role_name": "data analyst",
-        "department" :"data analytics",
-        "description": "asdf",
-        "closing_date": "2023-07-14"
-    }, 
-    {
-        "role_name": "HR",
-        "department" :"talent acquisition",
-        "description": "asdf",
-        "closing_date": "2023-07-2"
-    }, 
-    {
-        "role_name": "uiux designer",
-        "department" :"web application",
-        "description": "asdf",
-        "closing_date": "2023-07-1"
-    }, 
-    {
-        "role_name": "data analyst",
-        "department" :"data analytics",
-        "description": "asdf",
-        "closing_date": "2023-12-23"
-    }, 
-    {
-        "role_name": "HR",
-        "department" :"talent acquisition",
-        "description": "asdf",
-        "closing_date": "2023-12-23"
-    }, 
-    {
-        "role_name": "uiux designer",
-        "department" :"web application",
-        "description": "asdf",
-        "closing_date": "2023-12-23"
-    }, 
-    {
-        "role_name": "data analyst",
-        "department" :"data analytics",
-        "description": "asdf",
-        "closing_date": "2023-07-23"
-    }
-]
+// const data = [
+//     {
+//         "role_name": "uiux designer",
+//         "department" :"web application",
+//         "description": "asdf",
+//         "closing_date": "2023-12-23"
+//     }, 
+//     {
+//         "role_name": "data analyst",
+//         "department" :"data analytics",
+//         "description": "asdf",
+//         "closing_date": "2023-12-23"
+//     }, 
+//     {
+//         "role_name": "HR",
+//         "department" :"talent acquisition",
+//         "description": "asdf",
+//         "closing_date": "2023-12-23"
+//     }, 
+//     {
+//         "role_name": "uiux designer",
+//         "department" :"web application",
+//         "description": "asdf",
+//         "closing_date": "2023-12-23"
+//     }, 
+//     {
+//         "role_name": "data analyst",
+//         "department" :"data analytics",
+//         "description": "asdf",
+//         "closing_date": "2023-06-23"
+//     }, 
+//     {
+//         "role_name": "HR",
+//         "department" :"talent acquisition",
+//         "description": "asdf",
+//         "closing_date": "2023-04-23"
+//     }, 
+//     {
+//         "role_name": "uiux designer",
+//         "department" :"web application",
+//         "description": "asdf",
+//         "closing_date": "2023-07-23"
+//     }, 
+//     {
+//         "role_name": "data analyst",
+//         "department" :"data analytics",
+//         "description": "asdf",
+//         "closing_date": "2023-07-14"
+//     }, 
+//     {
+//         "role_name": "HR",
+//         "department" :"talent acquisition",
+//         "description": "asdf",
+//         "closing_date": "2023-07-2"
+//     }, 
+//     {
+//         "role_name": "uiux designer",
+//         "department" :"web application",
+//         "description": "asdf",
+//         "closing_date": "2023-07-1"
+//     }, 
+//     {
+//         "role_name": "data analyst",
+//         "department" :"data analytics",
+//         "description": "asdf",
+//         "closing_date": "2023-12-23"
+//     }, 
+//     {
+//         "role_name": "HR",
+//         "department" :"talent acquisition",
+//         "description": "asdf",
+//         "closing_date": "2023-12-23"
+//     }, 
+//     {
+//         "role_name": "uiux designer",
+//         "department" :"web application",
+//         "description": "asdf",
+//         "closing_date": "2023-12-23"
+//     }, 
+//     {
+//         "role_name": "data analyst",
+//         "department" :"data analytics",
+//         "description": "asdf",
+//         "closing_date": "2023-07-23"
+//     }
+// ]
 
 
 export default function RoleTable(userData) {
+
+    console.log('RoleTable component rendered'); // Add this line
+
     const username = userData.userData.username
     console.log(username)
     const today = new Date().toISOString().split("T")[0];
@@ -141,7 +144,7 @@ export default function RoleTable(userData) {
 
     useEffect(() => {
         const getAllRoleListings = 'http://127.0.0.1:5000/role_listing'
-
+        console.log("Fetching data")
         fetch(getAllRoleListings)
             .then((response) => response.json())
             .then ((data) => {
@@ -169,21 +172,21 @@ export default function RoleTable(userData) {
             .catch((error) => {
                 console.error('Error fetching data:', error)
 
-                // For test
-                setFilteredRoleListings(data)
-                setRoleListings(data)
-                setFilters(
-                    {
-                        departments: filter_data.departments,
-                        roles: filter_data.roles
-                    }
-                )
+                // // For test
+                // setFilteredRoleListings(data)
+                // setRoleListings(data)
+                // setFilters(
+                //     {
+                //         departments: filter_data.departments,
+                //         roles: filter_data.roles
+                //     }
+                // )
 
-                const initialRoleFilters = {};
-                filter_data.roles.forEach((role) => {
-                    initialRoleFilters[role] = false; // Initially, no checkboxes are checked
-                });                
-                setRoleFilters(initialRoleFilters);
+                // const initialRoleFilters = {};
+                // filter_data.roles.forEach((role) => {
+                //     initialRoleFilters[role] = false; // Initially, no checkboxes are checked
+                // });                
+                // setRoleFilters(initialRoleFilters);
 
             })
     }, []);
@@ -217,7 +220,6 @@ export default function RoleTable(userData) {
     
         // Update the activeFilters state with the new filters
         setActiveFilters(updatedFilters);
-
         setRoleFilters((prevRoleFilters) => ({
             ...prevRoleFilters,
             [item]: !prevRoleFilters[item], // Toggle the checkbox state
@@ -266,10 +268,6 @@ export default function RoleTable(userData) {
         console.log(role)
         navigate(`/editRolePage/${role.role_name}`, { state: { role } });
     }
-
-    // const handleClickAddHR = (role) => {
-    //     navigate(`/listingPage/${role.listing_id}`, { state: { role } });
-    // }
 
     const addButton = () => {
         if (username === "hr") {
