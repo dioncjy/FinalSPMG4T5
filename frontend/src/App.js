@@ -68,7 +68,7 @@ export default function App() {
           <Route path="/viewApplicantDetails" element={<ViewApplicantDetails />} />
           {/* <Route path="/listingPage" element={<ListingPage />} /> */}
 
-          <Route path="/viewApplicantsByRole" element={<RoleApplicantsPage />} />
+          <Route path="/viewApplicantsByRole/:listingId" element={<RoleApplicantsPage />} />
 
           <Route path="/listingPage/:id" element={<ListingPage />} />
           <Route path="/addRolePage" element={<AddRolePage />} />
