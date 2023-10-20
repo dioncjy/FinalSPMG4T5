@@ -62,7 +62,7 @@ function StaffApplicationForm(props) {
                                 <strong>Applicant Name</strong>
                             </label>
                             <br />
-                            {data && (<input type="text" name="name" id="name" className="border w-full rounded-md p-2" value={data.staff_fname} readOnly />)}
+                            {data && (<input type="text" name="name" id="name" className="border w-full rounded-md p-2" value={data.staff_fname + " " + data.staff_lname} readOnly />)}
                         </div>
                         <hr />
 
