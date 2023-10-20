@@ -1,7 +1,10 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import ApplicantsList from '../component/allApplicationsForRole';  // Adjust the path if needed
 
 export default function RoleApplicantsPage() {
+    const { listingId } = useParams();  // Extract listingId from the URL
+
     return (
         <div className='applicant-cards'>
             <section className="py-26 lg:py-36 w-full relative table bg-top bg-no-repeat" id="home">
@@ -13,8 +16,9 @@ export default function RoleApplicantsPage() {
                 </div>
             </section>
             <div>
-                <ApplicantsList />
+                <ApplicantsList listingId={listingId} /> {/* Pass the listingId to your component */}
             </div>
         </div>
     )
 }
+

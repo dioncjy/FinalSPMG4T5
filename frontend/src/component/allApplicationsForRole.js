@@ -1,3 +1,8 @@
+
+/* ADDITIONAL CHANGES TO BE MADE
+1. ERROR HANDLING: need to edit code to show no applicants if there are no applicants for a role
+2. TO connect each applicant to their own applicant page
+*/
 import React, { useState, useEffect } from "react";
 import {
     Card,
@@ -6,12 +11,8 @@ import {
     Button,
 } from "@material-tailwind/react";
 
-//hardcoded to listing id = 1
-/* 
-1. need to edit code to show no applicants if there are no applicants for a role
-2. to connect each applicant to their own applicant page
-*/
-const JobApplication = ({ listingId = 1 }) => {
+
+const JobApplication = ({ listingId}) => {
     const [applicants, setApplicants] = useState([]);
     const [roleSkills, setRoleSkills] = useState([]);
     const [error, setError] = useState(null);
@@ -53,25 +54,30 @@ const JobApplication = ({ listingId = 1 }) => {
         return <p>Error loading data: {error}</p>;
     }
 
-    return (
-        //Hardcoded role name and skills to select account manager
-        <Card className="w-10/12 mx-auto p-4">
-            <CardBody>
-                <Typography variant="h5">{roleSkills.length > 0 && roleSkills[0].role_name}
-                </Typography>
-                <Typography variant="body2">
-                    Skills required:
-                    {
-                        roleSkills.length > 0 && roleSkills[0].skill_name.map((skill) => (
-                            <span className="text-purple-500"> {skill} / </span>
-                        ))
-                    }
-                </Typography>
+// Extract the role name from the first applicant as an example
+const roleName = applicants.length > 0 ? applicants[0].role_name : null; 
 
-                <Typography variant="h6" className="mt-4">
-                    Total Applicants <span className="text-purple-500">{applicants.length}</span>
-                </Typography>
+// Find the role skills using the extracted role name
+const matchedRoleSkills = roleSkills.find(r => r.role_name === roleName);
 
+return (
+    <Card className="w-10/12 mx-auto p-4">
+        <CardBody>
+            <Typography variant="h5">
+                {roleName}
+            </Typography>
+            <Typography variant="body2">
+                Skills required:
+                {
+                    matchedRoleSkills?.skill_name.map((skill) => (
+                        <span className="text-purple-500"> {skill} / </span>
+                    ))
+                }
+            </Typography>
+
+            <Typography variant="h6" className="mt-4">
+                Total Applicants <span className="text-purple-500">{applicants.length}</span>
+            </Typography>
 
 
                 <div>
