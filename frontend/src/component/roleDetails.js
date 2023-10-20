@@ -134,13 +134,13 @@ const RoleInformationCard = ({ role, roleSkills }) => {
                     </div>
                   </div>
                 </div>
-                <div className='flex sm:flex-row justify-between'>
+                {/* <div className='flex sm:flex-row justify-end'>
                       <div className='flex-row mt-8 mb-8'>
                           <Button className="flex items-center p-6 bg-violet-600" size="sm">
                               Apply
                           </Button>
                       </div>      
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

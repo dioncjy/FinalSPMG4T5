@@ -73,7 +73,7 @@ export default function App() {
           <Route path="/listingPage/:id" element={<ListingPage />} />
           <Route path="/addRolePage" element={<AddRolePage />} />
           <Route path="/editRolePage/:role_name" element={<EditRolePage />} />
-          <Route path="/viewRoleDetails" element={<ViewRoleDetails />} />
+          <Route path="/viewRoleDetails/:role_name" element={<ViewRoleDetails />} />
         </Routes>
       <Switcher />
     </BrowserRouter>
