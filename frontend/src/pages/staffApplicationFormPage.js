@@ -1,7 +1,9 @@
 import React from 'react'
 import SAform from '../component/staffApplicationForm'
+import { useRoleContext } from '../context/roleContext'
 
-export default function staffApplicationForm() {
+export default function StaffApplicationForm() {
+    const {selectedRole} = useRoleContext();
     return (
         <>
             <section className="py-26 lg:py-36 w-full relative table bg-top bg-no-repeat" id="home">
@@ -13,7 +15,7 @@ export default function staffApplicationForm() {
                 </div>
             </section>
             <div>
-                <SAform />
+                <SAform props={selectedRole}/>
             </div>
         </>
     )

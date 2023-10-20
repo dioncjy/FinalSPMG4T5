@@ -10,13 +10,14 @@ export default function Index() {
     const {selectedRole, setSelectedRole} = useRoleContext();
 
     const staffLoginData = {
-        username: "staff",
-        password: 12345
+        username : "staff",
+        password : 12345,
+        staff_id : 140001 
     }
 
     const HRLoginData = {
-        username: "hr",
-        password: 12345
+        username : "hr",
+        password : 12345
     }
 
     const navigate = useNavigate();

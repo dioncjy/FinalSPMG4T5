@@ -1,7 +1,10 @@
 import React from 'react'
 import StaffListingDetails from '../component/staffListingDetails';
+import { useRoleContext } from '../context/roleContext';
 
-export default function listingPage() {
+export default function ListingPage() {
+    const {selectedRole} = useRoleContext();
+    console.log(selectedRole)
     return (
         <div className='listingPage'>
             <section className="py-26 lg:py-36 w-full relative table bg-top bg-no-repeat" id="home">
@@ -13,7 +16,7 @@ export default function listingPage() {
                 </div>
             </section>
             <div>
-                <StaffListingDetails />
+                <StaffListingDetails props={selectedRole} />
             </div>
         </div>
     )

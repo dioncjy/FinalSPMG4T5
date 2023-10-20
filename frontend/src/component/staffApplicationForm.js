@@ -3,7 +3,8 @@ import { Button, UserPlusIcon } from "@material-tailwind/react";
 import ResultModal from "../component/applicationResultModal";
 import { useNavigate, useLocation } from 'react-router-dom';
 
-function StaffApplicationForm() {
+function StaffApplicationForm(props) {
+    const staff_id = props.props.staff_id;
     const [data, setData] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const location = useLocation();
@@ -20,7 +21,7 @@ function StaffApplicationForm() {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await fetch("http://127.0.0.1:5000/staff/130001");
+                const response = await fetch(`http://127.0.0.1:5000/staff/${staff_id}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
             }
