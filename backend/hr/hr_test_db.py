@@ -9,13 +9,14 @@ app = Flask(__name__)
 
 sys.path.append('..')
 
-from backend.connectionManager import connect_to_database
+from backend.connectionManager import connect_to_test_database
 
 # Get all staff from staff table
 # @app.route('/')
 def getAllStaff():
     try:
-        connection, cursor = connect_to_database()
+
+        connection, cursor = connect_to_test_database()
 
         if connection is None or cursor is None:
             return jsonify({'error': 'Database connection error'})
@@ -54,7 +55,7 @@ def getAllStaff():
 def getAllStaffSkills():
     try:
 
-        connection, cursor = connect_to_database()
+        connection, cursor = connect_to_test_database()
 
         if connection is None or cursor is None:
             return jsonify({'error': 'Database connection error'})
@@ -89,7 +90,7 @@ def getAllStaffSkills():
 def getAllRoleSkills():
     try:
 
-        connection, cursor = connect_to_database()
+        connection, cursor = connect_to_test_database()
 
         if connection is None or cursor is None:
             return jsonify({'error': 'Database connection error'})
@@ -123,7 +124,7 @@ def getAllRoleSkills():
 def autoPopulateRoleDetails(role_name):
     try:
 
-        connection, cursor = connect_to_database()
+        connection, cursor = connect_to_test_database()
 
         if connection is None or cursor is None:
             return jsonify({'error': 'Database connection error'})
@@ -158,7 +159,7 @@ def autoPopulateRoleDetails(role_name):
 def getStaffDetails(staff_id):
     try:
 
-        connection, cursor = connect_to_database()
+        connection, cursor = connect_to_test_database()
 
         if connection is None or cursor is None:
             return jsonify({'error': 'Database connection error'})
@@ -197,7 +198,7 @@ def getStaffDetails(staff_id):
 
 def getAllRoleListings():
     try:
-        connection, cursor = connect_to_database()
+        connection, cursor = connect_to_test_database()
 
         if connection is None or cursor is None:
             return jsonify({'error': 'Database connection error'})
@@ -236,7 +237,7 @@ def getAllRoleListings():
 def getAllApplications():
     try:
 
-        connection, cursor = connect_to_database()
+        connection, cursor = connect_to_test_database()
 
         if connection is None or cursor is None:
             return jsonify({'error': 'Database connection error'})
@@ -276,7 +277,7 @@ def getAllApplications():
 def getApplicantsByListing(listing_id):
     try:
         # Connect to the database
-        connection, cursor = connect_to_database()
+        connection, cursor = connect_to_test_database()
 
         # Check the connection
         if connection is None or cursor is None:
@@ -321,7 +322,7 @@ def getApplicantsByListing(listing_id):
 def getSpecificApplicant(listing_id, role_name, staff_id):
     try:
         # Connect to the database
-        connection, cursor = connect_to_database()
+        connection, cursor = connect_to_test_database()
 
         # Check the connection
         if connection is None or cursor is None:
@@ -364,7 +365,7 @@ def getSpecificApplicant(listing_id, role_name, staff_id):
 def insertApplication(staff_id, comments, role_name, listing_id):
     try:
         # Connect to the database
-        connection, cursor = connect_to_database()
+        connection, cursor = connect_to_test_database()
 
         if connection is None or cursor is None:
             return jsonify({'error': 'Database connection error'})
@@ -436,7 +437,7 @@ def insertApplication(staff_id, comments, role_name, listing_id):
 def addRole(role_name, dpt, closing_date, opening_date, reporting_manager):
     try:
         # Connect to the database
-        connection, cursor = connect_to_database()
+        connection, cursor = connect_to_test_database()
 
         if connection is None or cursor is None:
             return jsonify({'error': 'Database connection error'})
@@ -480,7 +481,7 @@ def addRole(role_name, dpt, closing_date, opening_date, reporting_manager):
 def editRole(listing_id, role_name, dpt, closing_date, opening_date, reporting_manager):
     try:
         # Connect to the database
-        connection, cursor = connect_to_database()
+        connection, cursor = connect_to_test_database()
 
         if connection is None or cursor is None:
             return jsonify({'error': 'Database connection error'})
