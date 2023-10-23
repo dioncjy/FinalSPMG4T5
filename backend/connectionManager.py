@@ -30,3 +30,19 @@ def connect_to_database():
     except Exception as e:
         return None, None
     
+def connect_to_test_database():
+    try:
+        # Connect to the AWS RDS PostgreSQL database
+        connection = psycopg2.connect(
+            host=db_host,
+            database='test_db',
+            user=db_user,
+            password=db_password
+        )
+
+        # Create a cursor to interact with the database
+        cursor = connection.cursor()
+        return connection, cursor
+    except Exception as e:
+        return None, None
+    

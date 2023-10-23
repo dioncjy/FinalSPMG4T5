@@ -4,7 +4,7 @@ import sys
 from flask import Flask
 sys.path.append('..')
 from backend.staff.staff import getAllRoles, getAllUniqueRoles, getRoleDetails, getRoleSkills, get_staff_skill, getIndividualRoleListing
-from backend.main import app
+from main import app
 from backend.connectionManager import connect_to_database
 import connectionManager
 
