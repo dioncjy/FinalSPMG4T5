@@ -90,8 +90,8 @@ export default function StaffListingDetails(props) {
     const roleName = role.role_name
     console.log(role.role_name)
     const navigate = useNavigate();
-    const handleClickApply = (roleName) => {
-        navigate(`/staffApplicationForm`, { state: { roleName } });
+    const handleClickApply = (role) => {
+        navigate(`/staffApplicationForm`, { state: { role } });
     }
     
     useEffect(() => {
@@ -311,7 +311,7 @@ export default function StaffListingDetails(props) {
                             </div>
                             <div className='flex flex-row sm:flex-row justify-end'>
                                 <div className='flex-col mt-8 mb-8'>
-                                        <Button onClick={() => {handleClickApply(roleName)}} className="flex items-center p-6 bg-violet-600" size="sm">
+                                        <Button onClick={() => {handleClickApply(role)}} className="flex items-center p-6 bg-violet-600" size="sm">
                                             Apply
                                         </Button>
                                 </div>

@@ -8,8 +8,9 @@ function StaffApplicationForm(props) {
     const [data, setData] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const location = useLocation();
-    const role = location.state && location.state.roleName;
-    console.log(role)
+    const role = location.state && location.state.role.role_name;
+    const listing_id = location.state && location.state.role.listing_id;
+    console.log(location.state)
     const openModal = () => {
         setIsModalOpen(true);
       };
@@ -33,6 +34,26 @@ function StaffApplicationForm(props) {
       } 
       fetchData(); 
     }, []);
+
+    const handleSubmitApplication = () => {
+        var comments = document.getElementById("comments").value;
+        const url = `http://127.0.0.1:5000/insertapplication/${staff_id}&${comments}&${role}&${listing_id}`;
+
+        console.log("URL", url)
+
+        fetch(url, {
+            method: 'POST'
+        })
+        .then((response) => {
+            if (response.ok) {
+                console.log('Application Submitted successfully');
+            } else {
+                // Handle error
+                console.error('Failed to submit application');
+            }
+        })
+        .catch((error) => console.error(error));
+    }
 
     return (
         <div className="w-32">
@@ -81,6 +102,7 @@ function StaffApplicationForm(props) {
                             </label>
                             <br />
                             <textarea
+                                id="comments"
                                 rows={4}
                                 className="border rounded-md p-2 w-full"
                                 placeholder="Fill in your comments"
@@ -89,7 +111,10 @@ function StaffApplicationForm(props) {
                         <hr />
                         <div className="py-2 flex justify-between">
                             <Button className="bg-violet-600">Home</Button>
-                            <Button onClick={openModal} className="bg-violet-600">Submit</Button>
+                            <Button onClick={() => {
+                                            handleSubmitApplication()
+                                            openModal()
+                                            }} className="bg-violet-600">Submit</Button>
                         </div>
                     </div>
                     </form>
