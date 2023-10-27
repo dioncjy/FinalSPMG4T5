@@ -5,7 +5,7 @@ import DatePicker from 'react-date-picker';
 import 'react-date-picker/dist/DatePicker.css';
 import 'react-calendar/dist/Calendar.css';
 import Dropdown from './dropdown';
-import SuccessModal from "./addRoleListingSuccessModal";
+import SuccessModal from "./editRoleListingSuccessModal";
 
 
 // unique roles = http://127.0.0.1:5000/uniquerole -- populate the role name dropdown
@@ -30,10 +30,11 @@ export default function HREditRole(props) {
 
     const [rptBlank, setRptBlank] = useState();
     const [dptBlank, setDptBlank] = useState();
+    const [listing_id, setListingId] = useState(role.listing_id);
     const [openingDate, setOpeningDate] = useState(new Date(role.opening_date));
     const [closingDate, setClosingDate] = useState(new Date(role.closing_date));
     const [roles, setRoles] = useState([]);
-    const [selectedRole, setSelectedRole] = useState('')
+    const [selectedRole, setSelectedRole] = useState(role.role_name)
     const [roleDescription, setRoleDescription] = useState('');
     const [skills, setSkills] = useState([]);
     const [department, setDepartment] = useState(role.department);
@@ -64,7 +65,7 @@ export default function HREditRole(props) {
     }, []);
 
     const openSuccessModal = () => {
-        console.log("success")
+        console.log("popup success")
         setIsSuccessModalOpen(true);
       };
 
@@ -150,24 +151,25 @@ export default function HREditRole(props) {
         .catch((error) => console.error(error));
     }
 
-    const handleAddRole = () => {
+    const handleEditRole = () => {
+        console.log("LISTING ID", listing_id)
         console.log("OPENING DATE", openingDate)
         console.log("CLOSING DATE", closingDate)
         const openingDateFormatted = formatDate(openingDate)
         const closingDateFormatted = formatDate(closingDate)
-        const url = `http://127.0.0.1:5000/addrole/${selectedRole}&${department}&${closingDateFormatted}&${openingDateFormatted}&${reportingManager}`;
+        const url = `http://127.0.0.1:5000/editrolelisting/${listing_id}&${selectedRole}&${department}&${closingDateFormatted}&${openingDateFormatted}&${reportingManager}`;
 
         console.log("URL", url)
 
         fetch(url, {
-            method: 'POST'
+            method: 'PUT'
         })
         .then((response) => {
             if (response.ok) {
-                console.log('Role listing added successfully');
+                console.log('Role listing edit successfully');
             } else {
                 // Handle error
-                console.error('Failed to add role');
+                console.error('Failed to edit role');
             }
         })
         .catch((error) => console.error(error));
@@ -217,7 +219,7 @@ export default function HREditRole(props) {
                                 <div className='flex-col mt-8 mb-8'>
                                     <div className='flex-col mb-4'>
                                         <Typography variant="h4">
-                                            Skills 
+                                            Skills Required
                                         </Typography>
                                     </div>
                                     <textarea style={{ width: "100%", height: "100px", background: "#E5E5E5" }} placeholder='skills here' value={skills} disabled />
@@ -300,7 +302,7 @@ export default function HREditRole(props) {
                                     && closingDate !== null ? 
                                     (
                                         <Button className="flex items-center p-6 bg-violet-600" size="sm" onClick={() => {
-                                            handleAddRole()
+                                            handleEditRole()
                                             openSuccessModal()
                                             }}>
                                             Edit Role Listing
