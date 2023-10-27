@@ -219,7 +219,7 @@ export default function HREditRole(props) {
                                 <div className='flex-col mt-8 mb-8'>
                                     <div className='flex-col mb-4'>
                                         <Typography variant="h4">
-                                            Skills 
+                                            Skills Required
                                         </Typography>
                                     </div>
                                     <textarea style={{ width: "100%", height: "100px", background: "#E5E5E5" }} placeholder='skills here' value={skills} disabled />

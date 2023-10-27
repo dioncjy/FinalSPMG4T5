@@ -24,7 +24,7 @@ function RoleListingSuccessModal({ isOpen, onClose }) {
                 <h2>All changes are saved!</h2>
             </div>
             <div className="flex-grow py-8">
-                <p>Role Listing successfully edited</p>
+                <p>Role Listing successfully edited!</p>
             </div>
             <div className="flex-grow pt-8">
                 <Button className="bg-violet-600" onClick={() => {
