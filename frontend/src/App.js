@@ -1,7 +1,6 @@
 import './App.css';
 import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Routes, Router} from 'react-router-dom';
-import AboutUs from './main/aboutus';
 import './assets/css/tailwind.css'
 import './assets/libs/@mdi/font/css/materialdesignicons.min.css'
 import './assets/libs/@iconscout/unicons/css/line.css'
@@ -10,9 +9,6 @@ import './assets/images/favicon.ico'
 import BlogDetail from './main/blog-detail';
 import Blogs from './main/blogs';
 import ContactUs from './main/contactus';
-import IndexFour from './main/index-four';
-import IndexThree from './main/index-three';
-import IndexTwo from './main/index-two';
 import Index from './main';
 import Login from './main/login';
 import Pricing from './main/pricing';
@@ -46,13 +42,9 @@ export default function App() {
     <NavbarSmallLight userRole={selectedRole}/>
       <ScrollToTop />
         <Routes>
-          <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/blog-detail" element={<BlogDetail />} />
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/contactus" element={<ContactUs />} />
-          <Route path="/index-four" element={<IndexFour />} />
-          <Route path="/index-three" element={<IndexThree />} />
-          <Route path="/index-two" element={<IndexTwo />} />
           <Route path="/index" element={<Index />} />
           <Route path="/login" element={<Login />} />
           <Route path="/pricing" element={<Pricing />} />
