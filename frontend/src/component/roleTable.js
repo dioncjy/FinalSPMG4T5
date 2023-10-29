@@ -148,6 +148,7 @@ export default function RoleTable(userData) {
         fetch(getAllRoleListings)
             .then((response) => response.json())
             .then ((data) => {
+                console.log(data)
                 setRoleListings(data)
                 setFilteredRoleListings(data)
 

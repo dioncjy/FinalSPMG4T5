@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import Footer from '../component/footer';
 import RoleTable from '../component/roleTable';
-import RoleListings from '../component/role_listings_test';
+// import RoleListings from '../component/role_listings_test';
 import { useRoleContext } from '../context/roleContext';
 function Roles() {
   const {selectedRole} = useRoleContext();

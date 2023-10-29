@@ -8,7 +8,6 @@ import './assets/libs/tobii/css/tobii.min.css'
 import './assets/images/favicon.ico'
 import Index from './main';
 import Login from './main/login';
-import Switcher from './component/Switcher';
 import ScrollToTop from './component/Scroll-top';
 import IndexHr from './main/index-hr';
 import IndexStaff from './main/index-staff';
@@ -42,15 +41,11 @@ export default function App() {
           <Route path="/roles" element={<Roles />} />
           <Route path="/staffApplicationForm" element={<StaffApplicationForm />} />
           <Route path="/viewApplicantDetails" element={<ViewApplicantDetails />} />
-          {/* <Route path="/listingPage" element={<ListingPage />} /> */}
-
           <Route path="/viewApplicantsByRole/:listingId" element={<RoleApplicantsPage />} />
-
           <Route path="/listingPage/:id" element={<ListingPage />} />
           <Route path="/addRolePage" element={<AddRolePage />} />
           <Route path="/editRolePage/:role_name" element={<EditRolePage />} />
         </Routes>
-      <Switcher />
     </BrowserRouter>
   )
 };
