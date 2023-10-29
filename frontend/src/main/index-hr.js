@@ -1,9 +1,7 @@
-import React, { useState } from 'react'
 import Footer from '../component/footer';
 import HRServices from '../component/HR-services';
 
 export default function Index() {
-    const [isOpen, setOpen] = useState(false)
 
     return (
         <>

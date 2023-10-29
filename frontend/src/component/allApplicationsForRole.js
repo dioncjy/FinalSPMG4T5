@@ -1,14 +1,8 @@
-
-/* ADDITIONAL CHANGES TO BE MADE
-1. ERROR HANDLING: need to edit code to show no applicants if there are no applicants for a role
-2. TO connect each applicant to their own applicant page
-*/
 import React, { useState, useEffect } from "react";
 import {
     Card,
     Typography,
-    CardBody,
-    Button,
+    CardBody
 } from "@material-tailwind/react";
 
 

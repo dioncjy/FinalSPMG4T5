@@ -1,27 +1,22 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom';
-import { Typography, Button, Textarea, Select, Option, Input, input } from "@material-tailwind/react";
+import { Typography, Button } from "@material-tailwind/react";
 import DatePicker from 'react-date-picker';
 import 'react-date-picker/dist/DatePicker.css';
 import 'react-calendar/dist/Calendar.css';
-import Dropdown from './dropdown';
 import SuccessModal from "./editRoleListingSuccessModal";
 
 
-// unique roles = http://127.0.0.1:5000/uniquerole -- populate the role name dropdown
-// role description = http://127.0.0.1:5000/getroledetails/<role_name> -- Populate the role description based on selected skill + department
-// skills = http://127.0.0.1:5000/role_skill/<role_name> -- Get the skills needed for each role 
+// for local testing
 
-// for offline test @zac
-const role = {
-    "closing_date": "2023-10-11",
-    "department": "test department",
-    "listing_id": 8,
-    "opening_date": "2023-09-08",
-    "reporting_manager": "test reporting manager",
-    "role_description": "The Operation Planning Executive supports plant operations by coordinating day-to-day production activities, as well as maintenance and turnaround schedules and activities, for production shift teams, so as to meet production plans and schedules.",
-    "role_name": "Ops Planning Exec"
-}
+// const role = {
+//     "closing_date": "2023-10-11",
+//     "department": "test department",
+//     "listing_id": 8,
+//     "opening_date": "2023-09-08",
+//     "reporting_manager": "test reporting manager",
+//     "role_description": "The Operation Planning Executive supports plant operations by coordinating day-to-day production activities, as well as maintenance and turnaround schedules and activities, for production shift teams, so as to meet production plans and schedules.",
+//     "role_name": "Ops Planning Exec"
+// }
 
   
 export default function HREditRole(props) {
@@ -42,9 +37,6 @@ export default function HREditRole(props) {
     const [dptLimitReached, setDptLimitReached] = useState(false)
     const [rptLimitReached, setRptLimitReached] = useState(false)
     const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
-
-    const currentDateUnformatted = new Date().toLocaleDateString('nl-NL'); // Get the current date in "DD-MM-YYYY" format
-    const currentDate = new Date(currentDateUnformatted.split('-').reverse().join('-')); // Convert the date to "YYYY-MM-DD" format
     
     useEffect(() => {
         if (department.trim() === "") {
@@ -192,7 +184,6 @@ export default function HREditRole(props) {
                                         </Typography>
                                     </div>
                                     <div className='flex w-full flex-col'>
-                                        {/* to fetch selectedRole, change value and autopopulate fields from previous roletable page */}
                                         <input
                                             value={role.role_name}
                                             onChange={handleChange}
@@ -253,7 +244,6 @@ export default function HREditRole(props) {
                                             </Typography>
                                         </div>
                                         <div className='flex-col mt-4' style={{ width: "90%", height: "50px"}}>
-                                        {/* to fetch the previous date here as value */}
                                             <DatePicker onChange={setOpeningDate} value={openingDate} format="y-MM-dd" disabled /> 
                                         </div>
                                     </div>
@@ -264,7 +254,6 @@ export default function HREditRole(props) {
                                             </Typography>
                                         </div>
                                         <div className='flex-col mt-4'>
-                                            {/* to set the previous opening date here */}
                                             <DatePicker onChange={setClosingDate} value={closingDate} minDate={openingDate} format="y-MM-dd" required />
                                         </div>  
                                     </div>

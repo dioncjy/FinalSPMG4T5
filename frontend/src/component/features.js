@@ -31,8 +31,6 @@ export default function BlogsNews() {
             <div className="container lg:py-24 py-16">
                 <div className="grid grid-cols-1 pb-8 text-center">
                     <h3 className="mb-4 md:text-2xl text-xl font-medium">What to Expect</h3>
-
-                    {/* <p className="text-slate-400 dark:text-slate-300 max-w-xl mx-auto"></p> */}
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-[30px] mt-8">
@@ -43,10 +41,6 @@ export default function BlogsNews() {
                             <div className="content p-6">
                                 <Link to="/blog-detail" className="text-lg hover:text-violet-600 dark:text-white dark:hover:text-violet-600 transition duration-500 ease-in-out font-medium h5">{item.title}</Link>
                                 <p className="text-slate-400 mt-3">{item.detail}</p>
-
-                                {/* <div className="mt-5">
-                                    <Link to="" className="hover:text-violet-600 dark:hover:text-violet-600 after:bg-violet-600 dark:text-white transition duration-500">{item.more}<i className="uil uil-arrow-right"></i></Link>
-                                </div> */}
                             </div>
                         </div>
                     ))}

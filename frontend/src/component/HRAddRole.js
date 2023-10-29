@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom';
-import { Typography, Button, Textarea, Select, Option, Input } from "@material-tailwind/react";
+import { Typography, Button } from "@material-tailwind/react";
 import DatePicker from 'react-date-picker';
 import 'react-date-picker/dist/DatePicker.css';
 import 'react-calendar/dist/Calendar.css';
 import Dropdown from './dropdown';
 import SuccessModal from "./addRoleListingSuccessModal";
-
-
-// unique roles = http://127.0.0.1:5000/uniquerole -- populate the role name dropdown
-// role description = http://127.0.0.1:5000/getroledetails/<role_name> -- Populate the role description based on selected skill + department
-// skills = http://127.0.0.1:5000/role_skill/<role_name> -- Get the skills needed for each role 
 
 export default function HRAddRole() {
     const [openingDate, setOpeningDate] = useState();
@@ -121,7 +115,7 @@ export default function HRAddRole() {
                 })
                 .catch((error) => console.error(error)),
             
-            // skillz
+            // skills
             fetch(`http://127.0.0.1:5000/role_skill/${selectedValue}`)
                 .then((response) => response.json())
                 .then((data) => {

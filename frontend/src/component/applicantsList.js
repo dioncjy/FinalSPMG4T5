@@ -1,25 +1,8 @@
 import React, { useState, useEffect } from "react";
-// import { Typography, Button, Chip, Progress } from "@material-tailwind/react";
-import {
-  ChevronUpDownIcon,
-  ChevronDownIcon,
-  ChevronUpIcon,
-  HeartIcon,
-} from "@heroicons/react/24/outline";
-import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
 import { useLocation } from 'react-router-dom';
 import {
   Card,
-  CardHeader,
-  Checkbox,
   Typography,
-  Button,
-  CardBody,
-  CardFooter,
-  Menu,
-  MenuHandler,
-  MenuItem,
-  MenuList,
   Progress,
 } from "@material-tailwind/react";
 
@@ -36,7 +19,6 @@ const ApplicantsListWithFilters = () => {
 
     const location = useLocation();
     const role_listing = location.state && location.state.role_listing;
-    // console.log(role_listing.listing_id)
 
   useEffect(() => {
     async function fetchSpecificApplicant() {
@@ -59,20 +41,17 @@ const ApplicantsListWithFilters = () => {
         if (!response.ok) {
             throw new Error('Network response was not ok');
     }
-    const jsonRoleSkillData = await response.json();
-    setRoleSkills(jsonRoleSkillData.skill_name)
-} catch (error) {
-    console.error('Error fetching data:', error);
-  }
-}
+      const jsonRoleSkillData = await response.json();
+      setRoleSkills(jsonRoleSkillData.skill_name)
+    } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
 
 fetchSpecificApplicant();
 fetchRoleSkill()
 
 }, []);
-
-console.log(roleSkills)
-console.log(applicants)
 
   // useEffect(() => {
   //   if (department === "all") {
