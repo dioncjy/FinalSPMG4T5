@@ -6,16 +6,8 @@ import './assets/libs/@mdi/font/css/materialdesignicons.min.css'
 import './assets/libs/@iconscout/unicons/css/line.css'
 import './assets/libs/tobii/css/tobii.min.css'
 import './assets/images/favicon.ico'
-import BlogDetail from './main/blog-detail';
-import Blogs from './main/blogs';
-import ContactUs from './main/contactus';
 import Index from './main';
 import Login from './main/login';
-import Pricing from './main/pricing';
-import ResetPassword from './main/reset-password';
-import Services from './main/services';
-import Signup from './main/signup';
-import Team from './main/team';
 import Switcher from './component/Switcher';
 import ScrollToTop from './component/Scroll-top';
 import IndexHr from './main/index-hr';
@@ -42,16 +34,8 @@ export default function App() {
     <NavbarSmallLight userRole={selectedRole}/>
       <ScrollToTop />
         <Routes>
-          <Route path="/blog-detail" element={<BlogDetail />} />
-          <Route path="/blogs" element={<Blogs />} />
-          <Route path="/contactus" element={<ContactUs />} />
           <Route path="/index" element={<Index />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/pricing" element={<Pricing />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/team" element={<Team />} />
           <Route path="/" element={<Index />} />
           <Route path="/index-hr" element={<IndexHr />} />
           <Route path="/index-staff" element={<IndexStaff />} />
