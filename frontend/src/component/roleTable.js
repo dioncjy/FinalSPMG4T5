@@ -21,6 +21,8 @@ import {
     MenuList,
 } from "@material-tailwind/react";
 
+// static data defined for local testing
+
 // const filter_labels = ["departments", "roles"]
 
 // const filter_data = {
@@ -44,78 +46,6 @@ import {
 //         "department" :"data analytics",
 //         "description": "asdf",
 //         "closing_date": "2023-12-23"
-//     }, 
-//     {
-//         "role_name": "HR",
-//         "department" :"talent acquisition",
-//         "description": "asdf",
-//         "closing_date": "2023-12-23"
-//     }, 
-//     {
-//         "role_name": "uiux designer",
-//         "department" :"web application",
-//         "description": "asdf",
-//         "closing_date": "2023-12-23"
-//     }, 
-//     {
-//         "role_name": "data analyst",
-//         "department" :"data analytics",
-//         "description": "asdf",
-//         "closing_date": "2023-06-23"
-//     }, 
-//     {
-//         "role_name": "HR",
-//         "department" :"talent acquisition",
-//         "description": "asdf",
-//         "closing_date": "2023-04-23"
-//     }, 
-//     {
-//         "role_name": "uiux designer",
-//         "department" :"web application",
-//         "description": "asdf",
-//         "closing_date": "2023-07-23"
-//     }, 
-//     {
-//         "role_name": "data analyst",
-//         "department" :"data analytics",
-//         "description": "asdf",
-//         "closing_date": "2023-07-14"
-//     }, 
-//     {
-//         "role_name": "HR",
-//         "department" :"talent acquisition",
-//         "description": "asdf",
-//         "closing_date": "2023-07-2"
-//     }, 
-//     {
-//         "role_name": "uiux designer",
-//         "department" :"web application",
-//         "description": "asdf",
-//         "closing_date": "2023-07-1"
-//     }, 
-//     {
-//         "role_name": "data analyst",
-//         "department" :"data analytics",
-//         "description": "asdf",
-//         "closing_date": "2023-12-23"
-//     }, 
-//     {
-//         "role_name": "HR",
-//         "department" :"talent acquisition",
-//         "description": "asdf",
-//         "closing_date": "2023-12-23"
-//     }, 
-//     {
-//         "role_name": "uiux designer",
-//         "department" :"web application",
-//         "description": "asdf",
-//         "closing_date": "2023-12-23"
-//     }, 
-//     {
-//         "role_name": "data analyst",
-//         "department" :"data analytics",
-//         "description": "asdf",
-//         "closing_date": "2023-07-23"
 //     }
 // ]
 
@@ -131,7 +61,6 @@ export default function RoleTable(userData) {
     // Track checkbox state
     const [roleFilters, setRoleFilters] = useState({});
 
-    //dont ever manipulate role listings
     const [roleListings, setRoleListings] = useState([]);
     const [filteredRoleListings, setFilteredRoleListings] = useState([])
 
@@ -173,7 +102,8 @@ export default function RoleTable(userData) {
             .catch((error) => {
                 console.error('Error fetching data:', error)
 
-                // // For test
+                // For testing
+
                 // setFilteredRoleListings(data)
                 // setRoleListings(data)
                 // setFilters(
@@ -211,10 +141,8 @@ export default function RoleTable(userData) {
         if (category === 'departments' || category === 'roles') {
             
             if (updatedFilters[category].includes(item)) {
-                // If it is inside remove
                 updatedFilters[category] = updatedFilters[category].filter((value) => value !== item);
             } else {
-                // else add
                 updatedFilters[category].push(item);
             }
         }
@@ -409,16 +337,8 @@ export default function RoleTable(userData) {
             <CardBody className="overflow-scroll p-6">
                 <div className="flex flex-col my-4">
                     {filteredRoleListings.map((role, index) => {
-                        // const isFirst = index === 0;
-                        // const isLast = index === data.length - 1;
-                        // const classes = isLast
-                        //     ? "flex flex-row p-4 items-center justify-between"
-                        //     : isFirst
-                        //     ? "flex flex-row p-4 items-center border-t border-blue-gray-50 justify-between"
-                        //     : "flex flex-row p-4 items-center border-b border-blue-gray-50 justify-between";
                         if (username === "staff" && role.closing_date >= today) {
                             return (
-                                // <div className={classes}>
                                 <div className="flex flex-row p-4 items-center justify-between">
                                     <button onClick={() => {handleClickStaff(role)}} className="flex flex-col w-full">
                                         <div className="flex flex-col mt-4">

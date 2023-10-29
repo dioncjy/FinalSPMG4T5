@@ -7,7 +7,6 @@ import './assets/libs/@iconscout/unicons/css/line.css'
 import './assets/libs/tobii/css/tobii.min.css'
 import './assets/images/favicon.ico'
 import Index from './main';
-import Login from './main/login';
 import ScrollToTop from './component/Scroll-top';
 import IndexHr from './main/index-hr';
 import IndexStaff from './main/index-staff';
@@ -23,10 +22,6 @@ import { useRoleContext } from './context/roleContext';
 
 export default function App() {
   const { selectedRole } = useRoleContext();
-  useEffect(() => {
-    document.documentElement.setAttribute("dir", "ltr");
-    document.documentElement.classList.add('light');
-  }, []);
 
   return (
     <BrowserRouter >
@@ -34,7 +29,6 @@ export default function App() {
       <ScrollToTop />
         <Routes>
           <Route path="/index" element={<Index />} />
-          <Route path="/login" element={<Login />} />
           <Route path="/" element={<Index />} />
           <Route path="/index-hr" element={<IndexHr />} />
           <Route path="/index-staff" element={<IndexStaff />} />

@@ -1,11 +1,7 @@
-import React, { useState } from 'react'
 import Footer from '../component/footer';
 import StaffServices from '../component/Staff-services';
-import NavbarSmallLight from '../component/navbar-small-light';
-import { useRoleContext } from '../context/roleContext';
 
 export default function Index() {
-    const [isOpen, setOpen] = useState(false)
 
     return (
         <>

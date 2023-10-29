@@ -1,9 +1,9 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import ApplicantsList from '../component/allApplicationsForRole';  // Adjust the path if needed
+import ApplicantsList from '../component/allApplicationsForRole'; 
 
 export default function RoleApplicantsPage() {
-    const { listingId } = useParams();  // Extract listingId from the URL
+    const { listingId } = useParams(); 
 
     return (
         <div className='applicant-cards'>
@@ -16,7 +16,7 @@ export default function RoleApplicantsPage() {
                 </div>
             </section>
             <div>
-                <ApplicantsList listingId={listingId} /> {/* Pass the listingId to your component */}
+                <ApplicantsList listingId={listingId} />
             </div>
         </div>
     )

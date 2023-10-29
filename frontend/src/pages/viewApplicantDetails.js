@@ -1,5 +1,5 @@
 import React from 'react';
-import ApplicantsListWithFilters from '../component/applicantsList';  // adjust the path if needed
+import ApplicantsListWithFilters from '../component/applicantsList';
 
 export default function applicantPage() {
     return (

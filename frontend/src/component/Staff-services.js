@@ -25,9 +25,6 @@ export default function StaffServices() {
             <div className="container lg mx-auto">
                 <div className="grid grid-cols-1 pb-8 text-center">
                     <h3 className="mb-4 md:text-2xl text-xl font-medium">Staff Services</h3>
-                    {/* <p className="text-slate-400 max-w-xl mx-auto">
-                        This is just a simple text made for this unique and awesome template, you can replace it with any text.
-                    </p> */}
                 </div>
 
                 <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 mt-4 gap-[30px]">
