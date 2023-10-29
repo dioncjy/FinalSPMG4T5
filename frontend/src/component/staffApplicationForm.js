@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, UserPlusIcon } from "@material-tailwind/react";
 import ResultModal from "../component/applicationResultModal";
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 function StaffApplicationForm(props) {
     const staff_id = props.props.staff_id;

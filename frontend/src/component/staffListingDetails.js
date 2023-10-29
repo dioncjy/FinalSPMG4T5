@@ -1,78 +1,56 @@
 import React, { useState, useEffect } from 'react'
 import { Typography, Button, Chip, Progress } from "@material-tailwind/react";
 import { useLocation, useNavigate } from 'react-router-dom';
-import { CornerDownLeft } from 'react-feather';
 
-const user_skills = [
-    "prototyping", "UX", "Communication Skills",
-]
-const role_listing = {
-    "listing_id": 1,
-    "role_name": "Product Manager",
-    "department" :"IT",
-    "description": "Manage products. This is the description",
-    "closing_date": "2023-12-23",
-    "opening_date": "2023-09-09",
-    "reporting_manager": "Bajesh Ralan",
-}
-
-const roleSkillDataMock = {
-    "role_name": "Product Manager",
-    "skill_name": "managing"
-}
-
-const roleSkillArrayMock = [
-    "managing"
-]
-
-// staff_id 1 0%
+// Static data for error handling
 const staffSkillDataMock1 = {
     "staff_id": 1,
     "skill_name": "coding"
 }
 
-const staffSkillArrayMock1 = [
-    "coding"
-]
-
-// staff_id 2 100% can apply 
-const staffSkillDataMock2 = {
-    "staff_id": 2,
+// Static data for error handling
+const roleSkillDataMock = {
+    "role_name": "Product Manager",
     "skill_name": "managing"
 }
 
-const staffSkillArrayMock2 = [
-    "managing"
-]
+// Data used for local testing
+
+// const user_skills = [
+//     "prototyping", "UX", "Communication Skills",
+// ]
+// const role_listing = {
+//     "listing_id": 1,
+//     "role_name": "Product Manager",
+//     "department" :"IT",
+//     "description": "Manage products. This is the description",
+//     "closing_date": "2023-12-23",
+//     "opening_date": "2023-09-09",
+//     "reporting_manager": "Bajesh Ralan",
+// }
+
+// const roleSkillArrayMock = [
+//     "managing"
+// ]
 
 
-const findMatchingSkillsPercentage = (userSkillArray, roleSkillArray) => {
-    const commonStrings = []
-    var commonCounter = 0
-    const numRoleSkill = roleSkillArray.length
+// const staffSkillArrayMock1 = [
+//     "coding"
+// ]
 
-    for (const roleSkill of roleSkillArray) {
-        if (userSkillArray.includes(roleSkill)) {
-            console.log("ROLE SKILL", roleSkill)
-            commonCounter += 1
-        }
-    }
+// // staff_id 2 100% can apply 
+// const staffSkillDataMock2 = {
+//     "staff_id": 2,
+//     "skill_name": "managing"
+// }
 
-    return (commonCounter / numRoleSkill * 100).toFixed(2)
-} 
+// const staffSkillArrayMock2 = [
+//     "managing"
+// ]
 
-// TEST
-// const staffSkillArray = staffSkillDataMock2.skill_name.split(',')
-// const staffSkillLen = userSkillArray.length 
-
-// const roleSkillArray = roleSkillDataMock.skill_name.split(',')
-// const roleSkillLen = roleSkillArray.length 
-
-// const skillMatchPercentage = findMatchingSkillsPercentage(userSkillArray, roleSkillArray)
 
 export default function StaffListingDetails(props) {
     const staff_id = props.props.staff_id
-    console.log(staff_id)
     const [roleListing, setRoleListing] = useState([]);
     const [skillMatchPercentage, setSkillMatchPercentage] = useState(0)
 
@@ -88,7 +66,6 @@ export default function StaffListingDetails(props) {
     const location = useLocation();
     const role = location.state && location.state.role;
     const roleName = role.role_name
-    console.log(role.role_name)
     const navigate = useNavigate();
     const handleClickApply = (role) => {
         navigate(`/staffApplicationForm`, { state: { role } });
@@ -145,7 +122,6 @@ export default function StaffListingDetails(props) {
     const skills_items = (roleSkillArray) => {
         roleSkillLen = roleSkillArray.length
         const rows = [...Array( Math.ceil(roleSkillLen / 7) )];
-        console.log("rows", rows)
         const skillRows = rows.map( (row, idx) => roleSkillArray.slice(idx * 7, idx * 7 + 7) ); // 7 is number of items in each row
         let columns = []
         for (let i = 0; i < skillRows.length; i++) {
@@ -198,7 +174,6 @@ export default function StaffListingDetails(props) {
     
         for (const roleSkill of roleSkillArray) {
             if (userSkillArray.includes(roleSkill)) {
-                console.log("ROLE SKILL", roleSkill)
                 commonCounter += 1
             }
         }
