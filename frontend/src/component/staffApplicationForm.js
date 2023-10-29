@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, UserPlusIcon } from "@material-tailwind/react";
+import { Button } from "@material-tailwind/react";
 import ResultModal from "../component/applicationResultModal";
 import { useLocation } from 'react-router-dom';
 
@@ -10,7 +10,6 @@ function StaffApplicationForm(props) {
     const location = useLocation();
     const role = location.state && location.state.role.role_name;
     const listing_id = location.state && location.state.role.listing_id;
-    console.log(location.state)
     const openModal = () => {
         setIsModalOpen(true);
       };
@@ -38,8 +37,6 @@ function StaffApplicationForm(props) {
     const handleSubmitApplication = () => {
         var comments = document.getElementById("comments").value;
         const url = `http://127.0.0.1:5000/insertapplication/${staff_id}&${comments}&${role}&${listing_id}`;
-
-        console.log("URL", url)
 
         fetch(url, {
             method: 'POST'
