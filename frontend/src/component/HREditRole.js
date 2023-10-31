@@ -236,24 +236,24 @@ export default function HREditRole(props) {
                                 </div>
                             </div>
                             <div className='flex flex-col border-t border-b border-blue-gray-50'>
-                                <div className='flex flex-row mt-8 mb-8'>
-                                    <div className='flex flex-col' style={{ width: "50%", paddingRight: "24px" }}>
+                                <div className='flex flex-row mt-8 mb-8 justify-between'>
+                                    <div className='flex flex-col' style={{ width: "30%" }}>
                                         <div className='flex-col mt-4'>
                                             <Typography variant="h5">
                                                 Opening Date (YYYY/MM/DD)
                                             </Typography>
                                         </div>
-                                        <div className='flex-col mt-4' style={{ width: "90%", height: "50px"}}>
+                                        <div className='flex-col mt-4' style={{ width: "60%", height: "50px"}}>
                                             <DatePicker onChange={setOpeningDate} value={openingDate} format="y-MM-dd" disabled /> 
                                         </div>
                                     </div>
-                                    <div className='flex flex-col' style={{ width: "50%" }}>
+                                    <div className='flex flex-col' style={{ width: "30%" }}>
                                         <div className='flex-col mt-4'>
                                             <Typography variant="h5">
                                                 Closing Date (YYYY/MM/DD)
                                             </Typography>
                                         </div>
-                                        <div className='flex-col mt-4'>
+                                        <div className='flex-col mt-4' style={{ width: "60%", height: "50px"}}>
                                             <DatePicker onChange={setClosingDate} value={closingDate} minDate={openingDate} format="y-MM-dd" required />
                                         </div>  
                                     </div>
