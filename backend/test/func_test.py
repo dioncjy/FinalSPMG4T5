@@ -5,9 +5,19 @@ import pytest
 import sys
 from backend.connectionManager import connect_to_database, connect_to_test_database
 from main_test import create_app
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
 # import logging
 
 sys.path.append('..')
+
+db_host = os.getenv('rds_host')
+db_name = os.getenv('rds_name')
+db_user = os.getenv('rds_user')
+db_password = os.getenv('rds_password')
 
 BASE_URL = 'http://127.0.0.1:5000'
 test_db_name = "test_db"

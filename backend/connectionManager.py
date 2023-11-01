@@ -13,6 +13,7 @@ app = Flask(__name__)
 # db_user = os.getenv('rds_user')
 # db_password = os.getenv('rds_password')
 
+
 db_host = 'database-work.c2bsg3plgld1.us-east-1.rds.amazonaws.com'
 db_name = 'SPM'
 db_user = 'postgres'
