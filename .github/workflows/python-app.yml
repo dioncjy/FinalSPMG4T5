@@ -35,7 +35,7 @@ jobs:
     - name: Load .env file
       run: |
         echo "Loading .env file..."
-        cp .env .env  
+        cp ./.env .env  
     # - name: Lint with flake8
     #   run: |
     #     # stop the build if there are Python syntax errors or undefined names
