@@ -1,10 +1,10 @@
-import psycopg2
-import requests
+# import psycopg2
+# import requests
 import pytest
-from flask import jsonify
+# from flask import jsonify
 from backend.connectionManager import connect_to_database, connect_to_test_database
 from main_test import create_app
-import logging
+# import logging
 
 BASE_URL = 'http://127.0.0.1:5000'
 test_db_name = "test_db"

@@ -189,6 +189,10 @@ export default function RoleTable(userData) {
         navigate(`/listingPage/${role.listing_id}`, { state: { role } });
     }
 
+    const handleClickApplicants = (role) => {
+        navigate(`/viewApplicantsByRole/${role.listing_id}`, { state: { role } });
+    }
+
     const handleAddStaff = () => {
         navigate(`/addRolePage`);
     }
@@ -268,14 +272,14 @@ export default function RoleTable(userData) {
                         </Menu>
                     </div>
 
-                    <div className="flex items-center">
+                    {/* <div className="flex items-center">
                         <input
                         className="rounded"
                         placeholder='Start Searching...'
                         />
-                    </div>
+                    </div> */}
 
-                    <div className="filtering flex flex-col items-center ">
+                    <div className="filtering flex flex-row items-center ">
                         <Menu dismiss={{itemPress:false}} allowHover>
                             <MenuHandler>
                                 <Button
@@ -373,7 +377,7 @@ export default function RoleTable(userData) {
                         )} else if (username === "hr") {
                             return (
                                 <div className="flex flex-row p-4 items-center justify-between">
-                                    <button className="flex flex-col w-full">
+                                    <button onClick={() => {handleClickApplicants(role)}} className="flex flex-col w-full">
                                         <div className="flex flex-col mt-4">
                                             <Typography variant="h4" color="blue-gray" className="font-bold">
                                                 {role.department} department
@@ -401,7 +405,7 @@ export default function RoleTable(userData) {
                                             <PencilIcon className="h-4 w-4 place-self-end" />
                                         </Button>
                                     </div>
-                                        <Button className="flex px-6 py-3 items-center" variant="text" size="sm">
+                                        <Button className="flex px-6 py-3 items-center" variant="text" size="sm" onClick={() => {handleClickApplicants(role)}}>
                                             <Typography variant="normal" color="blue-gray" className="font-normal">
                                                 View Applicants
                                             </Typography>

@@ -121,15 +121,15 @@ export default function StaffListingDetails(props) {
 
     const skills_items = (roleSkillArray) => {
         roleSkillLen = roleSkillArray.length
-        const rows = [...Array( Math.ceil(roleSkillLen / 7) )];
-        const skillRows = rows.map( (row, idx) => roleSkillArray.slice(idx * 7, idx * 7 + 7) ); // 7 is number of items in each row
+        const rows = [...Array( Math.ceil(roleSkillLen / 2) )];
+        const skillRows = rows.map( (row, idx) => roleSkillArray.slice(idx * 2, idx * 2 + 2) ); // 7 is number of items in each row
         let columns = []
         for (let i = 0; i < skillRows.length; i++) {
             columns.push(
                 <div className='flex flex-row pb-6 gap-10'>
                     {skillRows[i].map( (skill) => {
                         return (
-                            <Chip variant="outlined" value={skill} />
+                            <Chip variant="outlined" value={skill} size="sm" />
                     )})}
                 </div>
             )
@@ -142,8 +142,8 @@ export default function StaffListingDetails(props) {
     }
     
     const skills_match_items = (staffSkillArray, roleSkillArray, roleSkillLen) => {
-        const rows = [...Array( Math.ceil(roleSkillLen / 7) )];
-        const skillRows = rows.map( (row, idx) => roleSkillArray.slice(idx * 7, idx * 7 + 7) ); // 7 is number of items in each row
+        const rows = [...Array( Math.ceil(roleSkillLen / 2) )];
+        const skillRows = rows.map( (row, idx) => roleSkillArray.slice(idx * 2, idx * 2 + 2) ); // 7 is number of items in each row
         let columns = []
         for (let i = 0; i < skillRows.length; i++) {
             columns.push(
@@ -155,13 +155,13 @@ export default function StaffListingDetails(props) {
                         const skillColor = skillMatch ? "white" : "red"
                                     
                         return (
-                            <Chip variant={skillVariant} color={skillColor} className={skillClasses} value={skill}/>
+                            <Chip variant={skillVariant} color={skillColor} className={skillClasses} value={skill} size="sm"/>
                         )})}
                 </div>
             )
         }
         return (
-            <div className='flex flex-col'>
+            <div className='flex flex-col max-w-sm-50'>
                 {columns}
             </div>
         )
@@ -182,7 +182,7 @@ export default function StaffListingDetails(props) {
     } 
 
     return (
-        <div className="w-32">
+        <div className="w-10/12">
             <div className="p-6 bg-blue-500">
                 <div className="border p-6 rounded-lg">
                     <div className="flex flex-col">
@@ -202,7 +202,7 @@ export default function StaffListingDetails(props) {
                                         Skills Required for this role
                                     </Typography>
                                 </div>
-                                <div className='flex flex-row gap-10 w-full'>
+                                <div className='flex flex-row gap-10'>
                                     { skills_items(roleSkillArray, roleSkillLen) }
                                 </div>
                             </div>
