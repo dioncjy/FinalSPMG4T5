@@ -31,7 +31,7 @@ jobs:
 
     - name: Set up environment variables from .env
       run: |
-        cp .env.example .env  # Create a copy of .env.example as .env
+        cp .env .env  # Create a copy of .env.example as .env
         echo "export $(grep -v '^#' .env | xargs)" >> $GITHUB_ENV
     # - name: Lint with flake8
     #   run: |
