@@ -17,6 +17,12 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    environment:
+      rds_host = 'database-work.c2bsg3plgld1.us-east-1.rds.amazonaws.com'
+      rds_name = 'SPM'
+      rds_user = 'postgres'
+      rds_password = 'Matthias159!'
+
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python 3.10
@@ -29,10 +35,6 @@ jobs:
         pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-    - name: Set up environment variables from .env
-      run: |
-        cp .env .env  # Create a copy of .env.example as .env
-        echo "export $(grep -v '^#' .env | xargs)" >> $GITHUB_ENV
     # - name: Lint with flake8
     #   run: |
     #     # stop the build if there are Python syntax errors or undefined names
