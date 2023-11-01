@@ -17,10 +17,10 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      DB_HOST: 'database-work.c2bsg3plgld1.us-east-1.rds.amazonaws.com'
-      DB_NAME: 'SPM'
-      DB_USER: 'postgres'
-      DB_PASSWORD: 'Matthias159!'
+      db_host : 'database-work.c2bsg3plgld1.us-east-1.rds.amazonaws.com'
+      db_name : 'SPM'
+      db_user : 'postgres'
+      db_password : 'Matthias159!'
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python 3.10
