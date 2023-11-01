@@ -8,10 +8,15 @@ load_dotenv()
 
 app = Flask(__name__)
 
-db_host = os.getenv('rds_host')
-db_name = os.getenv('rds_name')
-db_user = os.getenv('rds_user')
-db_password = os.getenv('rds_password')
+# db_host = os.getenv('rds_host')
+# db_name = os.getenv('rds_name')
+# db_user = os.getenv('rds_user')
+# db_password = os.getenv('rds_password')
+
+db_host = 'database-work.c2bsg3plgld1.us-east-1.rds.amazonaws.com'
+db_name = 'SPM'
+db_user = 'postgres'
+db_password = 'Matthias159!'
 
 # Create a function to establish a database connection
 def connect_to_database():
