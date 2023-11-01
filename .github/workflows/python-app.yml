@@ -16,13 +16,11 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
-    environment:
-      rds_host = 'database-work.c2bsg3plgld1.us-east-1.rds.amazonaws.com'
-      rds_name = 'SPM'
-      rds_user = 'postgres'
-      rds_password = 'Matthias159!'
-
+    env:
+      RDS_HOST: ${{ secrets.RDS_HOST }}
+      RDS_NAME: ${{ secrets.RDS_NAME }}
+      RDS_USER: ${{ secrets.RDS_USER }}
+      RDS_PASSWORD: ${{ secrets.RDS_PASSWORD }}
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python 3.10
