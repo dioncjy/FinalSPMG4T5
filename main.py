@@ -124,6 +124,12 @@ def create_app():
     def get_staff_skill(staff_id):
         staff_skill = staff.get_staff_skill(staff_id)
         return staff_skill
+    
+    # check if application has been applied by applicant
+    @app.route('/staffapplied/<staff_id>&<role_name>&<listing_id>', methods=['GET'])
+    def hasStaffApplied(staff_id, role_name, listing_id):
+        staffApplied = staff.has_staff_applied(staff_id, role_name, listing_id)
+        return staffApplied
 
     @app.route("/")
     def home():
