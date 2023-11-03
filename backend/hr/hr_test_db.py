@@ -129,7 +129,7 @@ def autoPopulateRoleDetails(role_name):
         if connection is None or cursor is None:
             return jsonify({'error': 'Database connection error'})
 
-        cursor.execute('select r.role_name, max(r.role_desc), array_agg(s.skill_name) from role_skill s inner join role r on s.role_name = r.role_name where r.role_name = %s group by r.role_name', (role_name,))
+        cursor.execute('select r.role_name, r.role_desc, array_agg(s.skill_name) from role_skill s inner join role r on s.role_name = r.role_name where r.role_name = %s group by r.role_name', (role_name,))
 
         # Fetch all rows from the query result
         data = cursor.fetchall()
@@ -443,7 +443,7 @@ def addRole(role_name, dpt, closing_date, opening_date, reporting_manager):
             return jsonify({'error': 'Database connection error'})
 
         # Retrieve staff details
-        cursor.execute('select r.role_name, max(r.role_desc), array_agg(s.skill_name) from role_skill s inner join role r on s.role_name = r.role_name where r.role_name = %s group by r.role_name', (role_name,))
+        cursor.execute('select r.role_name, r.role_desc, array_agg(s.skill_name) from role_skill s inner join role r on s.role_name = r.role_name where r.role_name = %s group by r.role_name', (role_name,))
 
         # Fetch all rows from the query result
         data = cursor.fetchone()
