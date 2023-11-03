@@ -67,6 +67,11 @@ export default function StaffListingDetails(props) {
     const role = location.state && location.state.role;
     const roleName = role.role_name
     const navigate = useNavigate();
+
+    const goBack = () => {
+        window.history.back();
+    }
+
     const handleClickApply = (role) => {
         navigate(`/staffApplicationForm`, { state: { role } });
     }
@@ -284,7 +289,12 @@ export default function StaffListingDetails(props) {
                                     </div>
                                 </div>
                             </div>
-                            <div className='flex flex-row sm:flex-row justify-end'>
+                            <div className='flex flex-row sm:flex-row justify-between'>
+                                <div className='flex-row mt-8 mb-8'>
+                                    <Button onClick={goBack} className="flex items-center p-6 bg-violet-600" size="sm">
+                                        Back
+                                    </Button>
+                                </div>
                                 <div className='flex-col mt-8 mb-8'>
                                         <Button onClick={() => {handleClickApply(role)}} className="flex items-center p-6 bg-violet-600" size="sm">
                                             Apply
