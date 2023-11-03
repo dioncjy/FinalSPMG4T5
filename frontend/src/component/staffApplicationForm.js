@@ -18,6 +18,10 @@ function StaffApplicationForm(props) {
         setIsModalOpen(false);
     };
 
+    const goBack = () => {
+        window.history.back();
+    }
+
     useEffect(() => {
         async function fetchData() {
             try {
@@ -106,12 +110,22 @@ function StaffApplicationForm(props) {
                             />
                         </div>
                         <hr />
-                        <div className="py-2 flex justify-between">
-                            <Button className="bg-violet-600">Home</Button>
-                            <Button onClick={() => {
-                                            handleSubmitApplication()
-                                            openModal()
-                                            }} className="bg-violet-600">Submit</Button>
+                        <div className="flex sm:flex-row justify-between">
+                            <div className='flex-row mt-8 mb-8'>
+                                <Button onClick={goBack} className="flex items-center p-6 bg-violet-600" size="sm">
+                                    Back
+                                </Button>
+                            </div>
+                            <div className='flex-row mt-8 mb-8'>
+                                <Button onClick={() => {
+                                                handleSubmitApplication()
+                                                openModal()
+                                                }} 
+                                        className="flex items-center p-6 bg-violet-600"
+                                        size="sm">
+                                        Submit
+                                </Button>
+                            </div>
                         </div>
                     </div>
                     </form>

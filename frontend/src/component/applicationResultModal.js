@@ -2,10 +2,17 @@
 import React from 'react';
 import Modal from 'react-modal';
 import { Button } from "@material-tailwind/react";
+import { useNavigate } from 'react-router-dom';
 
 Modal.setAppElement('#root'); // Set the root element for accessibility
 
 function ResultModal({ isOpen, onClose }) {
+  const navigate = useNavigate();
+
+  const returnHome = () => {
+    navigate(`/roles`);
+  }
+
   return (
     <Modal
       isOpen={isOpen}
@@ -21,7 +28,12 @@ function ResultModal({ isOpen, onClose }) {
                 <p>The hiring team will review your application.</p>
             </div>
             <div className="flex-grow pt-8">
-                <Button className="bg-violet-600" onClick={onClose}>Close</Button>
+                <Button className="bg-violet-600" onClick={() => {
+                  onClose()
+                  returnHome()
+                }}>
+                  Close
+                </Button>
             </div>
         </div>
     </Modal>
