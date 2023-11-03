@@ -227,5 +227,40 @@ def getIndividualRoleListing(listing_id, role_name):
         if connection:
             connection.close()
 
+def has_staff_applied(staff_id, role_name, listing_id):
+    try:
+        # Connect to the database
+        connection, cursor = connect_to_database()
+
+        if connection is None or cursor is None:
+            return jsonify({'error': 'Database connection error'})
+
+        # Check if the staff has already applied for the specified listing
+        cursor.execute('SELECT * FROM applications WHERE staff_id = %s AND role_name = %s AND listing_id = %s',
+                    (staff_id, role_name, listing_id))
+
+        row = cursor.fetchone()
+
+        if row:
+            appliedStaffID = row[2]  # Extract staff_id from the row
+
+            if int(appliedStaffID) == int(staff_id):
+                return {'error': 'Staff has already applied'}  # Staff has already applied
+            else:
+                return {'result': 'Staff has not applied'}  # Staff has not applied
+        else:
+            return {'result': "No application made"}
+
+    except Exception as e:
+        return jsonify({'error': str(e)})
+
+    finally:
+        # Close the cursor and database connection
+        if cursor:
+            cursor.close()
+        if connection:
+            connection.close()
+
+
 if __name__ == '__main__':
     app.run(debug=True)
