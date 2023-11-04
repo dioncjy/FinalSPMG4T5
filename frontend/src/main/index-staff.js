@@ -2,8 +2,11 @@ import Footer from '../component/footer';
 import StaffServices from '../component/Staff-services';
 import { Button } from "@material-tailwind/react";
 import { useNavigate } from 'react-router-dom';
+import { useRoleContext } from '../context/roleContext';
 
 export default function Index() {
+    const {selectedRole} = useRoleContext();
+    console.log(selectedRole.staff_name)
     const navigate = useNavigate();
     const goToRoles = () => {
         navigate(`/roles`);
@@ -15,7 +18,7 @@ export default function Index() {
                 <div className="absolute inset-0 bg-gradient-to-t to-slate-950/50 via-slate-950/75 from-slate-950"></div>
                 <div className="container">
                     <div className="grid grid-cols-1 pb-8 text-center mt-10">
-                        <h3 className="font-medium leading-normal text-4xl mb-5 mt-10 text-white">Welcome, John AppleSeed!</h3>
+                        <h3 className="font-medium leading-normal text-4xl mb-5 mt-10 text-white">Welcome, {selectedRole.staff_name}!</h3>
                         <p className="text-slate-400 text-lg max-w-xl mx-auto">Browse and Filter roles, view role-skills match or Appply for roles!</p>
                     </div>
                     <Button className="flex items-center p-6 bg-violet-600 mx-auto" size="sm" onClick={() => {goToRoles()}}>

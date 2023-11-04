@@ -2,20 +2,24 @@ import React, { useState, useEffect } from 'react';
 import { Button } from "@material-tailwind/react";
 import ResultModal from "../component/applicationResultModal";
 import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function StaffApplicationForm(props) {
     const staff_id = props.props.staff_id;
     const [data, setData] = useState(null);
+    const [staffApplied, setStaffApplied] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const location = useLocation();
     const role = location.state && location.state.role.role_name;
     const listing_id = location.state && location.state.role.listing_id;
+    const navigate = useNavigate();
     const openModal = () => {
         setIsModalOpen(true);
       };
 
     const closeModal = () => {
         setIsModalOpen(false);
+        navigate("/index-staff")
     };
 
     const goBack = () => {
@@ -35,7 +39,24 @@ function StaffApplicationForm(props) {
             console.error('Error fetching data:', error);
           }
       } 
+      async function hasStaffApplied() {
+        try {
+            const response = await fetch(`http://127.0.0.1:5000/staffapplied/${staff_id}&${role}&${listing_id}`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+        }
+            const jsonData = await response.json();
+            if (jsonData.error == "Staff has already applied") {
+                setStaffApplied(true)
+            } else {
+                setStaffApplied(false)
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+      }
+      }
       fetchData(); 
+      hasStaffApplied();
     }, []);
 
     const handleSubmitApplication = () => {
@@ -107,6 +128,7 @@ function StaffApplicationForm(props) {
                                 rows={4}
                                 className="border rounded-md p-2 w-full"
                                 placeholder="Fill in your comments"
+                                value=" "
                             />
                         </div>
                         <hr />
@@ -117,14 +139,17 @@ function StaffApplicationForm(props) {
                                 </Button>
                             </div>
                             <div className='flex-row mt-8 mb-8'>
-                                <Button onClick={() => {
-                                                handleSubmitApplication()
-                                                openModal()
-                                                }} 
+                                {staffApplied? (<p className="text-purple-200">you have already applied for this role!</p>): (
+                                    <Button onClick={() => {
+                                        handleSubmitApplication()
+                                        openModal()
+                                        }} 
                                         className="flex items-center p-6 bg-violet-600"
                                         size="sm">
                                         Submit
-                                </Button>
+                                    </Button>
+                                )}
+                                
                             </div>
                         </div>
                     </div>
