@@ -19,7 +19,7 @@ export default function Index() {
                 <div className="container">
                     <div className="grid grid-cols-1 pb-8 text-center mt-10">
                         <h3 className="font-medium leading-normal text-4xl mb-5 mt-10 text-white">Welcome, {selectedRole.staff_name}!</h3>
-                        <p className="text-slate-400 text-lg max-w-xl mx-auto">Browse and Filter roles, view role-skills match or Appply for roles!</p>
+                        <p className="text-slate-400 text-lg max-w-xl mx-auto">Browse and Filter roles, view role-skills match or Apply for roles!</p>
                     </div>
                     <Button className="flex items-center p-6 bg-violet-600 mx-auto" size="sm" onClick={() => {goToRoles()}}>
                         Roles

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from "react-router-dom";
 import { Hexagon } from 'react-feather';
 
 export default function StaffServices() {
@@ -7,17 +6,14 @@ export default function StaffServices() {
         {
             icon: 'adjust-circle',
             title: 'Browse and Filter',
-            description: "If the distribution of letters and 'words' is random, the reader will not be distracted from making.",
         },
         {
             icon: 'circuit',
             title: 'View roles-skill match',
-            description: "If the distribution of letters and 'words' is random, the reader will not be distracted from making.",
         },
         {
             icon: 'flower',
             title: 'Apply for role',
-            description: "If the distribution of letters and 'words' is random, the reader will not be distracted from making.",
         }
     ];
     return (
@@ -38,12 +34,9 @@ export default function StaffServices() {
                                 </div>
                             </div>
                             <div className="mt-6">
-                                <Link to="/services" className="text-lg h5 transition duration-500 ease-in-out hover:text-violet-600" >
+                                <h3 to="/services" className="text-lg h5 transition duration-500 ease-in-out hover:text-violet-600" >
                                     {service.title}
-                                </Link>
-                                <p className="text-slate-400 transition duration-500 ease-in-out mt-3">
-                                    {service.description}
-                                </p>
+                                </h3>
                             </div>
                         </div>
                     ))}

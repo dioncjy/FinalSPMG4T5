@@ -8,21 +8,18 @@ export default function BlogsNews() {
     const featuresData = [
         {
             image: image,
-            title: 'Introducing new tools for your design.',
-            detail: 'The phrasal sequence of the is now so that many campaign and benefit',
-            more: 'Read More',
+            title: 'Apply for Role Listings',
+            detail: 'Browse available role listings and apply for one that matches you!',
         },
         {
             image: image1,
-            title: 'The Right Hand of Business IT World',
-            detail: 'The phrasal sequence of the is now so that many campaign and benefit',
-            more: 'Read More',
+            title: 'View Skill-Role requirements',
+            detail: 'Easily identify skills needed for a role!',
         },
         {
             image: image2,
-            title: 'Truck Side Advertising Isn It Time for action.',
-            detail: 'The phrasal sequence of the is now so that many campaign and benefit',
-            more: 'Read More',
+            title: 'Add & Edit Role Listings',
+            detail: 'Be able to add new role listings or edit existing ones!',
         }
 
     ]
@@ -31,6 +28,7 @@ export default function BlogsNews() {
             <div className="container lg:py-24 py-16">
                 <div className="grid grid-cols-1 pb-8 text-center">
                     <h3 className="mb-4 md:text-2xl text-xl font-medium">What to Expect</h3>
+                    <p>No matter if you are an HR or staff, SBRP has something in store for you! Join us today!</p>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-[30px] mt-8">
