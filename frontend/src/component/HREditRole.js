@@ -4,24 +4,9 @@ import DatePicker from 'react-date-picker';
 import 'react-date-picker/dist/DatePicker.css';
 import 'react-calendar/dist/Calendar.css';
 import SuccessModal from "./editRoleListingSuccessModal";
-
-
-// for local testing
-
-// const role = {
-//     "closing_date": "2023-10-11",
-//     "department": "test department",
-//     "listing_id": 8,
-//     "opening_date": "2023-09-08",
-//     "reporting_manager": "test reporting manager",
-//     "role_description": "The Operation Planning Executive supports plant operations by coordinating day-to-day production activities, as well as maintenance and turnaround schedules and activities, for production shift teams, so as to meet production plans and schedules.",
-//     "role_name": "Ops Planning Exec"
-// }
-
   
 export default function HREditRole(props) {
     const role = props.role;
-    console.log(role)
 
     const [rptBlank, setRptBlank] = useState();
     const [dptBlank, setDptBlank] = useState();
@@ -223,7 +208,7 @@ export default function HREditRole(props) {
                                             Department 
                                         </Typography>
                                     </div>
-                                    <input placeholder='departments here' style={{ width: "100%", height: "50px"}} value={department} onChange={handleDepartmentChange} maxLength={51} required />
+                                    <input placeholder='departments here' style={{ width: "100%", height: "50px"}} value={department} onChange={handleDepartmentChange} maxLength={50} required />
                                     <div>
                                         {dptLimitReached ? (
                                             <span style={{ color: 'red' }}>Character limit of 50 reached.</span>
@@ -266,7 +251,7 @@ export default function HREditRole(props) {
                                             Reporting Manager 
                                         </Typography>
                                     </div>
-                                    <input placeholder='Reporting Manager here' style={{ width: "100%", height: "50px"}} value={reportingManager} onChange={handleReportingManagerChange} maxLength={51} required />
+                                    <input placeholder='Reporting Manager here' style={{ width: "100%", height: "50px"}} value={reportingManager} onChange={handleReportingManagerChange} maxLength={50} required />
                                 </div>
                                 <div>
                                     {rptBlank ? (
