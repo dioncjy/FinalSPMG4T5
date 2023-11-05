@@ -202,7 +202,7 @@ export default function HRAddRole() {
                                             Department 
                                         </Typography>
                                     </div>
-                                    <input placeholder='departments here' style={{ width: "100%", height: "50px"}} value={department} onChange={handleDepartmentChange} maxLength={51} required />
+                                    <input placeholder='departments here' style={{ width: "100%", height: "50px"}} value={department} onChange={handleDepartmentChange} maxLength={50} required />
                                     <div>
                                         {dptLimitReached ? (
                                             <span style={{ color: 'red' }}>Character limit of 50 reached.</span>
@@ -246,7 +246,7 @@ export default function HRAddRole() {
                                         </Typography>
                                     </div>
                               
-                                   <input placeholder='Reporting Manager here' style={{ width: "100%", height: "50px"}} value={reportingManager} onChange={handleReportingManagerChange} maxLength={51} required />
+                                   <input placeholder='Reporting Manager here' style={{ width: "100%", height: "50px"}} value={reportingManager} onChange={handleReportingManagerChange} maxLength={50} required />
 
                                     <div>
                                         {rptBlank ? (
