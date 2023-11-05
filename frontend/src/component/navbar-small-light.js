@@ -75,9 +75,6 @@ export default function NavbarSmallLight({ userRole }) {
                             <li className={`nav-item`}>
                                 <Link1 to="home" activeClass="active" spy={true} smooth={true} duration={500} className="nav-link">Home</Link1>
                             </li>
-                            <li className={`nav-item`}>
-                                <Link to="/roles" activeClass="active" spy={true} smooth={true} duration={500} className="nav-link">Roles</Link>
-                            </li>
                             <li>
                                 <span activeClass="active" spy={true} smooth={true} duration={500} className="nav-link">Logged in as: { userRole.username }</span>
                             </li>
