@@ -26,5 +26,9 @@ rds_password = 'Matthias159!'
     - enter the command: `python -m pytest -v ./backend/test`
 
 ### Setting up the frontend
-    cd frontend
+1. Enter the frontend folder using terminal: `cd frontend`
+
+2. Run the web application using the command: `npm start`
+
+3. View the web application here: [http://127.0.0.1:3000](http://127.0.0.1:3000)
     
