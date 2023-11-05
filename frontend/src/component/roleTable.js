@@ -53,9 +53,7 @@ import {
 export default function RoleTable(userData) {
 
     console.log('RoleTable component rendered'); // Add this line
-
     const username = userData.userData.username
-    console.log(username)
     const today = new Date().toISOString().split("T")[0];
     const [openMenu, setOpenMenu] = React.useState(false);
     // Track checkbox state
@@ -272,13 +270,6 @@ export default function RoleTable(userData) {
                         </Menu>
                     </div>
 
-                    {/* <div className="flex items-center">
-                        <input
-                        className="rounded"
-                        placeholder='Start Searching...'
-                        />
-                    </div> */}
-
                     <div className="filtering flex flex-row items-center ">
                         <Menu dismiss={{itemPress:false}} allowHover>
                             <MenuHandler>
@@ -340,8 +331,8 @@ export default function RoleTable(userData) {
 
             <CardBody className="overflow-scroll p-6">
                 <div className="flex flex-col my-4">
-                    {filteredRoleListings.map((role, index) => {
-                        if (username === "staff" && role.closing_date >= today) {
+                    {filteredRoleListings.map((role) => {
+                        if (username === "staff" && role.closing_date >= today && role.opening_date <= today) {
                             return (
                                 <div className="flex flex-row p-4 items-center justify-between">
                                     <button onClick={() => {handleClickStaff(role)}} className="flex flex-col w-full">
