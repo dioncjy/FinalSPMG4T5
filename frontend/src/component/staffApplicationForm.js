@@ -12,6 +12,7 @@ function StaffApplicationForm(props) {
     const location = useLocation();
     const role = location.state && location.state.role.role_name;
     const listing_id = location.state && location.state.role.listing_id;
+    const department = location.state.role.department;
     const navigate = useNavigate();
     const openModal = () => {
         setIsModalOpen(true);
@@ -61,6 +62,9 @@ function StaffApplicationForm(props) {
 
     const handleSubmitApplication = () => {
         var comments = document.getElementById("comments").value;
+        if (comments == "") {
+            comments = " ";
+        }
         const url = `http://127.0.0.1:5000/insertapplication/${staff_id}&${comments}&${role}&${listing_id}`;
 
         fetch(url, {
@@ -87,7 +91,7 @@ function StaffApplicationForm(props) {
                             Applying for {role}
                         </h3>
                         <p>
-                            Web Application, Singapore
+                            {department}
                         </p>
                         <hr />
 
@@ -128,8 +132,8 @@ function StaffApplicationForm(props) {
                                 rows={4}
                                 className="border rounded-md p-2 w-full"
                                 placeholder="Fill in your comments"
-                                value=" "
-                            />
+                            >
+                            </textarea>
                         </div>
                         <hr />
                         <div className="flex sm:flex-row justify-between">
