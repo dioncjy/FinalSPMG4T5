@@ -23,7 +23,7 @@ rds_password = 'Matthias159!'
 
 3. Tests will run automatically in our CI Pipeline using GitHub actions once a pull request has been made. However, testing can also be ran manually by:
     - going to the root folder
-    - enter the command: `python -m pytest -v ./backend/test`
+    -  and enter the command: `python -m pytest -v ./backend/test`
 
 ### Setting up the frontend
 1. Enter the frontend folder using terminal: `cd frontend`
