@@ -28,7 +28,9 @@ rds_password = 'Matthias159!'
 ### Setting up the frontend
 1. Enter the frontend folder using terminal: `cd frontend`
 
-2. Run the web application using the command: `npm start`
+2. Install packages using the command: `npm install`
 
-3. View the web application here: [http://127.0.0.1:3000](http://127.0.0.1:3000)
+3. Run the web application using the command: `npm start`
+
+4. View the web application here: [http://127.0.0.1:3000](http://127.0.0.1:3000)
     
