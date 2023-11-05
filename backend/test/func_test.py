@@ -30,7 +30,7 @@ def compare_lists_of_dicts(list1, list2, key_to_compare):
     return sorted_list1 == sorted_list2
 
 
-@pytest.fixture()
+@pytest.fixture(scope="module")
 def app():
     connection, cursor = connect_to_database()
     
@@ -190,6 +190,8 @@ def app():
     """)
     
     connection.commit()    
+
+
     yield app
 
     connection, cursor = connect_to_database()
