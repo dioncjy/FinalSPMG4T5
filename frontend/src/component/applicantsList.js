@@ -4,12 +4,11 @@ import {
   Card,
   Typography,
   Progress,
+  Button
 } from "@material-tailwind/react";
 
 const ApplicantsListWithFilters = () => {
   const [applicants, setApplicants] = useState({});
-  const [filteredApplicants, setFilteredApplicants] = useState([]);
-  const [department, setDepartment] = useState("all");
   const [roleSkills, setRoleSkills] = useState([]);
   const [staffSkills, setStaffSkills] = useState([]);
   const [skillMatchPercentage, setSkillMatchPercentage] = useState(0);
@@ -86,40 +85,24 @@ const findMatchingSkillsPercentage = (userSkillArray, roleSkillArray) => {
 
   return (commonCounter / numRoleSkill * 100).toFixed(2)
 } 
-  // useEffect(() => {
-  //   if (department === "all") {
-  //     setFilteredApplicants(applicants);
-  //   } else {
-  //     const filtered = applicants.filter(
-  //       (applicant) => applicant.dpt === department
-  //     );
-  //     setFilteredApplicants(filtered);
-  //   }
-  //   console.log(filteredApplicants)
-  //   console.log(applicants)
-  // }, [department, applicants]);
 
   return (
     <div>
-      {/* <Filters setDepartment={setDepartment} />
-      {filteredApplicants.map((applicant) => ( */}
         <ApplicantCard
           key={applicants.listing_id}
           applicant={applicants}
           roleSkills = {roleSkills}
           skillsMatchPercentage={skillMatchPercentage}
         />
-      {/* ))} */}
     </div>
   );
 };
 
-const Filters = ({ setDepartment }) => {};
+const goBack = () => {
+  window.history.back();
+}
 
-const ApplicantCard = ({ applicant, roleSkills, skillsMatchPercentage }) => {
-  // This is a placeholder percentage. You'll want to replace this logic
-  // with the actual calculation based on roleSkills and the applicant's skills.
-  // const skillMatchPercentage = 75;
+const ApplicantCard = ({ applicant, skillsMatchPercentage }) => {
 
   return (
     <Card className="w-10/12" style={{ margin: "2rem", padding: "1rem" }}>
@@ -148,7 +131,7 @@ const ApplicantCard = ({ applicant, roleSkills, skillsMatchPercentage }) => {
                   <div className="flex flex-row mt-8 mb-8 justify-between">
                     <div className="flex flex-col">
                       <div className="flex-col mt-4">
-                        <Typography variant="h5">Department</Typography>
+                        <Typography variant="h4">Department</Typography>
                       </div>
                       <div className="flex-col mt-4">
                         <Typography variant="normal" className="font-normal">
@@ -171,18 +154,13 @@ const ApplicantCard = ({ applicant, roleSkills, skillsMatchPercentage }) => {
                     <div className="flex-col mt-4">
                       <Progress value={skillsMatchPercentage} />
                     </div>
-                    <div className="flex-col mt-4">
-                      <Typography variant="normal" className="font-normal">
-                        {roleSkills.join(", ")}
-                      </Typography>
-                    </div>
                   </div>
                 </div>
                 <div className="flex flex-col border-t border-b border-blue-gray-50">
                   <div className="flex flex-row mt-8 mb-8 justify-between">
                     <div className="flex flex-col">
                       <div className="flex-col mt-4">
-                        <Typography variant="h5">Comments</Typography>
+                        <Typography variant="h4">Comments</Typography>
                       </div>
                       <div className="flex-col mt-4">
                         <Typography variant="normal" className="font-normal">
@@ -194,6 +172,9 @@ const ApplicantCard = ({ applicant, roleSkills, skillsMatchPercentage }) => {
                 </div>
               </div>
             </div>
+            <Button onClick={goBack} className="flex items-center p-6 bg-violet-600 mt-2" size="sm">
+                        Back
+                      </Button>
           </div>
         </div>
       </div>

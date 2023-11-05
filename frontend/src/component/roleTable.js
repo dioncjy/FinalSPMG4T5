@@ -222,10 +222,10 @@ export default function RoleTable(userData) {
                 <div className="mb-8 flex flex-row items-center justify-between">
                     <div className="flex-col">
                         <Typography variant="h5" color="blue-gray">
-                            Members list
+                            List of Role Listing(s)
                         </Typography>
                         <Typography color="gray" className="mt-1 font-normal">
-                            See information about all members
+                            See information about all Role Listing(s)
                         </Typography>
                     </div>
                     {addButton()}

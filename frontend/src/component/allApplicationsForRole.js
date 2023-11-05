@@ -27,6 +27,7 @@ const JobApplication = ({ listingId }) => {
     const [activeFilters, setActiveFilters] = useState({
         departments: []
     });
+    const [emptyList, setEmptyList] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -38,14 +39,19 @@ const JobApplication = ({ listingId }) => {
                 }
                 const jsonApplicantsData = await response.json();
                 setApplicants(jsonApplicantsData);
-                setFilteredApplicants(jsonApplicantsData);
-                setApplicantCount(jsonApplicantsData.length)
-                const uniqueDepartments = [...new Set(jsonApplicantsData.map((listing) => listing.dpt))];
-                setFilters(
-                    {
-                        departments: uniqueDepartments,
-                    }
-                )
+                console.log(jsonApplicantsData.error == null)
+                if (jsonApplicantsData.error == null) {
+                    setFilteredApplicants(jsonApplicantsData);
+                    setApplicantCount(jsonApplicantsData.length)
+                    const uniqueDepartments = [...new Set(jsonApplicantsData.map((listing) => listing.dpt))];
+                    setFilters(
+                        {
+                            departments: uniqueDepartments,
+                        }
+                    )
+                } else {
+                    setEmptyList(true);
+                }
             } catch (error) {
                 console.error('Error fetching data:', error);
                 setError(error.message);
@@ -134,23 +140,17 @@ const roleName = applicants.length > 0 ? applicants[0].role_name : null;
 const matchedRoleSkills = roleSkills.find(r => r.role_name === roleName);
 
 return (
-    <Card className="w-10/12 mx-auto p-4">
+    <>
+    {emptyList ? (<h1 className="text-center py-8">Sorry! No applicants yet!</h1>) : (
+        <Card className="w-10/12 mx-auto p-4">
         <CardBody>
             <Typography variant="h5">
                 {roleName}
             </Typography>
-            <Typography variant="body2">
-                Skills required:
-                {
-                    matchedRoleSkills?.skill_name.map((skill) => (
-                        <span className="text-purple-500"> {skill} / </span>
-                    ))
-                }
-            </Typography>
-
+    
             <div className="flex flex-row">
                 <Typography variant="h6" className="mt-4">
-                    Total Applicants: <span className="text-purple-500">{applicantCount}</span>
+                    Total Number of Applicant(s) : <span className="text-purple-500">{applicantCount}</span>
                 </Typography>
                 
                 <Menu dismiss={{itemPress:false}} allowHover>
@@ -172,7 +172,7 @@ return (
                                 </div>
                         </Button>
                     </MenuHandler>
-
+    
                     <MenuList>
                         {Object.keys(filters).map((category) => {
                             const departments = filters[category];
@@ -208,8 +208,8 @@ return (
                 </Menu>
             </div>
             
-
-
+    
+    
                 <div>
                     {filteredApplicants.map((applicant) => (
                         <div
@@ -228,9 +228,12 @@ return (
                         </div>
                     ))}
                 </div>
-
+    
             </CardBody>
         </Card>
+    )}
+    
+    </>
     );
 };
 
