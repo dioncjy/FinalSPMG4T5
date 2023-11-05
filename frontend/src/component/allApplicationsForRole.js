@@ -4,12 +4,13 @@ import {
     Typography,
     CardBody
 } from "@material-tailwind/react";
-
+import { useNavigate } from "react-router-dom";
 
 const JobApplication = ({ listingId}) => {
     const [applicants, setApplicants] = useState([]);
     const [roleSkills, setRoleSkills] = useState([]);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchApplicantsByListing() {
@@ -47,10 +48,19 @@ const JobApplication = ({ listingId}) => {
     if (error) {
         return <p>Error loading data: {error}</p>;
     }
+    
+    const HandleClickOnApplicant = (applicant) => {
+        const data = {
+            "role_name": applicant.role_name,
+            "listing_id": applicant.listing_id,
+            "staff_id": applicant.staff_id,
+        }
+        navigate("/viewApplicantDetails", {state: {applicant_data: data}});
+
+    }
 
 // Extract the role name from the first applicant as an example
 const roleName = applicants.length > 0 ? applicants[0].role_name : null; 
-
 // Find the role skills using the extracted role name
 const matchedRoleSkills = roleSkills.find(r => r.role_name === roleName);
 
@@ -70,7 +80,7 @@ return (
             </Typography>
 
             <Typography variant="h6" className="mt-4">
-                Total Applicants <span className="text-purple-500">{applicants.length}</span>
+                Total Applicants: <span className="text-purple-500">{applicants.length}</span>
             </Typography>
 
 
@@ -79,7 +89,7 @@ return (
                         <div
                             key={applicant.listing_id}
                             className="cursor-pointer w-10/12 my-4 hover:bg-gray-200 transition-all duration-200"
-                            onClick={() => { console.log(`Clicked on ${applicant.applicant_name}`); }}
+                            onClick={() => {HandleClickOnApplicant(applicant)}}
                             style={{ padding: "10px" }}
                         >
                             <Card>

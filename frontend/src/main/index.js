@@ -10,7 +10,8 @@ export default function Index() {
     const staffLoginData = {
         username : "staff",
         password : 12345,
-        staff_id : 140001 
+        staff_id : 140001,
+        staff_name : "Derek Tan" 
     }
 
     const HRLoginData = {

@@ -6,19 +6,19 @@ import {
   Progress,
 } from "@material-tailwind/react";
 
-const staff_id = 140001;
-const listing_id = 1;
-const role_name = "Account Manager";
-
-
 const ApplicantsListWithFilters = () => {
   const [applicants, setApplicants] = useState({});
   const [filteredApplicants, setFilteredApplicants] = useState([]);
   const [department, setDepartment] = useState("all");
   const [roleSkills, setRoleSkills] = useState([]);
+  const [staffSkills, setStaffSkills] = useState([]);
+  const [skillMatchPercentage, setSkillMatchPercentage] = useState(0);
 
-    const location = useLocation();
-    const role_listing = location.state && location.state.role_listing;
+  const location = useLocation();
+  const applicant_data = location.state && location.state.applicant_data;
+  const listing_id = applicant_data.listing_id
+  const role_name = applicant_data.role_name
+  const staff_id = applicant_data.staff_id
 
   useEffect(() => {
     async function fetchSpecificApplicant() {
@@ -35,24 +35,57 @@ const ApplicantsListWithFilters = () => {
       }
   } 
 
-  async function fetchRoleSkill() {
-    try {
-        const response = await fetch(`http://127.0.0.1:5000/role_skill/${role_name}`);
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-    }
-      const jsonRoleSkillData = await response.json();
-      setRoleSkills(jsonRoleSkillData.skill_name)
-    } catch (error) {
-        console.error('Error fetching data:', error);
+    async function fetchRoleSkill() {
+      try {
+          const response = await fetch(`http://127.0.0.1:5000/role_skill/${role_name}`);
+          if (!response.ok) {
+              throw new Error('Network response was not ok');
       }
+        const jsonRoleSkillData = await response.json();
+        setRoleSkills(jsonRoleSkillData.skill_name)
+      } catch (error) {
+          console.error('Error fetching data:', error);
+        }
     }
 
-fetchSpecificApplicant();
-fetchRoleSkill()
+    async function fetchStaffSkill() {
+      try {
+          const response = await fetch(`http://127.0.0.1:5000/staff_skill/${staff_id}`);
+          if (!response.ok) {
+              throw new Error('Network response was not ok');
+      }
+        const jsonStaffSkillData = await response.json();
+        setStaffSkills(jsonStaffSkillData.staff_skill)
+        console.log("staff_skill", jsonStaffSkillData.staff_skill)
+      } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+    }
+
+  fetchSpecificApplicant();
+  fetchRoleSkill();
+  fetchStaffSkill();
 
 }, []);
+console.log(applicants)
+useEffect(() => {
+  const percentage = findMatchingSkillsPercentage(staffSkills, roleSkills);
+  setSkillMatchPercentage(percentage);
+}, [staffSkills, roleSkills]);
 
+const findMatchingSkillsPercentage = (userSkillArray, roleSkillArray) => {
+  const commonStrings = []
+  var commonCounter = 0
+  const numRoleSkill = roleSkillArray.length
+
+  for (const roleSkill of roleSkillArray) {
+      if (userSkillArray.includes(roleSkill)) {
+          commonCounter += 1
+      }
+  }
+
+  return (commonCounter / numRoleSkill * 100).toFixed(2)
+} 
   // useEffect(() => {
   //   if (department === "all") {
   //     setFilteredApplicants(applicants);
@@ -68,24 +101,25 @@ fetchRoleSkill()
 
   return (
     <div>
-      {/* <Filters setDepartment={setDepartment} /> */}
-      {/* {filteredApplicants.map((applicant) => ( */}
+      {/* <Filters setDepartment={setDepartment} />
+      {filteredApplicants.map((applicant) => ( */}
         <ApplicantCard
           key={applicants.listing_id}
           applicant={applicants}
           roleSkills = {roleSkills}
+          skillsMatchPercentage={skillMatchPercentage}
         />
       {/* ))} */}
     </div>
   );
 };
 
-// const Filters = ({ setDepartment }) => {};
+const Filters = ({ setDepartment }) => {};
 
-const ApplicantCard = ({ applicant, roleSkills }) => {
+const ApplicantCard = ({ applicant, roleSkills, skillsMatchPercentage }) => {
   // This is a placeholder percentage. You'll want to replace this logic
   // with the actual calculation based on roleSkills and the applicant's skills.
-  const skillMatchPercentage = 75;
+  // const skillMatchPercentage = 75;
 
   return (
     <Card className="w-10/12" style={{ margin: "2rem", padding: "1rem" }}>
@@ -96,7 +130,7 @@ const ApplicantCard = ({ applicant, roleSkills }) => {
               <div className="flex flex-col sm:flex-row">
                 <div className="flex flex-col mb-8">
                   <Typography variant="h4">
-                    Staff ID {applicant.listing_id}
+                    Staff ID {applicant.staff_id}
                   </Typography>
                 </div>
 
@@ -127,15 +161,15 @@ const ApplicantCard = ({ applicant, roleSkills }) => {
                 <div className="flex flex-col border-t border-b border-blue-gray-50">
                   <div className="flex-col mt-8 mb-8">
                     <Typography variant="h4">Skills</Typography>
-                    {!isNaN(skillMatchPercentage) && (
+                    {!isNaN(skillsMatchPercentage) && (
                       <div className="flex-col mt-4">
                         <Typography variant="normal" className="font-normal">
-                          {skillMatchPercentage}% Skills Matched
+                          {skillsMatchPercentage}% Skills Matched
                         </Typography>
                       </div>
                     )}
                     <div className="flex-col mt-4">
-                      <Progress value={skillMatchPercentage} />
+                      <Progress value={skillsMatchPercentage} />
                     </div>
                     <div className="flex-col mt-4">
                       <Typography variant="normal" className="font-normal">
