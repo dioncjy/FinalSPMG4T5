@@ -208,7 +208,7 @@ export default function RoleTable(userData) {
                 <div className="flex flex-col sm:flex-row items-end">
                     <Button className="flex items-center p-6 bg-violet-600" size="sm" onClick={() => {handleAddStaff()}}>
                         <UserPlusIcon strokeWidth={2} className="h-4 w-4" />
-                        Add member
+                        Add
                     </Button>
                 </div>
             )
