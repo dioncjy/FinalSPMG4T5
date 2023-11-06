@@ -2,7 +2,6 @@ import logo_dark from '../assets/images/SBRP-dark.png';
 import logo_light from '../assets/images/SBRP-light.png';
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
-import { Link as Link1 } from 'react-scroll';
 
 export default function NavbarSmallLight({ userRole }) {
    const [isOpen, setMenu] = useState(true);
@@ -73,7 +72,7 @@ export default function NavbarSmallLight({ userRole }) {
                     <div className={`${isOpen === true ? 'navigation lg_992:order-1 lg_992:flex hidden ms-auto' : 'navigation lg_992:order-1 lg_992:flex block ms-auto'}`} id="menu-collapse">
                         <ul className="navbar-nav nav-light" id="navbar-navlist">
                             <li className={`nav-item`}>
-                                <Link1 to="home" activeClass="active" spy={true} smooth={true} duration={500} className="nav-link">Home</Link1>
+                                <Link to="/roles" activeClass="active" spy={true} smooth={true} duration={500} className="nav-link">Roles</Link>
                             </li>
                             <li>
                                 <span activeClass="active" spy={true} smooth={true} duration={500} className="nav-link">Logged in as: { userRole.username }</span>

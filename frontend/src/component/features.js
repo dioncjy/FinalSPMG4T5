@@ -37,7 +37,7 @@ export default function BlogsNews() {
                             <img src={item.image} alt="" />
 
                             <div className="content p-6">
-                                <Link to="/blog-detail" className="text-lg hover:text-violet-600 dark:text-white dark:hover:text-violet-600 transition duration-500 ease-in-out font-medium h5">{item.title}</Link>
+                                <h3 className="text-lg hover:text-violet-600 dark:text-white dark:hover:text-violet-600 transition duration-500 ease-in-out font-medium h5">{item.title}</h3>
                                 <p className="text-slate-400 mt-3">{item.detail}</p>
                             </div>
                         </div>
